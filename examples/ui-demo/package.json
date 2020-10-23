@@ -1,0 +1,65 @@
+{
+  "name": "@dgtx/ui-demo",
+  "version": "0.0.1",
+  "description": "",
+  "author": "nhhien",
+  "files": [
+    "*.md",
+    "lib",
+    "esm",
+    "src",
+    "types"
+  ],
+  "main": "lib/index",
+  "module": "esm/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "yarn run build-cjs && yarn run build-esm",
+    "build-cjs": "rimraf ./lib && tsc",
+    "build-esm": "rimraf ./esm ./types && tsc --outDir esm --module es2015",
+    "watch": "tsc --outDir esm --module es2015 --watch",
+    "clear": "rimraf lib types esm",
+    "release": "npm publish --tag latest"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.6.1",
+    "@material-ui/icons": "^4.5.1",
+    "@dgtx/coreui": "^1.1.4",
+    "@dgtx/su-approve-qc": "*",
+    "@dgtx/su-create-mask": "*",
+    "@dgtx/su-keying": "*",
+    "@dgtx/su-form": "*",
+    "@dgtx/su-scl": "*",
+    "@dgtx/su-qc": "*",
+    "@dgtx/ui-core": "*",
+    "redux-thunk": "^2.3.0",
+    "redux-logger": "^3.0.6",
+    "@types/redux-logger": "^3.0.7",
+    "react-redux-i18n": "1.9.3",
+    "@types/react-redux-i18n": "0.0.11",
+    "redux-devtools-extension": "^2.13.8",
+    "axios": "^0.18.0",
+    "clsx": "^1.1.1",
+    "@material-ui/lab": "^4.0.0-alpha.55",
+    "react-draggable": "^4.1.0",
+    "react-virtualized": "^9.*",
+    "@material-ui/styles": "^4",
+    "@material-ui/system": "^4",
+    "@material-ui/types": "^5",
+    "@material-ui/utils": "^4",
+    "@types/lodash": "^4.14.155",
+    "@types/react-virtualized": "^9.*",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  },
+  "peerDependencies": {
+    "@types/react": "^16.*",
+    "@types/react-dom": "^16.*",
+    "react": "^16.*",
+    "react-dom": "^16.*"
+  },
+  "keywords": [],
+  "license": "SEE LICENSE IN LICENSE"
+}

@@ -1,0 +1,45 @@
+{
+  "name": "@dgtx/ui-utils",
+  "version": "0.0.1",
+  "description": "",
+  "author": "tinhht",
+  "main": "lib/index",
+  "module": "esm/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "*.md",
+    "lib",
+    "css",
+    "esm",
+    "src",
+    "types"
+  ],
+  "scripts": {
+    "build": "yarn run build-cjs && yarn run build-esm",
+    "build-cjs": "rimraf ./lib && tsc",
+    "build-esm": "rimraf ./esm ./types && tsc --outDir esm --module es2015",
+    "watch": "tsc --outDir esm --module es2015 --watch",
+    "clear": "rimraf lib types esm",
+    "release": "npm publish --tag latest"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "peerDependencies": {
+    "@dgtx/coreui": "^1",
+    "react": "^16.*",
+    "lodash": "^4",
+    "react-dom": "^16",
+    "redux-thunk": "^2",
+    "@material-ui/core": "^4",
+    "@material-ui/icons": "^4",
+    "react-redux-i18n": "^1",
+    "@types/react": "^16",
+    "@types/react-dom": "^16",
+    "@types/react-redux-i18n": "*",
+    "react-data-grid": "^6.*",
+    "axios": "^0.*"
+  },
+  "keywords": [],
+  "license": "DIGI-TEXX"
+}

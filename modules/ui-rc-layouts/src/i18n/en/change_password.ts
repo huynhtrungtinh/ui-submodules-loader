@@ -1,0 +1,16 @@
+export default {
+    logout: 'Log out',
+    cancel: "Cancel",
+    submit: 'Change Password',
+    password_current: 'Current password',
+    password_new: 'New password',
+    password_confirm: 'Confirm new password',
+    title: 'Change Password',
+    empty_error: 'Dữ liệu không được trống.',
+    password_error: 'Tối thiểu 8 ký tự, ít nhất: 1 chữ hoa, 1 chữ thường, 1 số, 1 ký tự đặc biệt.',
+    length_error: 'Dữ liệu nhập quá dài.',
+    compare_error: 'Mật khẩu mới và xác nhận mật khẩu mới không khớp.',
+    submit_error: 'Mật khẩu không chính xác.',
+    title_submit_success: 'Đổi mật khẩu thành công.',
+    content_submit_success: 'Vui lòng đăng nhập lại.',
+}

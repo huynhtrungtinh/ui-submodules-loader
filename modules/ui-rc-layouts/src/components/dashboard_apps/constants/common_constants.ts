@@ -1,0 +1,18 @@
+import { NAME_REDUCER_T_LAYOUTS, KEY_TRANSLATE_T_LAYOUTS, PATH_TO_STORE_REDUX_T_LAYOUTS } from '../../../constants';
+
+const NAME_REDUCER = 'dashboard_apps';
+const PATH_TO_STORE_REDUX = `core.resources.${NAME_REDUCER}.data`;
+const PATH_TO_STORE_REDUX_DASHBOARD_APPS = `core.resources.${NAME_REDUCER}.data`;
+const POSTFIX_ID_REF_PROJECT = '_PROJECT';
+const POSTFIX_ID_REF_FUNCTION = '_FUNCTION';
+const ROWS_PER_PAGE_OPTIONS = [100, 200, 500];
+const SORT_SOURCE_NAME = ["training", "designer", "reports", "production-admin", "production", "qc-admin", "quality-control"];
+export {
+    NAME_REDUCER, PATH_TO_STORE_REDUX, POSTFIX_ID_REF_PROJECT, POSTFIX_ID_REF_FUNCTION,
+    NAME_REDUCER_T_LAYOUTS,
+    KEY_TRANSLATE_T_LAYOUTS,
+    PATH_TO_STORE_REDUX_T_LAYOUTS,
+    ROWS_PER_PAGE_OPTIONS,
+    SORT_SOURCE_NAME,
+    PATH_TO_STORE_REDUX_DASHBOARD_APPS
+}

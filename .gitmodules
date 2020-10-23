@@ -1,0 +1,12 @@
+[submodule "examples/ui-demo"]
+	path = examples/ui-demo
+	url = ssh://git@git.digi-texx.vn:2222/dgs30/ui-demo.git
+[submodule "modules/ui-rc-layouts"]
+	path = modules/ui-rc-layouts
+	url = ssh://git@git.digi-texx.vn:2222/dgs30/ui-rc-layouts.git
+[submodule "packages/ui-utils"]
+	path = packages/ui-utils
+	url = ssh://git@git.digi-texx.vn:2222/dgs30/ui-utils.git
+[submodule "packages/ui-scl"]
+	path = packages/ui-scl
+	url = ssh://git@git.digi-texx.vn:2222/dgs30/ui-scl.git
