@@ -1,5 +1,7 @@
-import React from 'react';
+import { redirect } from '@dgtx/ui-core';
+import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+import Icon from "@material-ui/core/Icon";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,11 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 // import { I18n } from 'react-redux-i18n';
 // import { KEY_TRANSLATE } from '../../constants'
 import clsx from 'clsx';
+import React from 'react';
 import sidebarStyle from "../../../assets/css/sidebarStyle";
-import Icon from "@material-ui/core/Icon";
 import { ICON } from '../../../components';
-import Divider from '@material-ui/core/Divider';
-import { redirect } from '@dgtx/coreui';
 
 function getHref(path: string) {
     const baseHref = window.location.origin;
@@ -102,5 +102,5 @@ function LeftMenuComponent(props: any) {
         </Drawer>
     )
 }
-export { LeftMenuComponent }
+export { LeftMenuComponent };
 export default LeftMenuComponent;

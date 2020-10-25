@@ -1,15 +1,18 @@
+import { redirect } from '@dgtx/ui-core';
+import { get, intersection, isEmpty, set } from 'lodash';
+import { callAPIGetFunctionsTasks } from '../../../components';
 import {
-    SET_IS_VIEW_BREADCRUMBS,
     CREATE_BREADCRUMBS_HEADER,
-    UPDATE_BREADCRUMBS_HEADER,
+
     PATH_TO_STORE_REDUX,
-    PATH_TO_STORE_REDUX_DASHBOARD_APPS,
-    SORT_SOURCE_NAME
+    PATH_TO_STORE_REDUX_DASHBOARD_APPS, SET_IS_VIEW_BREADCRUMBS,
+
+
+
+
+    SORT_SOURCE_NAME, UPDATE_BREADCRUMBS_HEADER
 } from '../../constants';
 import { executeActionReducer } from '../common_actions';
-import { get, set, isEmpty, intersection } from 'lodash';
-import { callAPIGetFunctionsTasks } from '../../../components';
-import { redirect } from '@dgtx/coreui';
 
 export const setClickBreadcrumbsItem = (tab: any, history: any) => async (dispatch: any, getState: any) => {
     const state = get(getState(), PATH_TO_STORE_REDUX, {});

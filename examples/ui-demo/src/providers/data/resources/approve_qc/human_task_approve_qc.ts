@@ -1,10 +1,10 @@
 import {
     fetchJson,
     getAppName, GET_LIST
-} from '@dgtx/coreui';
+} from '@dgtx/ui-core';
 // import { getHumanTaskApproveQC } from '../../mockAPI/approve_qc'
-import {BPMN_ENDPOINT} from '../../../../config';
-import {IResource} from "../../registry";
+import { BPMN_ENDPOINT } from '../../../../config';
+import { IResource } from "../../registry";
 const HUMAN_TASK_APPROVE_QC_RESOURCE = "human_task_approve_qc";
 
 const HumanTaskApproveQCResource: IResource = (type: string, resource: string, params: any): Promise<any> => {

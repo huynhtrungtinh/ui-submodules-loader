@@ -1,21 +1,31 @@
-import {
-  NAME_REDUCER,
-  UNMOUNT,
-  PATH_TO_STORE_REDUX,
-  SET_MOFIFY_CHANGE_PASSWORD,
-  SET_OPEN_DIALOG_CHANGE_PASSWORD,
-  SET_SHOW_PASSWORD,
-  REGEX_EMPTY,
-  REGEX_PASSWORD,
-  DEFAULT_ITEM,
-  KEY_TRANSLATE,
-  SET_SUBMIT_CHANGE_PASSWORD,
-  SET_OPEN_DIALOG_CHANGE_PASSWORD_SUCCESS
-} from '../constants';
+import { unregisterResource } from '@dgtx/ui-core';
+import { push } from "connected-react-router";
 import { get, isEmpty } from 'lodash';
 import { I18n } from 'react-redux-i18n';
-import { push } from "connected-react-router";
-import { unregisterResource } from '@dgtx/coreui';
+import {
+    DEFAULT_ITEM,
+    KEY_TRANSLATE, NAME_REDUCER,
+
+    PATH_TO_STORE_REDUX,
+
+
+
+    REGEX_EMPTY,
+    REGEX_PASSWORD, SET_MOFIFY_CHANGE_PASSWORD,
+    SET_OPEN_DIALOG_CHANGE_PASSWORD,
+
+
+
+
+
+
+    SET_OPEN_DIALOG_CHANGE_PASSWORD_SUCCESS, SET_SHOW_PASSWORD,
+
+
+
+
+    SET_SUBMIT_CHANGE_PASSWORD, UNMOUNT
+} from '../constants';
 
 export const executeActionReducer = (type: string, payload: any) => {
   return { type, payload, meta: { resource: NAME_REDUCER } };

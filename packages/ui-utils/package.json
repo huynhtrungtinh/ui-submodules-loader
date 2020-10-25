@@ -26,7 +26,6 @@
     "tslib": "^1.10.0"
   },
   "peerDependencies": {
-    "@dgtx/coreui": "^1",
     "react": "^16.*",
     "lodash": "^4",
     "react-dom": "^16",

@@ -1,5 +1,5 @@
-import { getApiUacURI, getApiURI, getAppName, fetchJson } from '@dgtx/coreui';
-import { getInfoContact, getApps } from '../mokup';
+import { fetchJson, getApiUacURI, getApiURI, getAppName } from '@dgtx/ui-core';
+import { getApps, getInfoContact } from '../mokup';
 
 export const callAPIGetInfoContact = async () => {
     return { error: null, data: getInfoContact() }
@@ -13,7 +13,7 @@ export const callAPIGetInfoContact = async () => {
         // else if (res.status === 401) {
         //     outPut = null;
         //     await refreshToken();
-        // } 
+        // }
     } catch (error) {
         console.log('=== callAPIGetInfoContact ==');
         console.log(error);
@@ -39,7 +39,7 @@ export const callAPIApps = async () => {
         // else if (res.status === 401) {
         //     outPut = null;
         //     await refreshToken();
-        // } 
+        // }
     } catch (error) {
         console.log('=== callAPIApps ==');
         console.log(error);
@@ -147,7 +147,7 @@ export const callAPITotalAnnouncement = async () => {
         // else if (res.status === 401) {
         //     outPut = null;
         //     await refreshToken();
-        // } 
+        // }
     } catch (error) {
         console.log('=== getTypesNofi ==');
         console.log(error);

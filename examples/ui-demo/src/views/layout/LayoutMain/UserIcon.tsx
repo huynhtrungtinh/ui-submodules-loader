@@ -1,13 +1,13 @@
-import React from 'react';
+import { getDataObject, userLogout } from '@dgtx/ui-core';
+import { Divider } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button';
-import { Divider } from '@material-ui/core';
 import ExitToApp from '@material-ui/icons/ExitToAppOutlined';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { getDataObject, userLogout } from '@dgtx/coreui';
+import React from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {

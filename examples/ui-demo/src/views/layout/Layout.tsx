@@ -1,10 +1,10 @@
-import React from 'react'
-import { userLogout } from "@dgtx/coreui";
-import { LayoutBasic, LayoutBaseType } from "./LayoutBasic";
+import { userLogout } from "@dgtx/ui-core";
+import React from 'react';
 import { connect } from 'react-redux';
-import { THEME_BASIC } from "../../assets/themes";
-import { LayoutMain } from "./LayoutMain";
 import { bindActionCreators } from 'redux';
+import { THEME_BASIC } from "../../assets/themes";
+import { LayoutBaseType, LayoutBasic } from "./LayoutBasic";
+import { LayoutMain } from "./LayoutMain";
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {

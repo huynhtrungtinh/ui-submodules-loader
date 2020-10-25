@@ -1,5 +1,5 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST} from "@dgtx/coreui";
-import {IResource} from "../registry";
+import { fetchJson, getApiURI, getAppName, GET_LIST } from "@dgtx/ui-core";
+import { IResource } from "../registry";
 
 const SECTIONS_RESOURCE = "sections";
 const SectionsResource: IResource = (
@@ -31,5 +31,5 @@ const SectionsResource: IResource = (
   );
 };
 
-export {SectionsResource, SECTIONS_RESOURCE};
+export { SectionsResource, SECTIONS_RESOURCE };
 

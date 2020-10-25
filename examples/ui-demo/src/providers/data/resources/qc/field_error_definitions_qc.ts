@@ -1,5 +1,5 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST} from '@dgtx/coreui';
-import {IResource} from "../../registry";
+import { fetchJson, getApiURI, getAppName, GET_LIST } from '@dgtx/ui-core';
+import { IResource } from "../../registry";
 const FIELD_ERROR_DEF_QC_RESOURCE = "field_error_definitions_qc";
 
 const FieldErrorDefinitionsQCResource: IResource = (type: string, resource: string, params: any): Promise<any> => {
@@ -17,7 +17,7 @@ const FieldErrorDefinitionsQCResource: IResource = (type: string, resource: stri
   }
 }
 
-export {FieldErrorDefinitionsQCResource, FIELD_ERROR_DEF_QC_RESOURCE};
+export { FieldErrorDefinitionsQCResource, FIELD_ERROR_DEF_QC_RESOURCE };
 
 export const ERROR_LIST = [
   {

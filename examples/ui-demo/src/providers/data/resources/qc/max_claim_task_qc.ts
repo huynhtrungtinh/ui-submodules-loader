@@ -1,5 +1,5 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST} from '@dgtx/coreui';
-import {IResource} from "../../registry";
+import { fetchJson, getApiURI, getAppName, GET_LIST } from '@dgtx/ui-core';
+import { IResource } from "../../registry";
 
 const MAX_CLAIM_QC_RESOURCE = "max_claim_task_qc";
 
@@ -27,5 +27,5 @@ const MaxLengthQCResource: IResource = (
   }
 };
 
-export {MaxLengthQCResource, MAX_CLAIM_QC_RESOURCE};
+export { MaxLengthQCResource, MAX_CLAIM_QC_RESOURCE };
 

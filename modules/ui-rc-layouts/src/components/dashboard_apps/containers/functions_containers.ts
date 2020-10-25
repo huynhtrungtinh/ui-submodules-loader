@@ -1,11 +1,12 @@
-import { get, cloneDeep } from 'lodash';
-import { PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS } from '../constants';
-import { FunctionsComponent } from '../components'
-import { PageDecorator } from '@dgtx/coreui';
+import { PageDecorator } from '@dgtx/ui-core';
+import { cloneDeep, get } from 'lodash';
 import {
-  getFunctions, setKeyboardFunctions, setRefContainerFunctions,
-  setKeyUpSearchFunctions, setSearchFunctions
-} from '../actions'
+    getFunctions, setKeyboardFunctions,
+    setKeyUpSearchFunctions, setRefContainerFunctions,
+    setSearchFunctions
+} from '../actions';
+import { FunctionsComponent } from '../components';
+import { PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS } from '../constants';
 import reducers from '../reducers';
 
 const mapStateToProps = (state: any) => {
@@ -19,7 +20,7 @@ const mapStateToProps = (state: any) => {
     substrMax: stateTLayouts.substrMax,
     breakpoints: stateTLayouts.breakpoints,
     projectId:  get(stateTLayouts, 'projectSelected.id', null),
-    
+
   };
 };
 const mapDispatchToProps = () => {

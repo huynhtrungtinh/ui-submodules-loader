@@ -1,8 +1,6 @@
 import {
-    UPDATE,
-    // fetchJson,
-    // getAppName
-} from "@dgtx/coreui";
+    UPDATE
+} from "@dgtx/ui-core";
 import { IResource } from "../registry";
 // import { BPMN_ENDPOINT } from '../../../config';
 const SAVE_APPROVE_QC_RESOURCE = "save_approve_qc";
@@ -22,4 +20,5 @@ const SaveApproveQCResource: IResource = (type: string, resource: string, params
 export {
     SAVE_APPROVE_QC_RESOURCE,
     SaveApproveQCResource
-}
+};
+

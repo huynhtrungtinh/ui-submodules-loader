@@ -1,4 +1,4 @@
-import {WindowSizeProvider} from '@dgtx/su-scl';
+// import {WindowSizeProvider} from '@dgtx/su-scl';
 import {CoreAdmin, initConfigApp} from '@dgtx/ui-core';
 import '@dgtx/ui-demo/src/assets/css/styles.css';
 import '@dgtx/ui-demo/src/assets/fonts/robotomono.css';
@@ -30,7 +30,7 @@ export default (props: any) => {
     bpmnURI: BPMN_ENDPOINT,
   })
   return (
-    <WindowSizeProvider>
+    // <WindowSizeProvider>
       <CoreAdmin
         appURL={props.baseUrl}
         pages={
@@ -48,6 +48,6 @@ export default (props: any) => {
         routeProvider={routeProvider}
         dataProvider={DataProvider}
       />
-    </WindowSizeProvider>
+    // </WindowSizeProvider>
   )
 }

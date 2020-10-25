@@ -1,4 +1,4 @@
-import {fetchJson, getApiOauthURI, getApiUacURI, getRefreshToken, IAuthenProvider} from '@dgtx/coreui';
+import {fetchJson, getApiOauthURI, getApiUacURI, getRefreshToken, IAuthenProvider} from '@dgtx/ui-core';
 
 const AuthenProvider: IAuthenProvider = {
   doLogin: async (username: string, password: string) => {

@@ -1,10 +1,10 @@
+import { getAppVersion } from '@dgtx/ui-core';
 import { get } from 'lodash';
-import { PATH_TO_STORE_REDUX } from '../constants';
-import { LeftMenuComponent } from '../components'
-import { setOpenLeftMenu } from '../actions';
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { getAppVersion } from '@dgtx/coreui';
+import { bindActionCreators } from "redux";
+import { setOpenLeftMenu } from '../actions';
+import { LeftMenuComponent } from '../components';
+import { PATH_TO_STORE_REDUX } from '../constants';
 
 const mapStateToProps = (state: any) => {
   let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});

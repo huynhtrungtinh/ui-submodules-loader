@@ -1,9 +1,8 @@
-import { IResource } from "../registry";
 import {
-  GET_LIST,
-  fetchJson,
-  getApiURI,
-} from '@dgtx/coreui';
+    fetchJson,
+    getApiURI, GET_LIST
+} from '@dgtx/ui-core';
+import { IResource } from "../registry";
 
 const PROJECT_FIELDS_RESOURCE = "project_fields";
 const ProjectFieldsResource: IResource = (type: string, resource: string, params: any): Promise<any> => {
@@ -16,6 +15,7 @@ const ProjectFieldsResource: IResource = (type: string, resource: string, params
 }
 
 export {
-  ProjectFieldsResource,
-  PROJECT_FIELDS_RESOURCE
-}
+    ProjectFieldsResource,
+    PROJECT_FIELDS_RESOURCE
+};
+

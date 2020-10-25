@@ -1,10 +1,9 @@
 import {
-  GET_ONE,
-  UPDATE,
-  fetchJson,
-  getAppName,
-  getApiURI
-} from '@dgtx/coreui';
+    fetchJson,
+
+    getApiURI, getAppName, GET_ONE,
+    UPDATE
+} from '@dgtx/ui-core';
 import { IResource } from "../registry";
 const DOCUMENT_PAUSE_RESOURCE = "document_pause";
 const DocumentPauseResource: IResource = (type, resource, params: any) => {

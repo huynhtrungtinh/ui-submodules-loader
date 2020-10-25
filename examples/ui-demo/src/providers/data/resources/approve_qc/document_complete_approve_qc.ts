@@ -1,10 +1,9 @@
-import { IResource } from "../../registry";
 import {
-    UPDATE,
     fetchJson,
-    getAppName,
-} from '@dgtx/coreui';
+    getAppName, UPDATE
+} from '@dgtx/ui-core';
 import { BPMN_ENDPOINT } from "../../../../config";
+import { IResource } from "../../registry";
 const DOCUMENT_COMPLETE_APPROVE_QC_RESOURCE = "document_complete_approve_qc";
 
 const DocumentCompleteApproveQCResource: IResource = (type: string, resource: string, params: any): Promise<any> => {
@@ -33,4 +32,5 @@ const DocumentCompleteApproveQCResource: IResource = (type: string, resource: st
 export {
     DocumentCompleteApproveQCResource,
     DOCUMENT_COMPLETE_APPROVE_QC_RESOURCE
-}
+};
+

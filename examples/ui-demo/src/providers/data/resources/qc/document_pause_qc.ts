@@ -1,5 +1,5 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST, UPDATE} from '@dgtx/coreui';
-import {IResource} from "../../registry";
+import { fetchJson, getApiURI, getAppName, GET_LIST, UPDATE } from '@dgtx/ui-core';
+import { IResource } from "../../registry";
 const DOCUMENT_PAUSE_QC_RESOURCE = "document_pause_qc";
 
 const DocumentPauseQCResource: IResource = (type: string, resource: string, params: any): Promise<any> => {
@@ -31,5 +31,5 @@ const DocumentPauseQCResource: IResource = (type: string, resource: string, para
     }
 }
 
-export {DocumentPauseQCResource, DOCUMENT_PAUSE_QC_RESOURCE};
+export { DocumentPauseQCResource, DOCUMENT_PAUSE_QC_RESOURCE };
 

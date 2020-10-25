@@ -1,6 +1,6 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST} from '@dgtx/coreui';
+import { fetchJson, getApiURI, getAppName, GET_LIST } from '@dgtx/ui-core';
 // import {dataDoc_sort} from '../../mockAPI';
-import {IResource} from "../../registry";
+import { IResource } from "../../registry";
 
 const DATA_DOC_QC_RESOURCE = "data_doc_qc";
 
@@ -33,5 +33,5 @@ const DataDocQCResource: IResource = (type: string, resource: string, params: an
     }
 }
 
-export {DataDocQCResource, DATA_DOC_QC_RESOURCE};
+export { DataDocQCResource, DATA_DOC_QC_RESOURCE };
 

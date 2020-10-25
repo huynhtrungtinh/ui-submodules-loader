@@ -1,9 +1,10 @@
 import {
-  fetchJson,
-  getAppName,
-  GET_LIST,
-  getApiURI,
-} from "@dgtx/coreui";
+    fetchJson,
+
+
+    getApiURI, getAppName,
+    GET_LIST
+} from "@dgtx/ui-core";
 import { IResource } from "../registry";
 const PROJECT_LABEL_RESOURCE = "project_labels";
 const ProjectLabelResource: IResource = (type, resource, params: any) => {

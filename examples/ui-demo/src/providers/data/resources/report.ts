@@ -1,9 +1,8 @@
-import { IResource } from "../registry";
 import {
-  GET_LIST,
-  fetchJson,
-  getApiURI
-} from "@dgtx/coreui";
+    fetchJson,
+    getApiURI, GET_LIST
+} from "@dgtx/ui-core";
+import { IResource } from "../registry";
 
 const REPORT_RESOURCE = "report";
 const ReportResource: IResource = (

@@ -1,8 +1,8 @@
-import reducers from './reducers';
-import SimpleBackdropComponent from './SimpleBackdropComponent'
-import { PageDecorator } from '@dgtx/coreui';
+import { PageDecorator } from '@dgtx/ui-core';
+import { cloneDeep, get } from 'lodash';
 import { PATH_TO_STORE_REDUX } from './constants';
-import { get, cloneDeep } from 'lodash';
+import reducers from './reducers';
+import SimpleBackdropComponent from './SimpleBackdropComponent';
 
 const mapStateToProps = (state: any) => {
     let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});

@@ -1,9 +1,9 @@
 import {
-  fetchJson,
-  getApiURI,
-  getAppName, GET_LIST
-} from '@dgtx/coreui';
-import {IResource} from "../../registry";
+    fetchJson,
+    getApiURI,
+    getAppName, GET_LIST
+} from '@dgtx/ui-core';
+import { IResource } from "../../registry";
 
 // import {
 //   // getDataSection_067_190510_013_STORE_FRONT_ATTR_ANNO,
@@ -40,5 +40,5 @@ const SectionAllApproveQCResource: IResource = (
   }
 };
 
-export {SectionAllApproveQCResource, SECTION_ALL_APPROVE_QC_RESOURCE};
+export { SectionAllApproveQCResource, SECTION_ALL_APPROVE_QC_RESOURCE };
 

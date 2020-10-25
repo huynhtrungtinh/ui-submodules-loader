@@ -1,11 +1,13 @@
-import { get, cloneDeep } from 'lodash';
-import { PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS } from '../constants';
-import { TableProjectsComponent } from '../components'
-import { PageDecorator } from '@dgtx/coreui';
+import { PageDecorator } from '@dgtx/ui-core';
+import { cloneDeep, get } from 'lodash';
 import {
-  getProjects, setKeyboardProjects, setRefContainerProjects, setClickProject, setSearchProject,
-  setKeyUpSearchProjects, setViewProjects, setSortProjects, setPageProjects, setRowsPerPageProjects
-} from '../actions'
+    getProjects, setClickProject, setKeyboardProjects,
+    setKeyUpSearchProjects, setPageProjects, setRefContainerProjects,
+    setRowsPerPageProjects, setSearchProject,
+    setSortProjects, setViewProjects
+} from '../actions';
+import { TableProjectsComponent } from '../components';
+import { PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS } from '../constants';
 import reducers from '../reducers';
 
 const mapStateToProps = (state: any) => {

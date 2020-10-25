@@ -1,9 +1,9 @@
-import reducers from './alert_reducers';
-import AlertComponent from './AlertComponent'
-import { PageDecorator } from '@dgtx/coreui';
-import { setHiddenAlert, setHiddenAlertAll } from './alert_actions'
+import { PageDecorator } from '@dgtx/ui-core';
+import { cloneDeep, get } from 'lodash';
+import AlertComponent from './AlertComponent';
+import { setHiddenAlert, setHiddenAlertAll } from './alert_actions';
 import { PATH_TO_STORE_REDUX } from './alert_constants';
-import { get, cloneDeep } from 'lodash';
+import reducers from './alert_reducers';
 
 const mapStateToProps = (state: any) => {
     let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});

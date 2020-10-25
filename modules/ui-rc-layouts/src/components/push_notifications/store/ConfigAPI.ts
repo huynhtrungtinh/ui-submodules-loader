@@ -1,5 +1,5 @@
 
-import {getApiOauthURI} from '@dgtx/coreui';
+import { getApiOauthURI } from '@dgtx/ui-core';
 
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -96,4 +96,5 @@ async function refreshToken() {
     }
     return null;
 }
-export {refreshToken, fetchJson, ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY};
+export { refreshToken, fetchJson, ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY };
+

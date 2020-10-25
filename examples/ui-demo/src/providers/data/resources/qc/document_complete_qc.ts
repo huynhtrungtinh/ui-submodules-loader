@@ -1,10 +1,9 @@
-import { IResource } from "../../registry";
 import {
-    UPDATE,
     fetchJson,
-    getAppName,
-} from '@dgtx/coreui';
+    getAppName, UPDATE
+} from '@dgtx/ui-core';
 import { BPMN_ENDPOINT } from "../../../../config";
+import { IResource } from "../../registry";
 const DOCUMENT_COMPLETE_QC_RESOURCE = "document_complete_qc";
 
 const DocumentCompleteQCResource: IResource = (type: string, resource: string, params: any): Promise<any> => {
@@ -58,4 +57,5 @@ const DocumentCompleteQCResource: IResource = (type: string, resource: string, p
 export {
     DocumentCompleteQCResource,
     DOCUMENT_COMPLETE_QC_RESOURCE
-}
+};
+

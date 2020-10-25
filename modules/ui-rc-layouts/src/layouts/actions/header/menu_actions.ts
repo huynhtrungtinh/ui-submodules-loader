@@ -1,15 +1,13 @@
-import {
-    SET_OPEN_MENU_PROFILE,
-    SET_OPEN_MOBILE_MENU,
-    SET_OPEN_CONTACT_MENU,
-    SET_OPEN_LEFT_MENU,
-    PATH_TO_STORE_REDUX
-} from '../../constants';
-import { executeActionReducer } from '../common_actions';
-import { setUnsubscribeAllByLogout } from '../../../components/push_notifications';
 import { push } from "connected-react-router";
 import { get } from 'lodash';
-// import { unregisterResource } from '@dgtx/coreui';
+import { setUnsubscribeAllByLogout } from '../../../components/push_notifications';
+import {
+    PATH_TO_STORE_REDUX, SET_OPEN_CONTACT_MENU,
+    SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE,
+    SET_OPEN_MOBILE_MENU
+} from '../../constants';
+import { executeActionReducer } from '../common_actions';
+// import { unregisterResource } from '@dgtx/ui-core';
 import { setViewBreadcrumbs } from './breadcrumbs_actions';
 
 export const setOpenMenuProfile = (event: React.MouseEvent<HTMLElement>, isOpen?: Boolean) => async (dispatch: any, getState: any) => {

@@ -1,4 +1,4 @@
-import {fetchJson, getApiURI, getAppName, UPDATE} from "@dgtx/coreui";
+import { fetchJson, getApiURI, getAppName, UPDATE } from "@dgtx/ui-core";
 const DOCUMENTS_RESOURCE = "documents";
 const DocumentsResource = (type: string, resource: string, params: any) => {
   switch (type) {
@@ -25,5 +25,5 @@ const DocumentsResource = (type: string, resource: string, params: any) => {
   );
 };
 
-export {DOCUMENTS_RESOURCE, DocumentsResource};
+export { DOCUMENTS_RESOURCE, DocumentsResource };
 

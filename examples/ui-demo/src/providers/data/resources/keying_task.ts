@@ -1,6 +1,6 @@
-import {fetchJson, getAppName, GET_ONE, UPDATE} from "@dgtx/coreui";
-import {BPMN_ENDPOINT} from "../../../config";
-import {IResource} from "../registry";
+import { fetchJson, getAppName, GET_ONE, UPDATE } from "@dgtx/ui-core";
+import { BPMN_ENDPOINT } from "../../../config";
+import { IResource } from "../registry";
 
 const KEYING_TASK_RESOURCE = "keying_task";
 const KeyingResource: IResource = (type, resource, params: any) => {
@@ -38,5 +38,5 @@ const KeyingResource: IResource = (type, resource, params: any) => {
   );
 };
 
-export {KeyingResource, KEYING_TASK_RESOURCE};
+export { KeyingResource, KEYING_TASK_RESOURCE };
 

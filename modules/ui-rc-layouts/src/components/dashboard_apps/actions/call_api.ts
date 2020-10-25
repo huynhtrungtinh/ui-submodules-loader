@@ -1,9 +1,9 @@
+import { getApiUacURI } from '@dgtx/ui-core';
 import axios from 'axios';
-import { getApiUacURI } from '@dgtx/coreui';
-import { getProjects, getFunctions, getFunctionsTasks, getInstances } from '../mokup';
-import { convertDataProjects } from './projects_actions';
-import { convertDataFunctionsTasks } from './functions_tasks_actions';
+import { getFunctions, getFunctionsTasks, getInstances, getProjects } from '../mokup';
 import { convertDataFunctions } from './functions_actions';
+import { convertDataFunctionsTasks } from './functions_tasks_actions';
+import { convertDataProjects } from './projects_actions';
 
 
 

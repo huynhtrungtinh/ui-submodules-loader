@@ -1,11 +1,10 @@
 import {
-    getApiNotificationURI,
+    fetchJson, getApiNotificationURI,
     // refreshToken,
     getAppName
-} from '@dgtx/coreui';
+} from '@dgtx/ui-core';
 import { unregister } from '../serviceWorker';
-import { getLocalStorageNotiData, clearLocalStorage } from './FunctionsGeneral';
-import { fetchJson } from '@dgtx/coreui';
+import { clearLocalStorage, getLocalStorageNotiData } from './FunctionsGeneral';
 
 export async function getTypesNofi() {
     let outPut = null;
@@ -17,7 +16,7 @@ export async function getTypesNofi() {
         // else if (res.status === 401) {
         //     outPut = null;
         //     await refreshToken();
-        // } 
+        // }
         else {
             outPut = null;
         }
@@ -65,7 +64,7 @@ export async function setSubscribe(subscription: any, typeNotif: string[]) {
         // else if (res.status === 401) {
         //     outPut = null;
         //     await refreshToken();
-        // } 
+        // }
         else {
             outPut = null;
         }

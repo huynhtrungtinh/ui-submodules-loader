@@ -1,12 +1,13 @@
-import { IResource } from "../../registry";
 import {
-  GET_LIST,
-  fetchJson,
-  UPDATE,
-  getApiURI,
-  getAppName,
-} from "@dgtx/coreui";
+    fetchJson,
+
+    getApiURI,
+    getAppName, GET_LIST,
+
+    UPDATE
+} from "@dgtx/ui-core";
 import { BPMN_ENDPOINT } from '../../../../config';
+import { IResource } from "../../registry";
 const TASKS_CLASSIFY_BATCH_RESOURCE = "task_classify_batch";
 
 const TasksClassifyBatchResource: IResource = (type: string, resource: string, params: any): Promise<any> => {

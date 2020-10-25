@@ -1,6 +1,6 @@
-import * as React from "react";
+import { redirectApp } from "@dgtx/ui-core";
 import Button from "@material-ui/core/Button";
-import { redirectApp } from "@dgtx/coreui";
+import * as React from "react";
 import { Translate } from 'react-redux-i18n';
 import { KEY_TRANSLATE } from '../constants';
 const handleRedirectApp = () => {
@@ -22,5 +22,5 @@ function DuplicateComponents(props: any) {
     </div>
   );
 }
-export { DuplicateComponents }
+export { DuplicateComponents };
 export default DuplicateComponents;

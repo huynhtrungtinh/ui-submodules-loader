@@ -21,4 +21,4 @@ build-module-core: ## build core
 	@cd ./packages/ui-scl && yarn clear && yarn -s build
 	@cd ./packages/ui-core && yarn clear && yarn -s build
 	@cd ./modules/ui-rc-layouts && yarn clear && yarn -s build
-	@cd ./examples/ui-demo && yarn clear && yarn -s build
+	@cd ./examples/ui-demo && yarn clear && yarn build

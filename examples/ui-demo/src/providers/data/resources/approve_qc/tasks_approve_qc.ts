@@ -1,13 +1,13 @@
 import {
-  fetchJson,
+    fetchJson,
 
-  getApiURI,
-  getAppName, GET_LIST,
+    getApiURI,
+    getAppName, GET_LIST,
 
-  UPDATE
-} from "@dgtx/coreui";
-import {BPMN_ENDPOINT} from "../../../../config";
-import {IResource} from "../../registry";
+    UPDATE
+} from "@dgtx/ui-core";
+import { BPMN_ENDPOINT } from "../../../../config";
+import { IResource } from "../../registry";
 
 const TASKS_APPROVE_QC_RESOURCE = "tasks_approve_qc";
 
@@ -49,5 +49,5 @@ const TasksApproveQCResource: IResource = (
   }
 };
 
-export {TasksApproveQCResource, TASKS_APPROVE_QC_RESOURCE};
+export { TasksApproveQCResource, TASKS_APPROVE_QC_RESOURCE };
 

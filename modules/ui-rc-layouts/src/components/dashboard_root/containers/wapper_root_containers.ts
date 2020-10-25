@@ -1,12 +1,13 @@
-import { get, cloneDeep } from 'lodash';
-import { 
-  // PATH_TO_STORE_REDUX, 
-  PATH_TO_STORE_REDUX_T_LAYOUTS } from '../constants';
-import { WapperRootComponent } from '../components'
-import { PageDecorator } from '@dgtx/coreui';
-import reducers from '../reducers';
+import { PageDecorator } from '@dgtx/ui-core';
+import { cloneDeep, get } from 'lodash';
+import { setOpenLeftMenu } from '../../../layouts';
 import { setKeyboard, setRefContainer } from '../actions';
-import { setOpenLeftMenu} from '../../../layouts';
+import { WapperRootComponent } from '../components';
+import {
+    // PATH_TO_STORE_REDUX,
+    PATH_TO_STORE_REDUX_T_LAYOUTS
+} from '../constants';
+import reducers from '../reducers';
 const mapStateToProps = (state: any) => {
   // let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});
   let tLayouts = get(state, `${PATH_TO_STORE_REDUX_T_LAYOUTS}`, {});

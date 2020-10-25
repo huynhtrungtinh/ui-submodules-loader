@@ -1,7 +1,7 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST, UPDATE} from "@dgtx/coreui";
-import {BPMN_ENDPOINT} from '../../../../config';
+import { fetchJson, getApiURI, getAppName, GET_LIST, UPDATE } from "@dgtx/ui-core";
+import { BPMN_ENDPOINT } from '../../../../config';
 // import {dataQC_sort} from '../../mockAPI';
-import {IResource} from "../../registry";
+import { IResource } from "../../registry";
 const TASKS_QC_RESOURCE = "tasks_qc";
 
 const TasksQCResource: IResource = (
@@ -43,5 +43,5 @@ const TasksQCResource: IResource = (
   }
 };
 
-export {TasksQCResource, TASKS_QC_RESOURCE};
+export { TasksQCResource, TASKS_QC_RESOURCE };
 

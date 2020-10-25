@@ -24,13 +24,6 @@
   "dependencies": {
     "@material-ui/core": "^4.6.1",
     "@material-ui/icons": "^4.5.1",
-    "@dgtx/coreui": "^1.1.4",
-    "@dgtx/su-approve-qc": "*",
-    "@dgtx/su-create-mask": "*",
-    "@dgtx/su-keying": "*",
-    "@dgtx/su-form": "*",
-    "@dgtx/su-scl": "*",
-    "@dgtx/su-qc": "*",
     "@dgtx/ui-core": "*",
     "redux-thunk": "^2.3.0",
     "redux-logger": "^3.0.6",

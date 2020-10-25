@@ -1,6 +1,6 @@
-import { getApiPublicKeyNotification } from '@dgtx/coreui';
-import { IItemNotifications, LOCAL_STORAGE_STATUS_NOTIFICATION } from "./Constants";
+import { getApiPublicKeyNotification } from '@dgtx/ui-core';
 import { setSubscribe, setSubscribeAll } from './CallAPI';
+import { IItemNotifications, LOCAL_STORAGE_STATUS_NOTIFICATION } from "./Constants";
 // import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from './ConfigAPI';
 
 export function convertDataCheckedNoti(optionNotification?: IItemNotifications[], isChecked?: boolean) {

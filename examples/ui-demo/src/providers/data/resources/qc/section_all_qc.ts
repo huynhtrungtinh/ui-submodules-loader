@@ -1,6 +1,6 @@
-import {fetchJson, getApiURI, getAppName, GET_LIST} from '@dgtx/coreui';
+import { fetchJson, getApiURI, getAppName, GET_LIST } from '@dgtx/ui-core';
 // import {dataSection_sort} from '../../mockAPI';
-import {IResource} from "../../registry";
+import { IResource } from "../../registry";
 
 const SECTION_ALL_QC_RESOURCE = "section_all_qc";
 
@@ -33,5 +33,5 @@ const SectionAllQCResource: IResource = (
   }
 };
 
-export {SectionAllQCResource, SECTION_ALL_QC_RESOURCE};
+export { SectionAllQCResource, SECTION_ALL_QC_RESOURCE };
 

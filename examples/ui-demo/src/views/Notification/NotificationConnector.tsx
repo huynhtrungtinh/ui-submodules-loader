@@ -1,4 +1,4 @@
-import { getDataObject, hideNotification } from "@dgtx/coreui";
+import { getDataObject, hideNotification } from "@dgtx/ui-core";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import NotificationSnackbars from "./NotificationSnackBar";
