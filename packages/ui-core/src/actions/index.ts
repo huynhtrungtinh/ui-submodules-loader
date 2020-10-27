@@ -1,9 +1,6 @@
-export * from './appAction'
-export * from './dataActions'
-export * from './dataFetchActions'
-export * from './fetchActions'
-export * from './listActions'
-export * from './notificationActions'
-export * from './oauthAction'
-export * from './resourcesActions'
-export * from './refreshOauth'
+export * from './app-actions';
+export * from './data-actions';
+export * from './oauth-actions';
+export * from './refresh-oauth-actions';
+export * from './resources-actions';
+

@@ -1,5 +1,2 @@
-import notification from './notification'
-export * from './fetch'
-export {
-    notification
-}
+export * from './fetch';
+export * from './resource-management';

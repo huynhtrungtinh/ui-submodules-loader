@@ -1,0 +1,13 @@
+import {REGISTER_RESOURCE, Resource, UNREGISTER_RESOURCE} from '@dgtx/ui-scl';
+
+export const registerResource = (resources: Resource[] | any[], guid: string) => ({
+  type: REGISTER_RESOURCE,
+  payload: resources,
+  guid
+});
+
+export const unregisterResource = (resourceNames: Resource[] | any[], guid: string) => ({
+  type: UNREGISTER_RESOURCE,
+  payload: resourceNames,
+  guid
+});
