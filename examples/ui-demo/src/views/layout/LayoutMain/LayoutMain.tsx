@@ -11,7 +11,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import React from 'react';
 import {APP_VERSION} from '../../../config';
-import NotificationConnector from '../../Notification/NotificationConnector';
 import {UserIcon} from './UserIcon';
 function Copyright() {
   return (
@@ -183,7 +182,6 @@ export const LayoutMain: React.FC = (props: any) => {
         <div className={classes.appBarSpacer} />
         {props.children}
       </main>
-      <NotificationConnector />
       <div className={classes.footer}>
         <Copyright />
       </div>

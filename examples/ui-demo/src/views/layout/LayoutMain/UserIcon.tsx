@@ -1,13 +1,14 @@
-import { getDataObject, userLogout } from '@dgtx/ui-core';
-import { Divider } from '@material-ui/core';
+import {userLogout} from '@dgtx/ui-core';
+import {Divider} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import ExitToApp from '@material-ui/icons/ExitToAppOutlined';
+import {get} from 'lodash';
 import React from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 export const UserIcon: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const userInfo = useSelector((state: object) => getDataObject('user.user', state), shallowEqual) || {};
+  const userInfo: any = useSelector((state: object | any) => get('user.user', state), shallowEqual) || {};
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleMenu = (event: any) => {

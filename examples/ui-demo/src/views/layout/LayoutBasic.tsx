@@ -2,7 +2,6 @@ import {CssBaseline} from '@material-ui/core';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import React from 'react';
 import {themeProvder} from '../../assets';
-import {Notification} from '../Notification';
 export interface ILayoutBase {
   theme?: string,
   children: React.ReactChild
@@ -14,7 +13,6 @@ const LayoutBase: React.FC<LayoutBaseType> = (props: LayoutBaseType) => {
     <ThemeProvider theme={createMuiTheme(themeProvder(props.theme))}>
       <CssBaseline />
       {props.children}
-      <Notification />
     </ThemeProvider>
   )
 }

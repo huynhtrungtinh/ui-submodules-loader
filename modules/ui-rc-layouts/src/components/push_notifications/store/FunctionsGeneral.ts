@@ -1,15 +1,15 @@
-import { getApiPublicKeyNotification } from '@dgtx/ui-core';
-import { setSubscribe, setSubscribeAll } from './CallAPI';
-import { IItemNotifications, LOCAL_STORAGE_STATUS_NOTIFICATION } from "./Constants";
+import {getApiPublicKeyNotification} from '@dgtx/ui-scl';
+import {setSubscribe, setSubscribeAll} from './CallAPI';
+import {IItemNotifications, LOCAL_STORAGE_STATUS_NOTIFICATION} from "./Constants";
 // import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from './ConfigAPI';
 
 export function convertDataCheckedNoti(optionNotification?: IItemNotifications[], isChecked?: boolean) {
     const outPut: any = {};
     const data: any = getLocalStorageNotiData();
-    if (data) { return data; }
+    if (data) {return data;}
     if (optionNotification && optionNotification.length > 0) {
         optionNotification.map(i => {
-            outPut[i.type] = { ...i, checked: isChecked }
+            outPut[i.type] = {...i, checked: isChecked}
         })
     }
     return outPut;

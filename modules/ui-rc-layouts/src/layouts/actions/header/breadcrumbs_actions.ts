@@ -1,18 +1,8 @@
-import { redirect } from '@dgtx/ui-core';
-import { get, intersection, isEmpty, set } from 'lodash';
-import { callAPIGetFunctionsTasks } from '../../../components';
-import {
-    CREATE_BREADCRUMBS_HEADER,
-
-    PATH_TO_STORE_REDUX,
-    PATH_TO_STORE_REDUX_DASHBOARD_APPS, SET_IS_VIEW_BREADCRUMBS,
-
-
-
-
-    SORT_SOURCE_NAME, UPDATE_BREADCRUMBS_HEADER
-} from '../../constants';
-import { executeActionReducer } from '../common_actions';
+import {redirect} from '@dgtx/ui-scl';
+import {get, intersection, isEmpty, set} from 'lodash';
+import {callAPIGetFunctionsTasks} from '../../../components';
+import {CREATE_BREADCRUMBS_HEADER, PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_DASHBOARD_APPS, SET_IS_VIEW_BREADCRUMBS, SORT_SOURCE_NAME, UPDATE_BREADCRUMBS_HEADER} from '../../constants';
+import {executeActionReducer} from '../common_actions';
 
 export const setClickBreadcrumbsItem = (tab: any, history: any) => async (dispatch: any, getState: any) => {
     const state = get(getState(), PATH_TO_STORE_REDUX, {});
@@ -36,7 +26,7 @@ export const setClickBreadcrumbsItem = (tab: any, history: any) => async (dispat
 
 export const setViewBreadcrumbs = (isView: boolean) => async (dispatch: any) => {
     dispatch(createBreadcrumbs());
-    dispatch(executeActionReducer(SET_IS_VIEW_BREADCRUMBS, { isViewBreadcrumbs: isView }));
+    dispatch(executeActionReducer(SET_IS_VIEW_BREADCRUMBS, {isViewBreadcrumbs: isView}));
 };
 
 export const createBreadcrumbs = (input?: any) => async (dispatch: any, getState: any) => {
@@ -103,7 +93,7 @@ export const createBreadcrumbs = (input?: any) => async (dispatch: any, getState
 export const updateBreadcrumbs = (input?: any) => async (dispatch: any, getState: any) => {
     const state = get(getState(), PATH_TO_STORE_REDUX, {});
     let breadcrumbData = state.breadcrumbData || [];
-    const { type = "", data = {}, history } = input;
+    const {type = "", data = {}, history} = input;
     let payload: any = {};
     switch (type) {
         case "app": {
@@ -146,13 +136,13 @@ export const createBreadcrumbsByPathName = (input: any) => async (dispatch: any,
     console.log('state.projectSelected: ', state.projectSelected);
     console.log('projectsParent: ', projectsParent);
     console.log('====================================');
-    if ( (!projectsParent || projectsParent.length <= 0 || !isEmpty(state.projectSelected)) && rouFocus.app_name === "projects") {
+    if ((!projectsParent || projectsParent.length <= 0 || !isEmpty(state.projectSelected)) && rouFocus.app_name === "projects") {
         return;
     }
     // let functionsParent = stateDA.functionsTasks.functionsParent || [];
     let routeFocus: any = {};
     const routers = state.routers || [];
-    const { match } = input;
+    const {match} = input;
     const projectId = get(match, 'params.projectId', null);
     const functionName = get(match, 'params.functionName', null);
     const taskKeyDef = get(match, 'params.taskKeyDef', null);

@@ -127,7 +127,8 @@ const Signin: React.FC = (props: any) => {
 			props.userLogin(state, '', '/');
 		}
 	};
-
+	console.log('============Signin================');
+	console.log('props: ', props);
 	return (
 		<Container component="main" maxWidth="xs">
 			<div className={classes.paper}>

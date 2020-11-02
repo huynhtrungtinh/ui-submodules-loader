@@ -60,7 +60,6 @@ export const login = (username: string, password: string) => async (dispatch: an
     // TEST
     // const response = { status: 200 };
     // const result: any = RESPONSE_TEXT;
-
     if (response.status === 200) {
       const accessToken = get(result, 'token', null);
       const refreshToken = accessToken;
@@ -130,6 +129,7 @@ export function setToken(accessToken: string, refreshToken: string) {
 const initialState = {
   routers: [],
   loading: false,
+  isAuthenticatedStatusCode: null,
   isAuthenticated: getAccessToken() ? true : false,
   account: {} as any
 };

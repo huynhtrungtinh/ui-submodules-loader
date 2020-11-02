@@ -1,4 +1,4 @@
-import { redirect } from '@dgtx/ui-core';
+import {redirect} from '@dgtx/ui-scl';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Icon from "@material-ui/core/Icon";
@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import clsx from 'clsx';
 import React from 'react';
 import sidebarStyle from "../../../assets/css/sidebarStyle";
-import { ICON } from '../../../components';
+import {ICON} from '../../../components';
 
 function getHref(path: string) {
     const baseHref = window.location.origin;
@@ -19,7 +19,7 @@ function getHref(path: string) {
 }
 
 function LeftMenuComponent(props: any) {
-    const { isOpen = false, routers = [], setOpen = () => null,
+    const {isOpen = false, routers = [], setOpen = () => null,
         version = 0, routeFocus = {}
     } = props;
     const classes = sidebarStyle();
@@ -29,7 +29,7 @@ function LeftMenuComponent(props: any) {
         if (event.type === 'keydown' &&
             ((event as React.KeyboardEvent).key === 'Tab' ||
                 (event as React.KeyboardEvent).key === 'Shift')
-        ) { return; }
+        ) {return;}
         setOpen();
     };
 
@@ -102,5 +102,5 @@ function LeftMenuComponent(props: any) {
         </Drawer>
     )
 }
-export { LeftMenuComponent };
+export {LeftMenuComponent};
 export default LeftMenuComponent;

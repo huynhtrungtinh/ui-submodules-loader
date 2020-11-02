@@ -1,8 +1,5 @@
-import {
-    fetchJson,
-    getApiURI, GET_LIST
-} from '@dgtx/ui-core';
-import { IResource } from "../registry";
+import {fetchJson, getApiURI, GET_LIST} from '@dgtx/ui-scl';
+import {IResource} from "../registry";
 
 const PROJECT_RESOURCE = "project";
 const ProjectResource: IResource = (type: string, resource: string, params: any): Promise<any> => {
@@ -14,8 +11,5 @@ const ProjectResource: IResource = (type: string, resource: string, params: any)
   }
 }
 
-export {
-    ProjectResource,
-    PROJECT_RESOURCE
-};
+export {ProjectResource, PROJECT_RESOURCE};
 

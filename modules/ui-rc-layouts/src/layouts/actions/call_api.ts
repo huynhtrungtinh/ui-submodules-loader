@@ -1,11 +1,11 @@
-import { fetchJson, getApiUacURI, getApiURI, getAppName } from '@dgtx/ui-core';
-import { getApps, getInfoContact } from '../mokup';
+import {fetchJson, getApiUacURI, getApiURI, getAppName} from '@dgtx/ui-scl';
+import {getApps, getInfoContact} from '../mokup';
 
 export const callAPIGetInfoContact = async () => {
-    return { error: null, data: getInfoContact() }
-    let outPut: any = { error: null, data: {} };
+    return {error: null, data: getInfoContact()}
+    let outPut: any = {error: null, data: {}};
     try {
-        const res = await fetchJson(`${getApiUacURI()}/gui-configurations/info-contact`, { method: "GET" });
+        const res = await fetchJson(`${getApiUacURI()}/gui-configurations/info-contact`, {method: "GET"});
         console.log('callAPIGetAnnouncement: ', res);
         if (res.status === 200) {
             outPut.data = res.json;
@@ -28,10 +28,10 @@ export const callAPIGetInfoContact = async () => {
 };
 
 export const callAPIApps = async () => {
-    return { error: null, data: getApps() }
-    let outPut: any = { error: null, data: {} };
+    return {error: null, data: getApps()}
+    let outPut: any = {error: null, data: {}};
     try {
-        const res = await fetchJson(`${getApiUacURI()}/apps`, { method: "GET" });
+        const res = await fetchJson(`${getApiUacURI()}/apps`, {method: "GET"});
         console.log('callAPIApps: ', res);
         if (res.status === 200) {
             outPut.data = res.json;
@@ -54,10 +54,10 @@ export const callAPIApps = async () => {
 };
 
 export const callAPIGetAnnouncement = async (username: string) => {
-    let outPut: any = { error: null, data: [] };
+    let outPut: any = {error: null, data: []};
     if (username) {
         try {
-            const res = await fetchJson(`${getApiURI()}/apps/${getAppName()}/announcements?username=${username}`, { method: "GET" });
+            const res = await fetchJson(`${getApiURI()}/apps/${getAppName()}/announcements?username=${username}`, {method: "GET"});
             if (res.status === 200) {
                 outPut.data = res.json;
             }
@@ -83,7 +83,7 @@ export const callAPIGetAnnouncement = async (username: string) => {
 };
 
 export const callAPIUpdateAnnouncement = async (username: string, datas: any) => {
-    let outPut: any = { error: null, data: [] };
+    let outPut: any = {error: null, data: []};
     if (username && datas) {
         try {
             const notiIsSeen = datas.map((data: any) => {
@@ -91,11 +91,11 @@ export const callAPIUpdateAnnouncement = async (username: string, datas: any) =>
                     const res = await fetchJson(`${getApiURI()}/apps/${getAppName()}/announcements/${data.id}/read`,
                         {
                             method: "PATCH",
-                            body: JSON.stringify({ username })
+                            body: JSON.stringify({username})
                         }
                     );
                     console.log('callAPIUpdateAnnouncement: ', res);
-                    let promise: any = { error: null, data: [] };
+                    let promise: any = {error: null, data: []};
                     if (res.status !== 200) {
                         promise.error.code = res.status;
                         promise.data.push(data);
@@ -131,7 +131,7 @@ export const callAPIUpdateAnnouncement = async (username: string, datas: any) =>
 
 
 export const callAPITotalAnnouncement = async () => {
-    let outPut: any = { error: null, data: { total: 20 } };
+    let outPut: any = {error: null, data: {total: 20}};
     // outPut.error = {
     //     code: 400,
     //     messageViewClient: null,
@@ -139,7 +139,7 @@ export const callAPITotalAnnouncement = async () => {
     // }
     return outPut;
     try {
-        const res = await fetchJson(`${getApiUacURI()}/gui-configurations/info-contact`, { method: "GET" });
+        const res = await fetchJson(`${getApiUacURI()}/gui-configurations/info-contact`, {method: "GET"});
         console.log('callAPIGetAnnouncement: ', res);
         if (res.status === 200) {
             outPut.data = res.json;

@@ -1,6 +1,6 @@
-import { getApiPublicKeyNotification } from '@dgtx/ui-core';
-import { getSubscriptionCustom, setSubscribeAll, setUnsubscribeAll } from './CallAPI';
-import { urlBase64ToUint8Array } from './FunctionsGeneral';
+import {getApiPublicKeyNotification} from '@dgtx/ui-scl';
+import {getSubscriptionCustom, setSubscribeAll, setUnsubscribeAll} from './CallAPI';
+import {urlBase64ToUint8Array} from './FunctionsGeneral';
 async function onUpdate(registration: ServiceWorkerRegistration) {
     if (!("Notification" in window)) {
         console.log("This browser does not support desktop notification");
@@ -56,7 +56,5 @@ async function onUpdate(registration: ServiceWorkerRegistration) {
         }
     })
 }
-export {
-    onUpdate
-};
+export {onUpdate};
 

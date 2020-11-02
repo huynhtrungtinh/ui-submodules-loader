@@ -2,14 +2,14 @@ import {
     fetchJson, getApiNotificationURI,
     // refreshToken,
     getAppName
-} from '@dgtx/ui-core';
-import { unregister } from '../serviceWorker';
-import { clearLocalStorage, getLocalStorageNotiData } from './FunctionsGeneral';
+} from '@dgtx/ui-scl';
+import {unregister} from '../serviceWorker';
+import {clearLocalStorage, getLocalStorageNotiData} from './FunctionsGeneral';
 
 export async function getTypesNofi() {
     let outPut = null;
     try {
-        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/types`, { method: "GET" });
+        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/types`, {method: "GET"});
         if (res.status === 200) {
             outPut = res.json;
         }
@@ -31,7 +31,7 @@ export async function getTypesNofi() {
 export async function getSubscriptionCustom(endpoint: string) {
     let outPut = null;
     try {
-        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/subscribe?endpoint=${endpoint}`, { method: "GET" });
+        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/subscribe?endpoint=${endpoint}`, {method: "GET"});
         if (res.status === 200) {
             outPut = res.json;
         }
@@ -54,10 +54,10 @@ export async function getSubscriptionCustom(endpoint: string) {
 }
 
 export async function setSubscribe(subscription: any, typeNotif: string[]) {
-    const body = JSON.stringify({ subscribe: subscription, type_notif: typeNotif.join() })
+    const body = JSON.stringify({subscribe: subscription, type_notif: typeNotif.join()})
     let outPut = null;
     try {
-        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/subscribe`, { method: "POST", body });
+        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/subscribe`, {method: "POST", body});
         if (res.status === 201) {
             outPut = res.json;
         }
@@ -77,10 +77,10 @@ export async function setSubscribe(subscription: any, typeNotif: string[]) {
 }
 
 export async function setUnsubscribe(subscription: any, typeNotif: string[]) {
-    const body = JSON.stringify({ subscribe: subscription, type_notif: typeNotif.join() })
+    const body = JSON.stringify({subscribe: subscription, type_notif: typeNotif.join()})
     let outPut = null;
     try {
-        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/unsubscribe`, { method: "DELETE", body });
+        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/unsubscribe`, {method: "DELETE", body});
         if (res.status === 200) {
             outPut = res.json;
         }
@@ -101,10 +101,10 @@ export async function setUnsubscribe(subscription: any, typeNotif: string[]) {
 }
 
 export async function setSubscribeAll(subscription: any) {
-    const body = JSON.stringify({ subscribe: subscription, type_notif: 'all' })
+    const body = JSON.stringify({subscribe: subscription, type_notif: 'all'})
     let outPut = null;
     try {
-        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/subscribe`, { method: "POST", body });
+        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/subscribe`, {method: "POST", body});
         if (res.status === 201) {
             outPut = res.json;
         }
@@ -124,10 +124,10 @@ export async function setSubscribeAll(subscription: any) {
 }
 
 export async function setUnsubscribeAll(subscription?: any) {
-    const body = JSON.stringify({ subscribe: subscription, type_notif: 'all' })
+    const body = JSON.stringify({subscribe: subscription, type_notif: 'all'})
     let outPut = null;
     try {
-        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/unsubscribe`, { method: "DELETE", body });
+        const res = await fetchJson(`${getApiNotificationURI()}/apps/${getAppName()}/unsubscribe`, {method: "DELETE", body});
         if (res.status === 200) {
             outPut = res;
             // tslint:disable-next-line: no-unused-expression
