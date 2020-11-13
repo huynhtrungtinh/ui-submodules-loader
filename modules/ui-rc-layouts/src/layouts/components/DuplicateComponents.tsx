@@ -1,4 +1,4 @@
-import {redirectApp} from "@dgtx/ui-scl";
+import {redirectApp} from "@dgtx/ui-utils";
 import Button from "@material-ui/core/Button";
 import * as React from "react";
 import {Translate} from 'react-redux-i18n';

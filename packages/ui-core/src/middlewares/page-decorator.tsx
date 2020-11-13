@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {registerResource, unregisterResource} from '../actions';
 
-export default (option: IPageOption | any) => (Target: React.ReactElement | any) => {
+const PageDecorator = (option: IPageOption | any) => (Target: React.ReactElement | any) => {
   const optionIn = new PageOption(option);
   const actions = {
     registerResourceAction: registerResource,
@@ -38,3 +38,5 @@ export default (option: IPageOption | any) => (Target: React.ReactElement | any)
   }
   return connect(mapStateToProps, mapDispatchToProps)(PageDecorator);
 };
+export default PageDecorator;
+export {PageDecorator};

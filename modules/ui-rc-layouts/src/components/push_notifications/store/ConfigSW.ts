@@ -1,4 +1,4 @@
-import {getApiPublicKeyNotification} from '@dgtx/ui-scl';
+import {getApiPublicKeyNotification} from '@dgtx/ui-utils';
 import {getSubscriptionCustom, setSubscribeAll, setUnsubscribeAll} from './CallAPI';
 import {urlBase64ToUint8Array} from './FunctionsGeneral';
 async function onUpdate(registration: ServiceWorkerRegistration) {

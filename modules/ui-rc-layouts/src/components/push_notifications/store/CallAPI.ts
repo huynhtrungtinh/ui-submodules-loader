@@ -2,7 +2,7 @@ import {
     fetchJson, getApiNotificationURI,
     // refreshToken,
     getAppName
-} from '@dgtx/ui-scl';
+} from '@dgtx/ui-utils';
 import {unregister} from '../serviceWorker';
 import {clearLocalStorage, getLocalStorageNotiData} from './FunctionsGeneral';
 

@@ -15,7 +15,7 @@
   "types": "types/index.d.ts",
   "scripts": {
     "build": "yarn run build-cjs && yarn run build-esm",
-    "build-cjs": "rimraf ./lib && tsc",
+    "build-cjs": "rimraf ./lib ./types && tsc",
     "build-esm": "rimraf ./esm ./types && tsc --outDir esm --module es2015",
     "watch": "tsc --outDir esm --module es2015 --watch",
     "watch:lib": "yarn -s watch",
@@ -55,7 +55,7 @@
   },
   "keywords": [],
   "authors": [
-    "nhhien<nhhien@digi-texx.vn>"
+    "tinhht<tinhht@digi-texx.vn>"
   ],
   "license": "SEE LICENSE IN LICENSE"
 }

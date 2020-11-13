@@ -1,2 +1,2 @@
-import {en as tl} from '@dgtx/ui-rc-layouts';
-export default {...tl};
+import {en as ucc} from '@dgtx/ui-core-components';
+export default {...ucc};

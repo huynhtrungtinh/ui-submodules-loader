@@ -1,18 +1,20 @@
 import {CoreProvider} from '@dgtx/ui-core';
+import {LayoutRoot} from '@dgtx/ui-core-components';
 import '@dgtx/ui-demo/src/assets/css/styles.css';
 import '@dgtx/ui-demo/src/assets/fonts/robotomono.css';
-import {initConfigApp} from '@dgtx/ui-scl';
-import axios from 'axios';
+import '@dgtx/ui-scl/css/root-css.css';
+import {initConfigApp} from '@dgtx/ui-utils';
+// import axios from 'axios';
 import React from 'react';
-import {API_ENDPOINT, APP_NAME, APP_VERSION, BPMN_ENDPOINT, OAUTH_ENDPOINT, UAC_ENDPOINT} from './config';
+import {API_ENDPOINT, APP_NAME, APP_VERSION, BPMN_ENDPOINT, OAUTH_ENDPOINT, TRAINING_ENDPOINT, UAC_ENDPOINT} from './config';
 import i18n from './i18n';
-import {DataProvider, routeProvider} from './providers';
+import {RESOURCE_REGISTRIES, routeProvider} from './providers';
 import {rootReducer} from './reducers';
-import {LayoutProvider} from './views';
+
+// import {LayoutDefault} from './views';
 const baseHref = (document as any).querySelector('base').getAttribute('href').replace(/\/$/, '');
-console.log("baseHref: ", baseHref)
 export default (props: any) => {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access_token')}`;
+  // axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('access_token')}`;
   initConfigApp({
     appName: APP_NAME,
     appVersion: APP_VERSION,
@@ -21,17 +23,17 @@ export default (props: any) => {
     uacURL: UAC_ENDPOINT,
     oauthURI: OAUTH_ENDPOINT,
     bpmnURI: BPMN_ENDPOINT,
+    trainingURI: TRAINING_ENDPOINT,
+    resourceRegistries: RESOURCE_REGISTRIES
   })
+
   return (
     <CoreProvider
       appURL={baseHref || '/'}
+      RootLayout={LayoutRoot}
       i18n={i18n}
-      RootLayout={LayoutProvider}
       reducers={rootReducer}
-      middlewares={[]}
-      middlewaresDev={[]}
       routeProvider={routeProvider}
-      dataProvider={DataProvider}
     />
   )
 }

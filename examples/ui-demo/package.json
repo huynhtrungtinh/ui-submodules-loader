@@ -2,7 +2,9 @@
   "name": "@dgtx/ui-demo",
   "version": "0.0.1",
   "description": "",
-  "author": "nhhien",
+  "authors": [
+    "tinhht<tinhht@digi-texx.vn>"
+  ],
   "files": [
     "*.md",
     "lib",

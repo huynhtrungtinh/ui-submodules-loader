@@ -1,9 +1,9 @@
 import {loadTranslations, setLocale, syncTranslationWithStore} from "react-redux-i18n";
-import i18nProvider from "../i18n";
-const initializeI18n = (store: any) => {
+
+const initializeI18n = (store: any, i18nCustom: any) => {
   syncTranslationWithStore(store);
-  store.dispatch(loadTranslations(i18nProvider));
-  store.dispatch(setLocale("vi"));
+  store.dispatch(loadTranslations(i18nCustom));
+  store.dispatch(setLocale("en"));
 }
 export default initializeI18n;
 export {initializeI18n};

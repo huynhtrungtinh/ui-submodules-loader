@@ -1,0 +1,116 @@
+/*!
+
+ =========================================================
+ * Material Dashboard React - v1.6.0 based on Material Dashboard - v1.2.0
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/material-dashboard-react
+ * Copyright 2018 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react-nodejs/blob/master/LICENSE.md)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+
+// ##############################
+// // // Function that converts from hex color to rgb color
+// // // Example: input = #9c27b0 => output = 156, 39, 176
+// // // Example: input = 9c27b0 => output = 156, 39, 176
+// // // Example: input = #999 => output = 153, 153, 153
+// // // Example: input = 999 => output = 153, 153, 153
+// #############################
+export const hexToRgb = (input: any) => {
+  input = input + "";
+  input = input.replace("#", "");
+  let hexRegex = /[0-9A-Fa-f]/g;
+  if (!hexRegex.test(input) || (input.length !== 3 && input.length !== 6)) {
+    throw new Error("input is not a valid hex color.");
+  }
+  if (input.length === 3) {
+    let first = input[0];
+    let second = input[1];
+    let last = input[2];
+    input = first + first + second + second + last + last;
+  }
+  input = input.toUpperCase(input);
+  let first = input[0] + input[1];
+  let second = input[2] + input[3];
+  let last = input[4] + input[5];
+  return (
+    parseInt(first, 16) +
+    ", " +
+    parseInt(second, 16) +
+    ", " +
+    parseInt(last, 16)
+  );
+};
+export const BLACK_COLOR = "#000";
+export const WHITE_COLOR = "#fff";
+// export const ERROR_COLOR = ["light", "main", "dark", "contrastText"];
+export const ERROR_COLOR = ["#e57373", "#f44336", "#d32f2f", "#fff"];
+export const WARNING_COLOR = ["#ffb74d", "#ff9800", "#f57c00", "#000000"];
+export const INFO_COLOR = ["#64b5f6", "#2196f3", "#1976d2", "#fff"];
+export const SUCCESS_COLOR = ["#81c784", "#4caf50", "#388e3c", "#000000"];
+export const PRIMARY_COLOR = ["#7986cb", "#3f51b5", "#303f9f", "#fff"];
+export const SECONDARY_COLOR = ["#ff4081", "#f50057", "#c51162", "#fff"];
+export const THIRDARY_COLOR = ["#ffb74d", "#ff9800", "#f57c00", "#fff"];
+
+export const defaultThemes = {
+  palette: {
+    type: "light",
+    common: {
+      black: BLACK_COLOR,
+      white: WHITE_COLOR
+    },
+    primary: {
+      light: PRIMARY_COLOR[0],
+      main: PRIMARY_COLOR[1],
+      dark: PRIMARY_COLOR[2],
+      contrastText: PRIMARY_COLOR[3]
+    },
+    secondary: {
+      light: SECONDARY_COLOR[0],
+      main: SECONDARY_COLOR[1],
+      dark: SECONDARY_COLOR[2],
+      contrastText: SECONDARY_COLOR[3]
+    },
+    thirdary: {
+      light: THIRDARY_COLOR[0],
+      main: THIRDARY_COLOR[1],
+      dark: THIRDARY_COLOR[2],
+      contrastText: THIRDARY_COLOR[3]
+    },
+    error: {
+      light: ERROR_COLOR[0],
+      main: ERROR_COLOR[1],
+      dark: ERROR_COLOR[2],
+      contrastText: ERROR_COLOR[3]
+    },
+    warning: {
+      light: WARNING_COLOR[0],
+      main: WARNING_COLOR[1],
+      dark: WARNING_COLOR[2],
+      contrastText: WARNING_COLOR[3]
+    },
+    info: {
+      light: INFO_COLOR[0],
+      main: INFO_COLOR[1],
+      dark: INFO_COLOR[2],
+      contrastText: INFO_COLOR[3]
+    },
+    success: {
+      light: SUCCESS_COLOR[0],
+      main: SUCCESS_COLOR[1],
+      dark: SUCCESS_COLOR[2],
+      contrastText: SUCCESS_COLOR[3]
+    },
+    text: {
+      primary: "rgba(0, 0, 0, 1)",
+      secondary: "rgba(0, 0, 0, 1)",
+      disabled: "rgba(0, 0, 0, 0.38)",
+      hint: "rgba(0, 0, 0, 0.38)"
+    }
+  }
+}

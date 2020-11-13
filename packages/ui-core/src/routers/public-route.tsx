@@ -1,17 +1,49 @@
 import React from 'react';
-import {Route, RouteProps} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Redirect, Route, RouteProps} from 'react-router-dom';
+import {bindActionCreators} from 'redux';
 import ErrorBoundary from './error-boundary';
-
-export const PublicRoute = ({component: Component, ...rest}: RouteProps | any) => {
-  const encloseInErrorBoundary = (props: any) => (
-    <ErrorBoundary>
+const PublicRouteComponent = ({component: Component, computedMatch, isAuthenticated = false, ...rest}: RouteProps | any) => {
+  const encloseInErrorBoundary = (props: any) => {
+    if (!computedMatch.isExact) {
+      return <Redirect
+        to={{
+          pathname: '/signin'
+        }}
+      />
+    } else if (computedMatch.path === '/signin' && isAuthenticated) {
+      return <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    }
+    return <ErrorBoundary>
       <Component {...props} />
     </ErrorBoundary>
-  );
+  };
 
   if (!Component) throw new Error(`A component needs to be specified for path ${(rest as any).path}`);
 
   return <Route {...rest} render={encloseInErrorBoundary} />;
 };
 
+const mapStateToProps = (state: any) => {
+  const isAuthenticated = state.authentication.isAuthenticated;
+  const statusCode = state.authentication.isAuthenticatedStatusCode;
+  return {
+    isAuthenticated,
+    statusCode
+  }
+}
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators(
+    {},
+    dispatch
+  )
+};
+const PublicRoute = connect(mapStateToProps, mapDispatchToProps, null, {pure: false})(PublicRouteComponent);
+
 export default PublicRoute;
+export {PublicRoute};
+

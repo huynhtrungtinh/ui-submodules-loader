@@ -1,9 +1,0 @@
-const TYPE_PREFIX = '@DGS/BACKDROP/';
-export const UNMOUNT = `${TYPE_PREFIX}UNMOUNT`;
-export const SHOW_BACKDROP = `${TYPE_PREFIX}SHOW_BACKDROP`;
-export const HIDDEN_BACKDROP = `${TYPE_PREFIX}HIDDEN_BACKDROP`;
-export const NAME_REDUCER = 'backdrop';
-export const PATH_TO_STORE_REDUX = `core.resources.${NAME_REDUCER}.data`;
-export const BACKDROP_ITEM_DEFAULT = {title: '', zIndex: 0};
-export const BACKGROUND_DEFAULT = 'none';
-export const ICON_COLOR_PROGRESS = 'white';

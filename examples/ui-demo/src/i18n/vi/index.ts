@@ -1,2 +1,2 @@
-import {vi as tl} from '@dgtx/ui-rc-layouts';
-export default {...tl};
+import {vi as ucc} from '@dgtx/ui-core-components';
+export default {...ucc};

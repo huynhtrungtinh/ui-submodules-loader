@@ -1,4 +1,4 @@
-import {fetchJson, getApiUacURI, getApiURI, getAppName} from '@dgtx/ui-scl';
+import {fetchJson, getApiUacURI, getApiURI, getAppName} from '@dgtx/ui-utils';
 import {getApps, getInfoContact} from '../mokup';
 
 export const callAPIGetInfoContact = async () => {

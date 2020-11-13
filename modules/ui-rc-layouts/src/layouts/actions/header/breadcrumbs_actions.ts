@@ -1,4 +1,4 @@
-import {redirect} from '@dgtx/ui-scl';
+import {redirect} from '@dgtx/ui-utils';
 import {get, intersection, isEmpty, set} from 'lodash';
 import {callAPIGetFunctionsTasks} from '../../../components';
 import {CREATE_BREADCRUMBS_HEADER, PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_DASHBOARD_APPS, SET_IS_VIEW_BREADCRUMBS, SORT_SOURCE_NAME, UPDATE_BREADCRUMBS_HEADER} from '../../constants';

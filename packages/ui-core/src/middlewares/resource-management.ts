@@ -26,13 +26,13 @@ class ManagerResources {
   };
 }
 
-export const createResourceManagement = (timeOutDefault = 3000) => {
+const createResourceManagement = (timeOutDefault = 3000) => {
   const manger = new ManagerResources();
   return ({dispatch, getState}: any) => (next: any) => (action: any) => {
     switch (action.type) {
       case REGISTER_RESOURCE: {
         const newPayload: any[] = [];
-        const state = getState().resources;
+        const state = getState().resources || {};
         const resources = Object.keys(state);
         action.payload.forEach((res: Resource) => {
           if (!resources.includes(res.name)) {

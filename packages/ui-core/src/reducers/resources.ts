@@ -1,10 +1,9 @@
 import {IAction, REGISTER_RESOURCE, UNREGISTER_RESOURCE} from '@dgtx/ui-scl';
 
-export const getResources = (state: any) => {
+const getResources = (state: any) => {
   Object.keys(state).map(key => state[key].props);
 };
-
-export default (previousState: any = {}, action: IAction) => {
+const resourcesReducer = (previousState: any = {}, action: IAction) => {
   let newState: any = null;
   switch (action.type) {
     case REGISTER_RESOURCE: {
@@ -74,3 +73,5 @@ export default (previousState: any = {}, action: IAction) => {
   }
   return newState;
 };
+export default resourcesReducer;
+export {getResources, resourcesReducer};

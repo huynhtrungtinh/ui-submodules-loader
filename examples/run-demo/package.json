@@ -2,6 +2,9 @@
   "name": "run-demo",
   "version": "0.0.1",
   "private": true,
+  "authors": [
+    "tinhht<tinhht@digi-texx.vn>"
+  ],
   "dependencies": {
     "run-demo": "*",
     "@testing-library/jest-dom": "^5.11.2",

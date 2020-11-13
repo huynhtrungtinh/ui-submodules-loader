@@ -1,4 +1,4 @@
-import {getApiPublicKeyNotification} from '@dgtx/ui-scl';
+import {getApiPublicKeyNotification} from '@dgtx/ui-utils';
 import {setSubscribe, setSubscribeAll} from './CallAPI';
 import {IItemNotifications, LOCAL_STORAGE_STATUS_NOTIFICATION} from "./Constants";
 // import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from './ConfigAPI';

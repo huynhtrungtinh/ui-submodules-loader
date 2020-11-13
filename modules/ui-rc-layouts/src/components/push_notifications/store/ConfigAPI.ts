@@ -1,5 +1,5 @@
 
-import {getApiOauthURI} from '@dgtx/ui-scl';
+import {getApiOauthURI} from '@dgtx/ui-utils';
 
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';

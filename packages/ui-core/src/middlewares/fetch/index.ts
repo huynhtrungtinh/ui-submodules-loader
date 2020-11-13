@@ -1,4 +1,2 @@
-import createAPIMiddleware from './fetch'
-export {
-    createAPIMiddleware
-}
+import createAPIMiddleware from './fetch';
+export {createAPIMiddleware};

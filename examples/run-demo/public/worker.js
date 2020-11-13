@@ -16,7 +16,6 @@ function Validator() {
     worker.onmessage = function handleOnMessage(e) {
       const { instanceId, action } = e.data;
       behavior(ctx, action)
-      console.log(instanceId, action, 'action');
       setTimeout(() => {
         send(instanceId, action)
       }, 1500)

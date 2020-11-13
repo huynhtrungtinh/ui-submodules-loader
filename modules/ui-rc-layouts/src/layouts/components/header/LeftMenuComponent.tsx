@@ -1,4 +1,4 @@
-import {redirect} from '@dgtx/ui-scl';
+import {redirect} from '@dgtx/ui-utils';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Icon from "@material-ui/core/Icon";

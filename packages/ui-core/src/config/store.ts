@@ -1,17 +1,18 @@
+import {IAuthenProvider} from '@dgtx/ui-scl';
 import {loadingBarMiddleware} from 'react-redux-loading-bar';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import {authenProvider as authProvider} from '../actions';
 import {createAPIMiddleware, resourceManagement} from '../middlewares';
 import rootReducer from '../reducers';
-
 
 const defaultMiddlewares = [
   thunkMiddleware,
   loadingBarMiddleware(),
   resourceManagement
 ];
-export interface IComposedMiddlewares {
+interface IComposedMiddlewares {
   middlewares?: any[];
   middlewaresDev?: any[];
   dataProvider?: any;
@@ -34,16 +35,17 @@ const composedMiddlewares = (input: IComposedMiddlewares) => {
   ));
 }
 
-export interface IInitializeStore {
+interface IInitializeStore {
   customReducers?: any;
   dataProvider?: any;
   middlewares?: any[];
   middlewaresDev?: any[];
+  authenProvider?: IAuthenProvider;
 }
 
-const initializeStore = (input: IInitializeStore) => {
-  const {customReducers, middlewares = [], middlewaresDev = [], dataProvider} = input;
-  return createStore(rootReducer(customReducers), composedMiddlewares({middlewares, middlewaresDev, dataProvider}));
+const initializeStore: any = (input: IInitializeStore) => {
+  const {customReducers, middlewares = [], middlewaresDev = [], dataProvider, authenProvider = authProvider} = input;
+  return createStore(rootReducer(customReducers, authenProvider), composedMiddlewares({middlewares, middlewaresDev, dataProvider}));
 }
 
 export default initializeStore;

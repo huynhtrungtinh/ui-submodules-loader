@@ -1,4 +1,4 @@
-import {getApiUacURI} from '@dgtx/ui-scl';
+import {getApiUacURI} from '@dgtx/ui-utils';
 import axios from 'axios';
 import {getFunctions, getFunctionsTasks, getInstances, getProjects} from '../mokup';
 import {convertDataFunctions} from './functions_actions';

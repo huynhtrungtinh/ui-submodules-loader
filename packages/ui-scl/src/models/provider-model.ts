@@ -3,36 +3,31 @@ export interface IProvider {
     readonly actions?: object | any;
 }
 
-export type IDoLogin = (username: string, password: string) => any | null;
-export type IDoRefresh = (refreshToken: string) => any | null;
-export type IDoLogout = () => any | null;
-export type IGetResourceAccess = () => any | null;
-export interface IAuthenProvider {
-    doLogin: IDoLogin | null,
-    doRefresh: IDoRefresh | null,
-    doLogout: IDoLogout | null,
-    getResourceAccess: IGetResourceAccess | null,
-    getUserInfo: IGetResourceAccess | null,
-}
+export type IResourceProvider = (type: string, resource: string, params: string) => Promise<any>;
 
+export interface IResourceRegistries {
+    [key: string]: IResourceProvider
+}
 export interface IInitConfig {
-    appName?: string,
-    appVersion?: string,
-    appURL?: string,
-    apiURL?: string,
-    uacURL?: string,
-    oauthURI?: string,
-    bpmnURI?: string,
-    socketURI?: string,
-    notificationURI?: string,
-    reportURI?: string,
-    publickKeyNotification?: string,
+    appName?: string;
+    appVersion?: string;
+    appURL?: string;
+    apiURL?: string;
+    uacURL?: string;
+    oauthURI?: string;
+    bpmnURI?: string;
+    socketURI?: string;
+    notificationURI?: string;
+    reportURI?: string;
+    trainingURI?: string;
+    publickKeyNotification?: string;
+    resourceRegistries: IResourceRegistries;
 }
 
 export interface ICurrentUser {
-    username: string,
-    displayName: string,
-    email: string,
+    username: string;
+    displayName: string;
+    email: string;
 }
 
 export class CurrentUserEntity implements ICurrentUser {
