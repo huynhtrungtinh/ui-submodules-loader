@@ -9,9 +9,9 @@ const mapStateToProps = (state: any) => {
   let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});
   return {
     breakpoint: stateRedux.breakpoint,
+    contactsData: stateRedux.contactsData,
     displayName: get(state, 'authentication.userInfo.display_name', ""),
-    loading: get(state, 'authentication.loading', 0),
-
+    loading: get(state, 'authentication.loading', 0)
   };
 };
 

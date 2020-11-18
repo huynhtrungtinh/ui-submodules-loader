@@ -7,6 +7,7 @@ export default (params?: any): any[] => {
       name: "home",
       exact: true,
       path: "/",
+      // component: () => <div>Dashboard Page</div>
       component: DashboardPage
     },
     {

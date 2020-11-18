@@ -7,10 +7,9 @@ interface IEffectProvider {
     action: any;
     dispatch: any;
     getState: any;
-    dataProvider: any;
 }
 
-function effectProvider({action, dispatch, getState, dataProvider}: IEffectProvider) {
+function effectProvider({action, dispatch, getState}: IEffectProvider) {
     const {
         type,
         payload,
@@ -23,8 +22,8 @@ function effectProvider({action, dispatch, getState, dataProvider}: IEffectProvi
     console.log('restType: ', restType);
     console.log('meta.resource: ', meta.resource);
     console.log('payload: ', payload);
-    dataProvider(restType, meta.resource, payload).then(async (response: any) => {
-        console.log('response: ', response);
+    (window as any).dataProvider.getDataProvider(restType, meta.resource, payload).then(async (response: any) => {
+        console.log('dataProvider response222222222222222222222: ', response);
         let onResponseIn = onResponse;
         if (typeof onResponseIn === 'function') {
             onResponseIn = onResponse({dispatch, getState, result: response})
@@ -74,13 +73,18 @@ function effectProvider({action, dispatch, getState, dataProvider}: IEffectProvi
     console.log('====================================');
 }
 
-const createAPIMiddleware = (dataProvider: any) => ({dispatch, getState}: any) => (next: any) => (action: any) => {
+const createAPIMiddleware = () => ({dispatch, getState}: any) => (next: any) => (action: any) => {
+    let dataProvider: any = null;
+    if ((window as any).dataProvider) {
+        dataProvider = (window as any).dataProvider;
+    }
     if (!dataProvider) {
-        console.warn('api needed dataProvider');
-        return () => null;
+        // console.warn('api needed dataProvider');
+        return next(action);
     }
     if (action.type.indexOf('@DGS/API') > -1
         && [REQUEST_KEY, SUCCESS_KEY, FAILURE_KEY].every(item => (action.type.indexOf(item) === -1))) {
+        console.log('iffffffffffffffffffffffff');
         const accessToken = getAccessToken();
         const refreshToken = getRefreshToken();
         const tokenExp = checkTokenExpiration(accessToken, refreshToken);
@@ -91,11 +95,11 @@ const createAPIMiddleware = (dataProvider: any) => ({dispatch, getState}: any) =
         if (tokenExp.isRefresh || !tokenExp.token) {
             dispatch(effectTokenExpiration(true)).then((res: IUserInfoOutPut) => {
                 if (res.status === 200) {
-                    effectProvider({action, dispatch, getState, dataProvider});
+                    effectProvider({action, dispatch, getState});
                 }
             });
         } else {
-            effectProvider({action, dispatch, getState, dataProvider});
+            effectProvider({action, dispatch, getState});
         }
     } else {
         return next(action);

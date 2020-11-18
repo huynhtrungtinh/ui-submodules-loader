@@ -15,15 +15,14 @@ const defaultMiddlewares = [
 interface IComposedMiddlewares {
   middlewares?: any[];
   middlewaresDev?: any[];
-  dataProvider?: any;
 }
 const composedMiddlewares = (input: IComposedMiddlewares) => {
-  const {middlewares = [], middlewaresDev = [], dataProvider} = input;
+  const {middlewares = [], middlewaresDev = []} = input;
   if (process.env.NODE_ENV === 'development') {
     return compose(applyMiddleware(
       ...defaultMiddlewares,
       ...middlewares,
-      createAPIMiddleware(dataProvider),
+      createAPIMiddleware(),
       ...middlewaresDev,
       createLogger()
     ));
@@ -31,21 +30,20 @@ const composedMiddlewares = (input: IComposedMiddlewares) => {
   return compose(applyMiddleware(
     ...defaultMiddlewares,
     ...middlewares,
-    createAPIMiddleware(dataProvider),
+    createAPIMiddleware(),
   ));
 }
 
 interface IInitializeStore {
   customReducers?: any;
-  dataProvider?: any;
   middlewares?: any[];
   middlewaresDev?: any[];
   authenProvider?: IAuthenProvider;
 }
 
 const initializeStore: any = (input: IInitializeStore) => {
-  const {customReducers, middlewares = [], middlewaresDev = [], dataProvider, authenProvider = authProvider} = input;
-  return createStore(rootReducer(customReducers, authenProvider), composedMiddlewares({middlewares, middlewaresDev, dataProvider}));
+  const {customReducers, middlewares = [], middlewaresDev = [], authenProvider = authProvider} = input;
+  return createStore(rootReducer(customReducers, authenProvider), composedMiddlewares({middlewares, middlewaresDev}));
 }
 
 export default initializeStore;

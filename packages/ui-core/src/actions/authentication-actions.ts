@@ -1,5 +1,5 @@
 import {AUTH_REDUCER_NAME, CHECK_TOKEN, DB_NAME, DB_STORE_I18N_EN, DB_STORE_I18N_VI, DB_VERSION, FAILURE, FETCH_END, FETCH_ERROR, FETCH_START, IAuthenProvider, IAuthenProviderOutPut, IDoLoginOutPut, IRouter, IUserInfo, IUserInfoOutPut, LOGIN, LOGOUT, PATH_TO_STORE_AUTH, REFRESH_TOKEN, SET_ROUTERS, SHOW_SIGNIN_EXP_TIME, SUCCESS, USER_AGENT} from '@dgtx/ui-scl';
-import {clearToken, fetchJson, getAccessToken, getApiOauthURI, getApiURI, getMinutes2Dates, getRefreshToken, parseJwt, setToken} from '@dgtx/ui-utils';
+import {clearToken, config, fetchJson, getAccessToken, getMinutes2Dates, getRefreshToken, parseJwt, setToken} from '@dgtx/ui-utils';
 import Dexie from 'dexie';
 import {get} from 'lodash';
 import {loadTranslations} from "react-redux-i18n";
@@ -12,7 +12,7 @@ const authenProvider: IAuthenProvider = {
         body.append("grant_type", "password");
         body.append("username", username);
         body.append("password", password);
-        const response = await fetch(`${getApiOauthURI()}/token`, {
+        const response = await fetch(`${config.getApiOauthURI()}/token`, {
             method: "POST",
             headers: new Headers({
                 "user-agent": USER_AGENT,
@@ -48,7 +48,7 @@ const authenProvider: IAuthenProvider = {
         body.append("client_secret", "HiEldrond");
         body.append("grant_type", "refresh_token");
         body.append("refresh_token", refreshToken);
-        const response = await fetch(`${getApiOauthURI()}/token`, {
+        const response = await fetch(`${config.getApiOauthURI()}/token`, {
             method: "POST",
             headers: new Headers({
                 "user-agent": USER_AGENT,
@@ -91,7 +91,7 @@ const authenProvider: IAuthenProvider = {
         return outPut;
     },
     checkToken: async (token: string) => {
-        const response = await fetch(`${getApiOauthURI()}/check_token`, {
+        const response = await fetch(`${config.getApiOauthURI()}/check_token`, {
             method: "GET",
             headers: new Headers({
                 "user-agent": USER_AGENT,
@@ -144,7 +144,7 @@ const authenProvider: IAuthenProvider = {
         return outPut;
     },
     getI18n: async () => {
-        const response = await fetchJson(`${getApiURI()}/apps/designer/translate`);
+        const response = await fetchJson(`${config.getApiURI()}/apps/designer/translate`);
         console.log('====================================');
         console.log('response: ', response);
         console.log('====================================');
@@ -153,7 +153,7 @@ const authenProvider: IAuthenProvider = {
         };
         if (response.status === 200) {
             outPut.status = 200;
-            outPut.body = response.json;
+            outPut.body = response.data;
         } else {
             outPut = {
                 status: response.status,
@@ -190,9 +190,9 @@ function checkTokenExpiration(accessToken: string, refreshToken: string) {
             outPut.token = refreshToken
             outPut.isRefresh = true;
         }
-        if (outPut.token === null) {
-            outPut.isReSingin = true
-        }
+    }
+    if (outPut.token === null && jwtDataAT && jwtDataRT) {
+        outPut.isReSingin = true
     }
     return outPut;
 }
@@ -262,7 +262,7 @@ const executeActionReducerAuth = (type: string, payload: any) => {
 };
 
 const showSigninExpTime = (open: boolean) => async (dispatch: any) => {
-    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open}));
+    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isAuthenticatedStatusCode: 401}));
 }
 
 const setAuthLoginFailure = () => async (dispatch: any) => {

@@ -1,13 +1,43 @@
+
 export interface IProvider {
     readonly state: object | any;
     readonly actions?: object | any;
 }
-
-export type IResourceProvider = (type: string, resource: string, params: string) => Promise<any>;
+export interface IResponse {
+    status: number;
+    data: any;
+    headers?: any;
+    response?: any;
+    blod?: any;
+}
+export interface IProviderOutPut {
+    uri: string;
+    type?: 'json' | 'file';
+    method?: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
+    body?: null | any;
+    response?: IResponse | any;
+}
+export type IResourceProvider = (input: IInputProvider) => IProviderOutPut;
 
 export interface IResourceRegistries {
-    [key: string]: IResourceProvider
+    [key: string]: IResourceProvider;
 }
+
+export interface IConfig {
+    APP_NAME?: string;
+    APP_VERSION?: string;
+    APP_URL?: string;
+    API_URI?: string;
+    API_UAC_URI?: string;
+    API_OAUTH_URI?: string;
+    API_BPMN_URI?: string;
+    API_SOCKET_URI?: string;
+    NOTIFICATION_URI?: string;
+    PUBLIC_KEY_NOTIFICATION?: string;
+    REPORT_URI?: string;
+    API_TRAINING_URI?: string;
+}
+
 export interface IInitConfig {
     appName?: string;
     appVersion?: string;
@@ -21,7 +51,12 @@ export interface IInitConfig {
     reportURI?: string;
     trainingURI?: string;
     publickKeyNotification?: string;
-    resourceRegistries: IResourceRegistries;
+}
+export interface IInputProvider {
+    type: string;
+    apiURI: IConfig;
+    resource: string;
+    params: any;
 }
 
 export interface ICurrentUser {

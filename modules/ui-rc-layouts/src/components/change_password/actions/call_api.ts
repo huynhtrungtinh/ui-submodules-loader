@@ -1,8 +1,8 @@
-import {getApiUacURI} from '@dgtx/ui-utils';
+import {config} from '@dgtx/ui-utils';
 import axios from 'axios';
 
 export const callAPIGetInfoContact = async () => {
-    return await axios.get(`${getApiUacURI()}/gui-configurations/info-contact`)
+    return await axios.get(`${config.getApiUacURI()}/gui-configurations/info-contact`)
         .then((res: {data: any;}) => {
             console.log('res: ', res)
             return {error: null, data: res.data || {}}

@@ -1,11 +1,11 @@
-import {fetchJson, getApiUacURI, getApiURI, getAppName} from '@dgtx/ui-utils';
+import {config, fetchJson} from '@dgtx/ui-utils';
 import {getApps, getInfoContact} from '../mokup';
 
 export const callAPIGetInfoContact = async () => {
     return {error: null, data: getInfoContact()}
     let outPut: any = {error: null, data: {}};
     try {
-        const res = await fetchJson(`${getApiUacURI()}/gui-configurations/info-contact`, {method: "GET"});
+        const res = await fetchJson(`${config.getApiUacURI()}/gui-configurations/info-contact`, {method: "GET"});
         console.log('callAPIGetAnnouncement: ', res);
         if (res.status === 200) {
             outPut.data = res.json;
@@ -31,7 +31,7 @@ export const callAPIApps = async () => {
     return {error: null, data: getApps()}
     let outPut: any = {error: null, data: {}};
     try {
-        const res = await fetchJson(`${getApiUacURI()}/apps`, {method: "GET"});
+        const res = await fetchJson(`${config.getApiUacURI()}/apps`, {method: "GET"});
         console.log('callAPIApps: ', res);
         if (res.status === 200) {
             outPut.data = res.json;
@@ -57,7 +57,7 @@ export const callAPIGetAnnouncement = async (username: string) => {
     let outPut: any = {error: null, data: []};
     if (username) {
         try {
-            const res = await fetchJson(`${getApiURI()}/apps/${getAppName()}/announcements?username=${username}`, {method: "GET"});
+            const res = await fetchJson(`${config.getApiURI()}/apps/${config.getAppName()}/announcements?username=${username}`, {method: "GET"});
             if (res.status === 200) {
                 outPut.data = res.json;
             }
@@ -88,7 +88,7 @@ export const callAPIUpdateAnnouncement = async (username: string, datas: any) =>
         try {
             const notiIsSeen = datas.map((data: any) => {
                 return new Promise(async (resolve) => {
-                    const res = await fetchJson(`${getApiURI()}/apps/${getAppName()}/announcements/${data.id}/read`,
+                    const res = await fetchJson(`${config.getApiURI()}/apps/${config.getAppName()}/announcements/${data.id}/read`,
                         {
                             method: "PATCH",
                             body: JSON.stringify({username})
@@ -139,7 +139,7 @@ export const callAPITotalAnnouncement = async () => {
     // }
     return outPut;
     try {
-        const res = await fetchJson(`${getApiUacURI()}/gui-configurations/info-contact`, {method: "GET"});
+        const res = await fetchJson(`${config.getApiUacURI()}/gui-configurations/info-contact`, {method: "GET"});
         console.log('callAPIGetAnnouncement: ', res);
         if (res.status === 200) {
             outPut.data = res.json;

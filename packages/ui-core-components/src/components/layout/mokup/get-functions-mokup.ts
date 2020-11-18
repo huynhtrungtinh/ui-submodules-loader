@@ -35,6 +35,16 @@ export function getFunctions() {
             "path": "capture/5d1465340fb92b0017a5621a/Form_50/Form_50"
         },
 
+        {
+            "root_scope": "training",
+            "display_root_scope": "Training",
+            "type": null,
+            "path_prefix": "training",
+            "name": "user_guide",
+            "display_name": "User Guide",
+            "path": "projects/:projectId/user-guide"
+        },
+
         // Operator
         {
             "root_scope": "operator",
@@ -184,7 +194,7 @@ export function getFunctions() {
 
         // Prd Management
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -195,7 +205,7 @@ export function getFunctions() {
             "path": "projects/:projectId/acquisitions"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -206,7 +216,7 @@ export function getFunctions() {
             "path": "projects/:projectId/tasks-assignment"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -217,7 +227,7 @@ export function getFunctions() {
             "path": "projects/:projectId/functions-assignment"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -228,7 +238,7 @@ export function getFunctions() {
             "path": "projects/:projectId/approve-qc"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -239,7 +249,7 @@ export function getFunctions() {
             "path": "projects/:projectId/batch-information"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -250,7 +260,7 @@ export function getFunctions() {
             "path": "projects/:projectId/batch-priority"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -261,7 +271,7 @@ export function getFunctions() {
             "path": "projects/:projectId/document-information"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -272,7 +282,7 @@ export function getFunctions() {
             "path": "projects/:projectId/export-data"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -283,7 +293,7 @@ export function getFunctions() {
             "path": "projects/:projectId/manual-upload"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -294,7 +304,7 @@ export function getFunctions() {
             "path": "projects/:projectId/project-announcement"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -305,7 +315,7 @@ export function getFunctions() {
             "path": "projects/:projectId/project-guide"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -316,7 +326,7 @@ export function getFunctions() {
             "path": "projects/:projectId/rework-details"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -327,7 +337,7 @@ export function getFunctions() {
             "path": "projects/:projectId/training-configs"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -338,7 +348,7 @@ export function getFunctions() {
             "path": "projects/:projectId/training-report"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -349,7 +359,7 @@ export function getFunctions() {
             "path": "projects/:projectId/verifying-configuration"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",
@@ -360,7 +370,7 @@ export function getFunctions() {
             "path": "projects/:projectId/monitor-citi"
         },
         {
-            "root_scope": "Manager",
+            "root_scope": "manager",
             "display_root_scope": "Manager",
             "sub_scope": "production-admin",
             "display_sub_scope": "Prd Management",

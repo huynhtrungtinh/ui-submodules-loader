@@ -1,6 +1,6 @@
-import {IAuthenProvider, IInitConfig, IResourceRegistries} from '@dgtx/ui-scl';
+import {IAuthenProvider, IConfig, IInitConfig} from '@dgtx/ui-scl';
 
-const CONFIG = {
+const CONFIG: IConfig = {
     APP_NAME: '',
     APP_VERSION: '',
     APP_URL: '',
@@ -12,8 +12,7 @@ const CONFIG = {
     NOTIFICATION_URI: '',
     PUBLIC_KEY_NOTIFICATION: '',
     REPORT_URI: '',
-    API_TRAINING_URI: '',
-    RESOURCE_REGISTRIES: {}
+    API_TRAINING_URI: ''
 }
 
 let AUTHENTICATION: IAuthenProvider = {
@@ -30,7 +29,7 @@ function initConfigApp(props: IInitConfig): void {
     const {
         appName, appVersion, appURL, apiURL, uacURL, oauthURI,
         bpmnURI, socketURI, notificationURI, reportURI, publickKeyNotification,
-        trainingURI, resourceRegistries
+        trainingURI
     } = props;
     CONFIG.APP_NAME = appName || '';
     CONFIG.APP_VERSION = appVersion || '';
@@ -45,13 +44,16 @@ function initConfigApp(props: IInitConfig): void {
     CONFIG.NOTIFICATION_URI = notificationURI || '';
     CONFIG.REPORT_URI = reportURI || '';
     CONFIG.PUBLIC_KEY_NOTIFICATION = publickKeyNotification || '';
-    CONFIG.RESOURCE_REGISTRIES = resourceRegistries || {};
 }
 const setAuthenProvider = (auth: IAuthenProvider): void => {
     AUTHENTICATION = auth
 }
 const getAuthenProvider = (): IAuthenProvider => {
     return AUTHENTICATION;
+}
+
+function getConfig(): IConfig {
+    return CONFIG
 }
 
 function getAppName(): string {
@@ -101,9 +103,8 @@ function getApiTrainingURI(): string {
     return String(CONFIG.API_TRAINING_URI)
 }
 
-function getResourceRegistries(): IResourceRegistries {
-    return CONFIG.RESOURCE_REGISTRIES;
-}
-export default initConfigApp;
-export {initConfigApp, setAuthenProvider, getResourceRegistries, getAuthenProvider, getAppName, getAppVersion, getAppURL, getApiURI, getApiUacURI, getApiOauthURI, getApiBPMNURI, getApiSocketURI, getApiNotificationURI, getApiReportURI, getApiPublicKeyNotification, getApiTrainingURI};
+const config = {initConfigApp, setAuthenProvider, getConfig, getAuthenProvider, getAppName, getAppVersion, getAppURL, getApiURI, getApiUacURI, getApiOauthURI, getApiBPMNURI, getApiSocketURI, getApiNotificationURI, getApiReportURI, getApiPublicKeyNotification, getApiTrainingURI}
+
+export default config;
+export {config};
 

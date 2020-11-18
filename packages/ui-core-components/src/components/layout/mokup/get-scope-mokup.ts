@@ -1,4 +1,4 @@
-export function getScope(){
+export function getScope() {
   return [
     // System
     {

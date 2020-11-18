@@ -122,6 +122,7 @@ function ContactMenuComponent(props: any) {
             }
         </Menu>
     )
+
 }
 export {ContactMenuComponent};
 export default ContactMenuComponent;

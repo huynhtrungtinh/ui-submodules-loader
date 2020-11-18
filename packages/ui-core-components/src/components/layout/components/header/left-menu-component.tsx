@@ -1,37 +1,191 @@
 import {redirect} from '@dgtx/ui-utils';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
-import Icon from "@material-ui/core/Icon";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import SvgIcon, {SvgIconProps} from '@material-ui/core/SvgIcon';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import Folder from "@material-ui/icons/Folder";
 import FormatListNumbered from "@material-ui/icons/FormatListNumbered";
-import Home from "@material-ui/icons/Home";
-import InsertChart from "@material-ui/icons/InsertChart";
 import Settings from "@material-ui/icons/Settings";
+import TreeItem, {TreeItemProps} from '@material-ui/lab/TreeItem';
+import TreeView from '@material-ui/lab/TreeView';
 import clsx from 'clsx';
+import {get} from 'lodash';
 import React from 'react';
-
+import {ILeftData} from '../../constants';
 
 export const ICON: any = {
-    "home": <Home />,
-    "projects": <Folder />,
-    "system": <AccountCircle />,
-    "pim": <Settings />,
-    "general-report": <InsertChart />,
-    "project": <FormatListNumbered />,
-    "function": <AssignmentInd />,
+    "system": AccountCircle,
+    "functional": Settings,
+    "operation": Folder,
+    "project": FormatListNumbered,
+    "function": AssignmentInd,
 }
 function getHref(path: string) {
     const baseHref = window.location.origin;
     return `${baseHref}${path}`;
 }
+function MinusSquare(props: SvgIconProps) {
+    return (
+        <SvgIcon fontSize="inherit" style={{width: 14, height: 14}} {...props}>
+            {/* tslint:disable-next-line: max-line-length */}
+            <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 11.023h-11.826q-.375 0-.669.281t-.294.682v0q0 .401.294 .682t.669.281h11.826q.375 0 .669-.281t.294-.682v0q0-.401-.294-.682t-.669-.281z" />
+        </SvgIcon>
+    );
+}
+function PlusSquare(props: SvgIconProps) {
+    return (
+        <SvgIcon fontSize="inherit" style={{width: 14, height: 14}} {...props}>
+            {/* tslint:disable-next-line: max-line-length */}
+            <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 12.977h-4.923v4.896q0 .401-.281.682t-.682.281v0q-.375 0-.669-.281t-.294-.682v-4.896h-4.923q-.401 0-.682-.294t-.281-.669v0q0-.401.281-.682t.682-.281h4.923v-4.896q0-.401.294-.682t.669-.281v0q.401 0 .682.281t.281.682v4.896h4.923q.401 0 .682.281t.281.682v0q0 .375-.281.669t-.682.294z" />
+        </SvgIcon>
+    );
+}
 
-const drawerWidth = 400;
+function CloseSquare(props: SvgIconProps) {
+    return (
+        <SvgIcon className="close" fontSize="inherit" style={{width: 14, height: 14}} {...props}>
+            {/* tslint:disable-next-line: max-line-length */}
+            <path d="M17.485 17.512q-.281.281-.682.281t-.696-.268l-4.12-4.147-4.12 4.147q-.294.268-.696.268t-.682-.281-.281-.682.294-.669l4.12-4.147-4.12-4.147q-.294-.268-.294-.669t.281-.682.682-.281.696 .268l4.12 4.147 4.12-4.147q.294-.268.696-.268t.682.281 .281.669-.294.682l-4.12 4.147 4.12 4.147q.294.268 .294.669t-.281.682zM22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0z" />
+        </SvgIcon>
+    );
+}
+declare module 'csstype' {
+    interface Properties {
+        '--tree-view-color'?: string;
+        '--tree-view-bg-color'?: string;
+    }
+}
+
+type StyledTreeItemProps = TreeItemProps & {
+    bgColor?: string;
+    color?: string;
+    LabelIcon?: any;
+    labelInfo?: string;
+    labelText: string;
+};
+
+const useTreeItemStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            color: theme.palette.text.secondary,
+            '&:hover > $content': {
+                backgroundColor: theme.palette.primary.light,
+                color: `${theme.palette.primary.contrastText}`,
+                fontWeight: 'bold'
+            },
+            '&:focus > $content, &$selected > $content': {
+                backgroundColor: `var(--tree-view-bg-color, ${theme.palette.primary.main})`,
+                color: `${theme.palette.primary.contrastText}`,
+                fontWeight: 'bold'
+            },
+            '&:focus > $content $label, &:hover > $content $label, &$selected > $content $label': {
+                backgroundColor: 'transparent',
+            },
+            overflow: 'auto',
+            marginTop: 8
+        },
+        content: {
+            color: theme.palette.text.secondary,
+            borderTopRightRadius: theme.spacing(2),
+            borderBottomRightRadius: theme.spacing(2),
+            paddingRight: theme.spacing(1),
+            fontWeight: theme.typography.fontWeightMedium,
+            '$expanded > &': {
+                fontWeight: theme.typography.fontWeightRegular,
+            },
+        },
+        group: {
+            marginLeft: 15,
+            '& $content': {
+                paddingLeft: theme.spacing(1),
+            },
+        },
+        expanded: {},
+        selected: {},
+        label: {
+            fontWeight: 'inherit',
+            color: 'inherit',
+        },
+        labelRoot: {
+            display: 'flex',
+            alignItems: 'center',
+            padding: theme.spacing(0.5, 0),
+            height: '45px'
+        },
+        labelIcon: {
+            marginRight: theme.spacing(1),
+        },
+        labelText: {
+            fontWeight: 'inherit',
+            flexGrow: 1,
+        },
+        labelInfo: {
+            marginRight: '12px',
+            fontWeight: 'bold'
+
+        }
+    }),
+);
+
+function StyledTreeItem(props: StyledTreeItemProps) {
+    const classes = useTreeItemStyles();
+    const {labelText, LabelIcon, labelInfo, color, bgColor, ...other} = props;
+    return (
+        <TreeItem
+            label={
+                <div>
+                    <div className={classes.labelRoot}>
+                        {
+                            LabelIcon ? <LabelIcon color="inherit" className={classes.labelIcon} />
+                                :
+                                <div style={{width: 30}}></div>
+                        }
+                        {
+                            labelText && labelText.length > 35 ?
+                                <Tooltip title={labelText} placement="top">
+                                    <Typography variant="body2" className={classes.labelText}>
+                                        {labelText.slice(0, 35) + "..."}
+                                    </Typography>
+                                </Tooltip>
+                                :
+                                <Typography variant="body2" className={classes.labelText}>
+                                    {labelText || ""}
+                                </Typography>
+                        }
+                        <Typography variant="caption" color="inherit" className={classes.labelInfo}>
+                            {labelInfo}
+                        </Typography>
+                    </div>
+                    <Divider />
+                </div>
+            }
+            style={{
+                '--tree-view-color': color,
+                '--tree-view-bg-color': bgColor,
+            }}
+            classes={{
+                root: classes.root,
+                content: classes.content,
+                expanded: classes.expanded,
+                selected: classes.selected,
+                group: classes.group,
+                label: classes.label,
+            }}
+            {...other}
+        />
+    );
+}
+
+const drawerWidth = 430;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawerPaper: {
@@ -49,7 +203,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: drawerWidth,
                 position: "fixed",
                 height: "100%"
-            }
+            },
+            overflow: 'auto',
         },
         logo: {
             position: "relative",
@@ -84,92 +239,64 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 'bold',
             letterSpacing: '0.03333em'
         },
-        sidebarWrapper: {
-            width: drawerWidth,
-            position: "relative",
-            overflow: "auto",
-            zIndex: 4,
-            overflowScrolling: "touch"
+        treeView: {
+            overflow: 'auto',
+            position: 'relative'
         },
-        blue: {
-            color: theme.palette.common.white,
-            backgroundColor: theme.palette.primary.main,
-            // boxShadow:
-            //     "0 12px 20px -10px rgba(" +
-            //     hexToRgb(infoColor[0]) +
-            //     ",.28), 0 4px 20px 0 rgba(" +
-            //     hexToRgb(blackColor) +
-            //     ",.12), 0 7px 8px -5px rgba(" +
-            //     hexToRgb(infoColor[0]) +
-            //     ",.2)",
-            // "&:hover,&:focus": {
-            //     boxShadow:
-            //         "0 12px 20px -10px rgba(" +
-            //         hexToRgb(infoColor[0]) +
-            //         ",.28), 0 4px 20px 0 rgba(" +
-            //         hexToRgb(blackColor) +
-            //         ",.12), 0 7px 8px -5px rgba(" +
-            //         hexToRgb(infoColor[0]) +
-            //         ",.2)"
-            // }
+        arrowDownward: {
+            width: '40px',
+            height: '40px',
+            position: 'absolute',
+            top: 100,
+            left: drawerWidth + 10,
+            backgroundColor: theme.palette.primary.light,
+            '&:hover': {
+                color: `${theme.palette.primary.contrastText}`,
+                fontWeight: 'bold'
+            },
         },
-        list: {
-            width: drawerWidth,
-            marginTop: "20px",
-            paddingLeft: "0",
-            paddingTop: "0",
-            paddingBottom: "0",
-            marginBottom: "0",
-            listStyle: "none",
-            position: "unset"
-        },
-        aTagStyleActive: {
-            color: `${theme.palette.common.white} !important`
-        },
-        aTagStyle: {
-            "&:hover,&:focus": {
-                color: theme.palette.common.white
-            }
-        },
-        itemLink: {
-            width: '370px        ',
-            transition: "all 300ms linear",
-            margin: "10px 15px 0",
-            borderRadius: "3px",
-            position: "relative",
-            display: "block",
-            padding: "10px 15px",
-            backgroundColor: "transparent",
-            // ...defaultFont,
-            "&:hover": {
-                backgroundColor: theme.palette.primary.light,
-                color: theme.palette.common.white
-            }
-        },
-        itemIcon: {
-            width: "24px",
-            height: "30px",
-            fontSize: "24px",
-            lineHeight: "30px",
-            float: "left",
-            marginRight: "15px",
-            textAlign: "center",
-            verticalAlign: "middle",
-            // color: theme.palette.primary.main
-        },
-        itemText: {
-            margin: "0",
-            lineHeight: "30px",
-            fontSize: "14px",
+        arrowUpward: {
+            width: '40px',
+            height: '40px',
+            position: 'absolute',
+            bottom: 30,
+            left: drawerWidth + 10
+
         },
     }),
 );
 
 function LeftMenuComponent(props: any) {
     const {isOpen = false, routers = [], setOpen = () => null,
-        version = 0, routeFocus = {}
+        version = 0, routeFocus = {},
+
+        leftMenuData = [],
+        setClickItem = () => null
     } = props;
+
     const classes = useStyles();
+    const refContainer: any = React.useRef();
+    const [isViewScrollTop, setIsViewScrollTop] = React.useState(false);
+
+
+    React.useEffect(() => {
+        console.log('========React.useEffect==========');
+        console.log('refContainer :', refContainer);
+        console.log('====================================');
+        // const childrens: any = Array.from(refContainer.current.children);
+        // if (childrens) {
+        // onChangeRefContainer(refContainer)
+        // }
+    }, [refContainer])
+
+    const handleScroll = (e: any) => {
+        if (get(refContainer, 'current.scrollTop', 0) > 150 && !isViewScrollTop) {
+            setIsViewScrollTop(true);
+            console.log('========handleScroll==========');
+            console.log('refContainer: ', refContainer);
+            console.log('==============================');
+        }
+    }
 
     // const history = useHistory();
     const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent, ) => {
@@ -180,17 +307,13 @@ function LeftMenuComponent(props: any) {
         setOpen();
     };
 
-    const handleClickMenu = (route: any) => () => {
-        // history.push(route.path);
-        redirect(route.path)
-        setOpen(false, route);
-    }
     const handleClickHome = () => {
         const route = routers.filter((r: any) => r.app_name === 'home')[0];
         // history.push(route.path);
-        redirect(route.path)
+        redirect("")
         setOpen(false, route);
     }
+
     const brand = (
         <div className={classes.logo} onClick={handleClickHome}>
             <div className={classes.logoLink}>
@@ -200,35 +323,24 @@ function LeftMenuComponent(props: any) {
         </div>
     );
 
-    const links = (
-        <div className={classes.sidebarWrapper}>
-            <List className={classes.list}>
-                {routers.map((route: any, index: any) => {
-                    const listItemClasses = clsx({
-                        [" " + classes["blue"]]: routeFocus.app_name === route.app_name
-                    });
-                    const aTagStyle = clsx({
-                        [" " + classes["aTagStyle"]]: true,
-                        [" " + classes["aTagStyleActive"]]: routeFocus.app_name === route.app_name
-                    });
-                    return (
-                        <ListItem button className={classes.itemLink + listItemClasses} onClick={handleClickMenu(route)} id={index}>
-                            <a href={getHref(route.path)} className={aTagStyle}>
-                                <Icon className={classes.itemIcon} >
-                                    {ICON[route.app_name]}
-                                </Icon>
-                                <ListItemText
-                                    primary={route.display_name && route.display_name.length > 30 ? `${route.display_name.substr(0, 26).toUpperCase()}....` : route.display_name.toUpperCase()}
-                                    className={clsx(classes.itemText)}
-                                    disableTypography={true}
-                                />
-                            </a>
-                        </ListItem>
-                    );
-                })}
-            </List>
-        </div>
-    );
+    const handleSelectedTreeItem = (event: any, nodeIds: string) => {
+        setClickItem(nodeIds);
+    }
+
+    const renderTreeItem = (leftMenuData: ILeftData[]) => {
+        if (leftMenuData && leftMenuData[0]) {
+            return leftMenuData.map((data: ILeftData) => {
+                return (
+                    <StyledTreeItem key={data.id} nodeId={data.id} labelText={data.display_name} labelInfo={data.info} LabelIcon={ICON[data.name] || (data.children.length > 0 ? PlusSquare : MinusSquare)} >
+                        {
+                            data.children.length > 0 && renderTreeItem(data.children)
+                        }
+                    </StyledTreeItem>
+                )
+            })
+        }
+        return <></>
+    }
 
     return (
         <Drawer
@@ -245,7 +357,28 @@ function LeftMenuComponent(props: any) {
         >
             {brand}
             <Divider variant="middle" />
-            {links}
+            <TreeView
+                className={classes.treeView}
+                defaultExpanded={[`${leftMenuData.length}`]}
+                defaultCollapseIcon={<ArrowDropDownIcon />}
+                defaultExpandIcon={<ArrowRightIcon />}
+                defaultEndIcon={<div style={{width: 24}} />}
+                onNodeSelect={handleSelectedTreeItem}
+                ref={refContainer}
+                onScroll={handleScroll}
+            >
+                {
+                    renderTreeItem(leftMenuData)
+                }
+
+            </TreeView>
+            <IconButton className={classes.arrowDownward}>
+                <ArrowDownward fontSize="large" />
+            </IconButton>
+
+            <IconButton className={classes.arrowUpward}>
+                <ArrowUpward fontSize="large" />
+            </IconButton>
         </Drawer>
     )
 }

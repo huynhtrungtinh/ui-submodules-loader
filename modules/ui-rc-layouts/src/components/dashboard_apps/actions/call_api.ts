@@ -1,4 +1,4 @@
-import {getApiUacURI} from '@dgtx/ui-utils';
+import {config} from '@dgtx/ui-utils';
 import axios from 'axios';
 import {getFunctions, getFunctionsTasks, getInstances, getProjects} from '../mokup';
 import {convertDataFunctions} from './functions_actions';
@@ -9,7 +9,7 @@ import {convertDataProjects} from './projects_actions';
 
 export const callAPIGetProjects = async (appName: string) => {
     return {error: null, data: convertDataProjects(getProjects()) || []}
-    return await axios.get(`${getApiUacURI()}/apps/${appName}`)
+    return await axios.get(`${config.getApiUacURI()}/apps/${appName}`)
         .then((res: {data: any;}) => {
             console.log('res: ', res)
             return {error: null, data: res.data || {}}
@@ -25,7 +25,7 @@ export const callAPIGetProjects = async (appName: string) => {
 
 export const callAPIGetFunctionsTasks = async (appName: string, projectId: string) => {
     return {error: null, data: convertDataFunctionsTasks(getFunctionsTasks()) || []}
-    return await axios.get(`${getApiUacURI()}/apps/${appName}/projects/${projectId}`)
+    return await axios.get(`${config.getApiUacURI()}/apps/${appName}/projects/${projectId}`)
         .then((res: {data: any;}) => {
             console.log('res: ', res)
             return {error: null, data: convertDataFunctionsTasks(res.data) || []}
@@ -41,7 +41,7 @@ export const callAPIGetFunctionsTasks = async (appName: string, projectId: strin
 
 export const callAPIGetFunctions = async (appName: string) => {
     return {error: null, data: convertDataFunctions(getFunctions(appName)) || []}
-    return await axios.get(`${getApiUacURI()}/apps/${appName}`)
+    return await axios.get(`${config.getApiUacURI()}/apps/${appName}`)
         .then((res: {data: any;}) => {
             console.log('res: ', res)
             return {error: null, data: convertDataFunctions(res.data) || []}
@@ -57,7 +57,7 @@ export const callAPIGetFunctions = async (appName: string) => {
 
 export const callAPIGetInstances = async (sourceName: string) => {
     return {error: null, data: getInstances(sourceName) || []}
-    return await axios.get(`${getApiUacURI()}/apps/${sourceName}`)
+    return await axios.get(`${config.getApiUacURI()}/apps/${sourceName}`)
         .then((res: {data: any;}) => {
             console.log('res: ', res)
             return {error: null, data: convertDataFunctions(res.data) || []}

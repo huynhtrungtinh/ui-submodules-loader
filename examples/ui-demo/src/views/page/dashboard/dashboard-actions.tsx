@@ -1,7 +1,9 @@
 import {api, setAuthLogout} from '@dgtx/ui-core';
 import {IFetchJsonOutPut} from '@dgtx/ui-scl';
+import {getCustomType} from '@dgtx/ui-utils';
 import {get} from 'lodash';
 import {NAME_REDUCER, UNMOUNT} from './dashboard-constants';
+import {APPS_RESOURCE, EXPORT_FILE_1_RESOURCE, EXPORT_FILE_2_RESOURCE} from './provider';
 
 export const executeActionReducer = (type: string, payload: any) => {
   return {type, payload, meta: {resource: NAME_REDUCER}};
@@ -22,17 +24,19 @@ export const setLogout = () => async (dispatch: any, getState: any) => {
 
 export const callAPIGetApps = () => async (dispatch: any) => {
   console.log('============callAPIGetApps==========');
+  // return new Promise((resolve) => resolve([]))
   return new Promise((resolve) => {
     dispatch(
-      api.get(
-        'apps',
+      api.custom(
+        APPS_RESOURCE,
         {},
         (res: IFetchJsonOutPut) => {
           console.log('=====onSuccess==============');
           console.log('apps');
           console.log('res: ', res);
           resolve({error: null, data: get(res, 'result.json', {})});
-        }
+        },
+        getCustomType('DELETE')
       )
     );
   });
@@ -43,7 +47,7 @@ export const callAPIGetFile = () => async (dispatch: any) => {
   return new Promise((resolve) => {
     dispatch(
       api.get(
-        'get_file_test',
+        EXPORT_FILE_1_RESOURCE,
         {},
         (res: IFetchJsonOutPut) => {
           console.log('=====onSuccess==============');
@@ -61,7 +65,7 @@ export const callAPIGetFile2 = () => async (dispatch: any) => {
   return new Promise((resolve) => {
     dispatch(
       api.get(
-        'export_file_test_2',
+        EXPORT_FILE_2_RESOURCE,
         {},
         (res: IFetchJsonOutPut) => {
           console.log('=====onSuccess==============');

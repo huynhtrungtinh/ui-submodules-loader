@@ -8,3 +8,5 @@ export const ID_HEADER = 'header_root';
 export const MENU_ID = 'account menu';
 export const CONTACT_MENU_ID = 'contact menu';
 export const MOBILE_MENU_ID = 'mobile menu';
+export const SCOPE_ROOT = ["system", "functional", "operation"]
+export const PROJECTS_KEY = 'project';

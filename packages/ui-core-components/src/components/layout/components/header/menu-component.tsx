@@ -12,7 +12,6 @@ import {KEY_TRANSLATE, MENU_ID} from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-
         textField: {
             color: 'black',
             // ...defaultFont

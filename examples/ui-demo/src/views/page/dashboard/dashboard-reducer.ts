@@ -9,7 +9,7 @@ export default {
   name: NAME_REDUCER,
   reducer: (state: ReducerState = initialState, actions: IAction) => {
     if (actions && actions.type) {
-      const {type, payload} = actions;
+      const {type} = actions;
       switch (type) {
         case UNMOUNT:
           return {...initialState};

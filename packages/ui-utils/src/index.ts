@@ -1,7 +1,6 @@
 export * from './cancel-event';
 export * from './config';
 export * from './convert-response-message-from-api';
-export * from './data-provider';
 export * from './encode';
 export * from './fetch';
 export * from './get-minutes-2-dates';

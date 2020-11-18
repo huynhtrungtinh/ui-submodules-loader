@@ -1,5 +1,5 @@
 
-import {getApiOauthURI} from '@dgtx/ui-utils';
+import {config} from '@dgtx/ui-utils';
 
 const ACCESS_TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
@@ -82,7 +82,7 @@ async function refreshToken() {
         body: data
     }
     try {
-        const result = await fetchJson(`${getApiOauthURI()}/token`, option);
+        const result = await fetchJson(`${config.getApiOauthURI()}/token`, option);
 
         if (result.status === 200) {
             const access_token = result.json.access_token

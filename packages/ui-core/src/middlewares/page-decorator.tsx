@@ -3,14 +3,32 @@ import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {registerResource, unregisterResource} from '../actions';
+import {DataProvider} from '../provider/data-provider';
 
 const PageDecorator = (option: IPageOption | any) => (Target: React.ReactElement | any) => {
+  console.log('=======PageDecorator==========');
   const optionIn = new PageOption(option);
+  console.log('option: ', option);
+  if (option.dataProvider) {
+    console.log('====iffffffffffffff================================');
+    console.log('dataProvider: ', (window as any).dataProvider);
+    if ((window as any).dataProvider) {
+      (window as any).dataProvider.setResourceRegistries(option.dataProvider)
+    } else if (!(window as any).dataProvider) {
+      const dataProvider = new DataProvider();
+      (window as any).dataProvider = dataProvider;
+      (window as any).dataProvider.setResourceRegistries(option.dataProvider)
+    }
+    console.log('dataProvider: ', (window as any).dataProvider);
+  }
   const actions = {
     registerResourceAction: registerResource,
     unregisterResourceAction: unregisterResource,
     ...optionIn.actions
   };
+  console.log('window: ', (window as any).dataProvider);
+  console.log('====================================');
+
   const mapStateToProps = (state: any, ownProps: any) => {
     const mapState = typeof optionIn.mapState === 'function' ?
       option.mapState(state, ownProps) : ownProps;
@@ -18,6 +36,7 @@ const PageDecorator = (option: IPageOption | any) => (Target: React.ReactElement
       ...mapState,
     };
   };
+
   const mapDispatchToProps = (dispatch: any) => bindActionCreators(actions, dispatch);
   function PageDecorator(props: any) {
     const {registerResourceAction, unregisterResourceAction} = props;
@@ -40,3 +59,4 @@ const PageDecorator = (option: IPageOption | any) => (Target: React.ReactElement
 };
 export default PageDecorator;
 export {PageDecorator};
+

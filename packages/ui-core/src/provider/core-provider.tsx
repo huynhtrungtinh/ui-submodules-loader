@@ -1,5 +1,4 @@
 import {IAuthenProvider} from '@dgtx/ui-scl';
-import {dataProvider} from '@dgtx/ui-utils';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Switch} from 'react-router-dom';
@@ -7,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {effectTokenExpiration} from '../actions';
 import {initializeI18n, initializeStore} from '../config';
 import {renderRouterRoot} from '../routers';
+
 interface IAppProps {
   appURL: string;
   i18n?: object;
@@ -29,7 +29,8 @@ const CoreProvider: React.StatelessComponent<IAppProps> = (props: IAppProps) => 
     routeProvider,
     authenProvider
   } = props;
-  const store = initializeStore({customReducers: reducers, middlewares, middlewaresDev, dataProvider: dataProvider, authenProvider});
+
+  const store = initializeStore({customReducers: reducers, middlewares, middlewaresDev, authenProvider});
   initializeI18n(store, i18n);
   const actions = bindActionCreators({effectTokenExpiration}, store.dispatch);
   actions.effectTokenExpiration();
@@ -43,6 +44,6 @@ const CoreProvider: React.StatelessComponent<IAppProps> = (props: IAppProps) => 
     </Provider>
   );
 }
-export default CoreProvider
+export default CoreProvider;
 export {CoreProvider};
 

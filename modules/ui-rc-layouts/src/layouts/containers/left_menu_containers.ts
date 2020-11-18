@@ -1,4 +1,4 @@
-import {getAppVersion} from '@dgtx/ui-utils';
+import {config} from '@dgtx/ui-utils';
 import {get} from 'lodash';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
@@ -12,7 +12,7 @@ const mapStateToProps = (state: any) => {
     isOpen: stateRedux.isLeftMenuOpen,
     routers: stateRedux.routers,
     routeFocus: stateRedux.routeFocus,
-    version: getAppVersion()
+    version: config.getAppVersion()
   };
 };
 

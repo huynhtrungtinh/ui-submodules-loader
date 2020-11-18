@@ -1,8 +1,9 @@
 import {PageDecorator} from '@dgtx/ui-core';
 import {get} from 'lodash';
-import {setBreakpoints} from '../actions';
+import {getDataForReady, setBreakpoints} from '../actions';
 import {WapperRootComponent} from '../components';
 import {PATH_TO_STORE_REDUX} from '../constants';
+import {getLayoutRootProvider} from '../provider';
 import reducers from '../reducers';
 
 const mapStateToProps = (state: any) => {
@@ -16,12 +17,14 @@ const mapStateToProps = (state: any) => {
 };
 const mapDispatchToProps = () => {
   return {
-    setBreakpoints
+    setBreakpoints,
+    getDataForReady
   };
 };
 
 export default PageDecorator({
   resources: [reducers],
+  dataProvider: getLayoutRootProvider(),
   actions: mapDispatchToProps(),
   mapState: (state: any) => mapStateToProps(state)
 })(WapperRootComponent);

@@ -46,6 +46,7 @@ export interface IPageOptionProps {
   resources?: IResource[];
   actions?: any;
   mapState?: any;
+  dataProvider?: any;
 }
 
 export interface IPageOption {
@@ -53,11 +54,13 @@ export interface IPageOption {
   resources: IResource[];
   actions: any;
   mapState?: any;
+  dataProvider?: any;
 }
 
 export class PageOption implements IPageOption {
   readonly context: string;
   readonly resources: IResource[];
+  readonly dataProvider: any;
   readonly actions: any;
   readonly mapState?: any;
   constructor(props: IPageOption) {
@@ -65,5 +68,6 @@ export class PageOption implements IPageOption {
     this.resources = props.resources || [];
     this.context = props.context || 'registration';
     this.mapState = props.mapState;
+    this.dataProvider = props.dataProvider || {};
   }
 }
