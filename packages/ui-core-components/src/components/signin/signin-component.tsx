@@ -1,3 +1,4 @@
+import {cancelEvent} from '@dgtx/ui-utils';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -88,13 +89,17 @@ function SigninComponent(props: any) {
     try {
       window.addEventListener('keypress', handleKeyboard, true)
     } catch (e) {console.log('e: ', e)}
-    setTimeout(() => {
-      setIsReady(true);
-    }, 1000);
     return () => {
       window.removeEventListener("keypress", handleKeyboard, true);
       setUnmount();
     }
+  }, []);
+
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsReady(true);
+    }, 1000);
   }, [isReady]);
 
   const handleChange = (event: any) => {
@@ -112,6 +117,7 @@ function SigninComponent(props: any) {
 
   const handleKeyboard = (event: any) => {
     if (event.charCode == 13) {
+      cancelEvent(event);
       handleSubmit();
     }
   }

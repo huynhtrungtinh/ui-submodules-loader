@@ -1,5 +1,5 @@
 import {IAction} from '@dgtx/ui-scl';
-import {NAME_REDUCER, SET_BREAKPOINT, SET_CLICK_LEFT_MENU_ITEM, SET_DATA_READY, SET_OPEN_CONTACT_MENU, SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, UNMOUNT} from '../constants';
+import {NAME_REDUCER, SET_BREAKPOINT, SET_CLICK_LEFT_MENU_ITEM, SET_DATA_READY, SET_OPEN_CONTACT_MENU, SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_SEARCH_LEFT_MENU, UNMOUNT} from '../constants';
 
 const ROUTES = [
     {
@@ -111,8 +111,10 @@ export const initialState: any = {
 
     isLeftMenuOpen: false,
     leftMenuData: [],
+    leftMenuDataSearch: [],
     leftMenuFocus: {},
     leftMenuLastNodeId: 1,
+    leftMenuSearch: "",
 
     routeFocus: {},
     routers: ROUTES
@@ -132,6 +134,7 @@ export default {
                 case SET_OPEN_LEFT_MENU:
                 case SET_DATA_READY:
                 case SET_CLICK_LEFT_MENU_ITEM:
+                case SET_SEARCH_LEFT_MENU:
                     return {
                         ...state,
                         ...payload

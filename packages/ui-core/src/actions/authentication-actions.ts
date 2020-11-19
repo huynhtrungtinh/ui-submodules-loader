@@ -170,10 +170,10 @@ const setAuthRouters = (routers: IRouter[]) => async (dispatch: any) => {
 }
 
 function checkTokenExpiration(accessToken: string, refreshToken: string) {
-    const jwtDataAT: any = parseJwt(accessToken) || {};
-    const jwtDataRT: any = parseJwt(refreshToken) || {};
-    const timeAT: any = jwtDataAT.accessTokenExpiresAt || null;
-    const timeRT: any = jwtDataRT.refreshTokenExpiresAt || null;
+    const jwtDataAT: any = parseJwt(accessToken) || null;
+    const jwtDataRT: any = parseJwt(refreshToken) || null;
+    const timeAT: any = jwtDataAT && jwtDataAT.accessTokenExpiresAt || null;
+    const timeRT: any = jwtDataRT && jwtDataRT.refreshTokenExpiresAt || null;
     let outPut: any = {
         isRefresh: false,
         token: null,

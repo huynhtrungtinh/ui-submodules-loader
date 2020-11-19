@@ -2,7 +2,8 @@ import {redirect} from '@dgtx/ui-utils';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import InputBase from '@material-ui/core/InputBase';
+import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
 import SvgIcon, {SvgIconProps} from '@material-ui/core/SvgIcon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
@@ -14,6 +15,7 @@ import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import Folder from "@material-ui/icons/Folder";
 import FormatListNumbered from "@material-ui/icons/FormatListNumbered";
+import SearchIcon from '@material-ui/icons/Search';
 import Settings from "@material-ui/icons/Settings";
 import TreeItem, {TreeItemProps} from '@material-ui/lab/TreeItem';
 import TreeView from '@material-ui/lab/TreeView';
@@ -244,40 +246,83 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'relative'
         },
         arrowDownward: {
-            width: '40px',
-            height: '40px',
+            // width: '40px',
+            // height: '40px',
             position: 'absolute',
-            top: 100,
-            left: drawerWidth + 10,
+            top: 110,
+            left: drawerWidth - 55,
             backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.contrastText,
             '&:hover': {
-                color: `${theme.palette.primary.contrastText}`,
+                color: theme.palette.secondary.contrastText,
+                backgroundColor: theme.palette.secondary.main,
                 fontWeight: 'bold'
             },
         },
         arrowUpward: {
-            width: '40px',
-            height: '40px',
+            // width: '40px',
+            // height: '40px',
             position: 'absolute',
-            bottom: 30,
-            left: drawerWidth + 10
-
+            bottom: 8,
+            left: drawerWidth - 55,
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.primary.contrastText,
+            '&:hover': {
+                backgroundColor: theme.palette.secondary.main,
+                color: theme.palette.secondary.contrastText,
+                fontWeight: 'bold'
+            },
         },
+        searchTree: {
+            position: 'relative',
+            width: '100%',
+            borderRadius: theme.shape.borderRadius,
+            // backgroundColor: theme.palette.primary.main,
+            backgroundColor: fade(theme.palette.primary.main, 0.2),
+            '&:hover': {
+                backgroundColor: fade(theme.palette.secondary.main, 0.8),
+            },
+            marginLeft: 0,
+            [theme.breakpoints.up('sm')]: {
+                marginLeft: theme.spacing(1),
+                width: 'auto',
+            },
+            height: '50px',
+            marginTop: '7px'
+        },
+        searchIconTree: {
+            padding: theme.spacing(0, 2),
+            height: '100%',
+            position: 'absolute',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        inputRoot: {
+            color: 'inherit',
+            height: '50px',
+            paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+            paddingRight: `calc(1em + ${theme.spacing(6)}px)`,
+        }
     }),
 );
+let timeoutIdSearch: any = 0;
 
 function LeftMenuComponent(props: any) {
     const {isOpen = false, routers = [], setOpen = () => null,
         version = 0, routeFocus = {},
 
         leftMenuData = [],
-        setClickItem = () => null
+        setClickItem = () => null,
+        setSearch = () => null,
+        leftMenuSearch = ""
     } = props;
 
     const classes = useStyles();
     const refContainer: any = React.useRef();
     const [isViewScrollTop, setIsViewScrollTop] = React.useState(false);
-
+    const [searchValue, setSearchValue] = React.useState(leftMenuSearch);
 
     React.useEffect(() => {
         console.log('========React.useEffect==========');
@@ -290,11 +335,16 @@ function LeftMenuComponent(props: any) {
     }, [refContainer])
 
     const handleScroll = (e: any) => {
+        console.log('====================================');
+        console.log(get(refContainer, 'current.scrollTop', 0));
+        console.log('====================================');
         if (get(refContainer, 'current.scrollTop', 0) > 150 && !isViewScrollTop) {
             setIsViewScrollTop(true);
             console.log('========handleScroll==========');
             console.log('refContainer: ', refContainer);
             console.log('==============================');
+        } else if (get(refContainer, 'current.scrollTop', 0) <= 150 && isViewScrollTop) {
+            setIsViewScrollTop(false);
         }
     }
 
@@ -327,6 +377,35 @@ function LeftMenuComponent(props: any) {
         setClickItem(nodeIds);
     }
 
+    const handleClickUp = (event: any) => {
+        if (refContainer.current) {
+            console.log('========handleClickUp===============');
+            console.log('refContainer: ', refContainer);
+            console.log('====================================');
+            refContainer.current.scrollTo(0, 0)
+        }
+    }
+
+    const handleClickDown = (event: any) => {
+        if (refContainer.current) {
+            console.log('========handleClickDown===============');
+            console.log('refContainer: ', refContainer);
+            console.log('====================================');
+            refContainer.current.scrollTo(0, get(refContainer, 'current.scrollHeight', 0))
+        }
+    }
+
+    const handleSearch = (event: any) => {
+        console.log('============handleSearch==============');
+        const {name, value} = event.target;
+        console.log(name, value);
+        setSearchValue(value);
+        clearTimeout(timeoutIdSearch);
+        timeoutIdSearch = setTimeout(() => {
+            setSearch(name, value);
+        }, 200);
+    }
+
     const renderTreeItem = (leftMenuData: ILeftData[]) => {
         if (leftMenuData && leftMenuData[0]) {
             return leftMenuData.map((data: ILeftData) => {
@@ -343,43 +422,71 @@ function LeftMenuComponent(props: any) {
     }
 
     return (
-        <Drawer
-            variant="temporary"
-            anchor={"left"}
-            open={isOpen}
-            classes={{
-                paper: clsx(classes.drawerPaper)
-            }}
-            onClose={toggleDrawer}
-            ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-            }}
-        >
-            {brand}
-            <Divider variant="middle" />
-            <TreeView
-                className={classes.treeView}
-                defaultExpanded={[`${leftMenuData.length}`]}
-                defaultCollapseIcon={<ArrowDropDownIcon />}
-                defaultExpandIcon={<ArrowRightIcon />}
-                defaultEndIcon={<div style={{width: 24}} />}
-                onNodeSelect={handleSelectedTreeItem}
-                ref={refContainer}
-                onScroll={handleScroll}
+        <div style={{position: "relative"}}>
+            <Drawer
+                variant="temporary"
+                anchor={"left"}
+                open={isOpen}
+                classes={{
+                    paper: clsx(classes.drawerPaper)
+                }}
+                onClose={toggleDrawer}
+                ModalProps={{
+                    keepMounted: true // Better open performance on mobile.
+                }}
             >
+                {brand}
+                <Divider variant="middle" />
+
+                <div className={classes.searchTree}>
+                    <div className={classes.searchIconTree}>
+                        <SearchIcon />
+                    </div>
+                    <InputBase
+                        placeholder="Search…"
+                        name="leftMenuSearch"
+                        id="tree-search"
+                        type="search"
+                        classes={{
+                            root: classes.inputRoot,
+                        }}
+                        inputProps={{'aria-label': 'search'}}
+                        onChange={handleSearch}
+                        value={searchValue}
+                        fullWidth={true}
+                    />
+                </div>
+
                 {
-                    renderTreeItem(leftMenuData)
+                    isViewScrollTop &&
+                    <IconButton className={classes.arrowDownward} onClick={handleClickDown}>
+                        <ArrowDownward fontSize="small" />
+                    </IconButton>
                 }
 
-            </TreeView>
-            <IconButton className={classes.arrowDownward}>
-                <ArrowDownward fontSize="large" />
-            </IconButton>
+                <TreeView
+                    className={classes.treeView}
+                    defaultExpanded={[`${leftMenuData.length}`]}
+                    defaultCollapseIcon={<ArrowDropDownIcon />}
+                    defaultExpandIcon={<ArrowRightIcon />}
+                    defaultEndIcon={<div style={{width: 24}} />}
+                    onNodeSelect={handleSelectedTreeItem}
+                    ref={refContainer}
+                    onScroll={handleScroll}
+                >
+                    {
+                        renderTreeItem(leftMenuData)
+                    }
+                </TreeView>
 
-            <IconButton className={classes.arrowUpward}>
-                <ArrowUpward fontSize="large" />
-            </IconButton>
-        </Drawer>
+                {
+                    isViewScrollTop &&
+                    <IconButton className={classes.arrowUpward} onClick={handleClickUp}>
+                        <ArrowUpward fontSize="small" />
+                    </IconButton>
+                }
+            </Drawer>
+        </div>
     )
 }
 export {LeftMenuComponent};

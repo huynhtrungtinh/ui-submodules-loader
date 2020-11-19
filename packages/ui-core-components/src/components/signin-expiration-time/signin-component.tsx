@@ -1,4 +1,3 @@
-import {cancelEvent} from '@dgtx/ui-utils';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Grid from '@material-ui/core/Grid';
@@ -101,10 +100,10 @@ function SigninComponent(props: any) {
   }
 
   const handleKeyboard = (event: any) => {
-    cancelEvent(event);
-    if (event.charCode == 13) {
-      handleSubmit();
-    }
+    // cancelEvent(event);
+    // if (event.charCode == 13) {
+    //   handleSubmit();
+    // }
   }
 
   return (

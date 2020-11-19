@@ -30,6 +30,8 @@ export interface ILeftData {
     name: string;
     display_name: string;
     info?: string;
+    // pathFocus là đường dẫn để get giá trị của item đó trong cây tree data.
+    pathFocus: any[];
     id: string;
     children: ILeftData[];
 }

@@ -2,7 +2,7 @@ import {config} from '@dgtx/ui-utils';
 import {cloneDeep, get} from 'lodash';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {setClickLeftMenuItem, setOpenLeftMenu} from '../actions';
+import {setClickLeftMenuItem, setOpenLeftMenu, setSearchLeftMenu} from '../actions';
 import {LeftMenuComponent} from '../components';
 import {PATH_TO_STORE_REDUX} from '../constants';
 
@@ -13,7 +13,8 @@ const mapStateToProps = (state: any) => {
     routers: stateRedux.routers,
     routeFocus: stateRedux.routeFocus,
     version: config.getAppVersion(),
-    leftMenuData: cloneDeep(stateRedux.leftMenuData),
+    leftMenuData: cloneDeep(stateRedux.leftMenuDataSearch),
+    leftMenuSearch: stateRedux.leftMenuSearch,
   };
 };
 
@@ -21,7 +22,8 @@ const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
       setOpen: setOpenLeftMenu,
-      setClickItem: setClickLeftMenuItem
+      setClickItem: setClickLeftMenuItem,
+      setSearch: setSearchLeftMenu
     },
     dispatch
   )

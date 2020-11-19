@@ -1,12 +1,10 @@
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
 import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Phone from '@material-ui/icons/Phone';
-import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 import React from 'react';
 import {CONTACT_MENU_ID, MENU_ID, MOBILE_MENU_ID} from '../../constants';
@@ -99,19 +97,19 @@ function HeaderComponent(props: any) {
         setBreakpoints(width);
     }, [width])
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        event.persist();
+        // event.persist();
         setOpenMenuProfile(event, true);
     };
     const handleContactMenu = (event: React.MouseEvent<HTMLElement>) => {
-        event.persist();
+        // event.persist();
         setOpenContactMenu(event, true);
     };
     const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        event.persist();
+        // event.persist();
         setOpenMobileMenu(event, true);
     };
     const handleIconHome = (event: React.MouseEvent<HTMLElement>) => {
-        event.persist();
+        // event.persist();
         setOpenLeftMenu(true);
     };
     return (
@@ -141,7 +139,7 @@ function HeaderComponent(props: any) {
             {
                 (breakpoint !== 'sm' && breakpoint !== 'xs') &&
                 <div style={{display: 'flex'}}>
-                    <div className={classes.search}>
+                    {/* <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
                         </div>
@@ -153,7 +151,7 @@ function HeaderComponent(props: any) {
                             }}
                             inputProps={{'aria-label': 'search'}}
                         />
-                    </div>
+                    </div> */}
                     {
                         loading !== 0 &&
                         <IconButton className={classes.padding} >

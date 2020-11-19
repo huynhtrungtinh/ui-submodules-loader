@@ -39,6 +39,7 @@ export const getDataForReady = ({version = "0.0.1"}) => async (dispatch: any, ge
     console.log('dataAPI: ', convertFunction2TreeView(apps.data, scope.data));
     const convert1: any = convertFunction2TreeView(apps.data, scope.data);
     payload.leftMenuData = convert1.data;
+    payload.leftMenuDataSearch = convert1.data;
     dispatch(executeActionReducer(SET_DATA_READY, payload));
     const projects: any = await dispatch(callAPIGetProjects());
     if (projects.error) {
@@ -46,6 +47,7 @@ export const getDataForReady = ({version = "0.0.1"}) => async (dispatch: any, ge
     } else {
       const convert2: any = convertProjects2TreeView(payload.leftMenuData, projects.data, convert1.ids)
       payload.leftMenuData = convert2.data;
+      payload.leftMenuDataSearch = convert2.data;
       payload.leftMenuLastNodeId = convert2.ids;
       dispatch(executeActionReducer(SET_DATA_READY, payload));
       console.log('==================================');
@@ -81,6 +83,7 @@ function convertProjects2TreeView(leftMenuData: ILeftData[], projects: IProject[
       const key = customersKey[index];
       const values = customers[key];
       if (values[0]) {
+        console.log('values: ', values);
         let children: any = {
           "root_scope": values[0].customer_id,
           "display_root_scope": values[0].customer_name,
@@ -88,10 +91,11 @@ function convertProjects2TreeView(leftMenuData: ILeftData[], projects: IProject[
           "display_name": values[0].customer_name,
           "path": null,
           "id": `${ids++}`,
+          "pathFocus": [...operation.pathFocus, 'children', index],
           "children": [],
           "info": values.length
         }
-        values.map((p: IProject) => {
+        values.map((p: IProject, iProj: any) => {
           children.children.push(
             {
               "root_scope": p.id,
@@ -99,6 +103,7 @@ function convertProjects2TreeView(leftMenuData: ILeftData[], projects: IProject[
               "name": p.id,
               "display_name": p.name,
               "path": PROJECTS_KEY,
+              "pathFocus": [...children.pathFocus, 'children', iProj],
               "id": `${idChild++}`,
               "children": []
             }
@@ -134,15 +139,17 @@ function convertFunction2TreeView(apps: IApps[], datas: IFunction[]) {
         "display_name": app.display_name || I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
         "path": null,
         "id": `${index + 1}`,
-        "children": []
+        "children": [],
+        "pathFocus": [index]
       }
     )
     if (item[0]) {
       let newItem: any = []
-      item.filter((i: IFunction) => {
+      item.filter((i: IFunction, iFunc: any) => {
         newItem.push(
           {
             ...i,
+            "pathFocus": [index, "children", iFunc],
             "id": `${ids++}`,
             "children": []
           }
