@@ -179,7 +179,11 @@ function checkTokenExpiration(accessToken: string, refreshToken: string) {
         token: null,
         isReSingin: false
     };
-    if (timeAT && timeRT) {
+    console.log('jwtDataAT: ', jwtDataAT);
+    console.log('jwtDataRT: ', jwtDataRT);
+    console.log('timeRT: ', timeRT);
+    console.log('timeRT: ', timeRT);
+    if (timeAT || timeRT) {
         const expTimeAT = getMinutes2Dates(new Date(timeAT));
         const expTimeRT = getMinutes2Dates(new Date(timeRT));
         console.log('expTimeRT: ', expTimeRT);
@@ -191,7 +195,7 @@ function checkTokenExpiration(accessToken: string, refreshToken: string) {
             outPut.isRefresh = true;
         }
     }
-    if (outPut.token === null && jwtDataAT && jwtDataRT) {
+    if (outPut.token === null) {
         outPut.isReSingin = true
     }
     return outPut;

@@ -179,6 +179,10 @@ export const setSearchLeftMenu = (name: string, value: string) => async (dispatc
     console.log('foundData: ', foundData);
     const newTreeData = createTreeMenuByPathFocus(cloneDeep(leftMenuData), foundData)
     console.log('newTreeData: ', newTreeData);
+
+    const newTreeData2 = createTreeItem(cloneDeep(leftMenuData), newTreeData)
+    console.log('newTreeData2: ', newTreeData2);
+
     console.log('====================================');
     // payload.leftMenuDataSearch = foundData;
   }
@@ -207,52 +211,47 @@ function findTreeItemLisByName(data: ILeftData[], name: string, nextData?: any) 
   return outPut;
 }
 
+
 function createTreeMenuByPathFocus(data: ILeftData[], pathFocus: any) {
-  let outPut: any = [];
   console.log('============createTreeMenuByPathFocus===============');
   console.log('data: ', data);
   console.log('pathFocus: ', pathFocus);
-  const pathFocusArry = Object.keys(pathFocus);
-  let indexNewTree: any = -1;
-  for (let i = 0; i < pathFocusArry.length; i++) {
-    const key = pathFocusArry[i];
+  const pathFocusArr = Object.keys(pathFocus);
+  let outPut: any = {}
+  for (let i = 0; i < pathFocusArr.length; i++) {
+    const key = pathFocusArr[i];
     const values = pathFocus[key];
-    const treeItemRoot = cloneDeep(get(data, [values[0]]));
-    treeItemRoot.children = [];
-    console.log('treeItemRoot: ', treeItemRoot);
-    let path = cloneDeep(treeItemRoot.pathFocus);
-    // console.log('path: ', cloneDeep(path));
+    let pathNext: any = [];
     for (let j = 0; j < values.length; j++) {
       const value = values[j];
-      const valuePre = values[j - 1];
-      if (valuePre === 'children' && j > 0) {
-        const pathPre = cloneDeep(path);
-        path.push(valuePre);
-        path.push(value);
-        const treeItemSub1 = get(data, pathPre);
-        const treeItemSub2 = get(data, path);
-        const isNewItem = findTreeItemByNodeId(cloneDeep(outPut), treeItemSub2.id);
-        if (!isNewItem.data) {
-          // console.log('isNewItem: ', isNewItem);
-          // console.log('path: ', cloneDeep(path));
-          console.log('===========================');
-          console.log('treeItemSub1: ', treeItemSub1);
-          console.log('treeItemSub2: ', treeItemSub2);
-          console.log('===========================');
-          treeItemSub2.children = [];
-          treeItemSub2.pathFocus = [];
-
-        }
-      } else if (j === 0) {
-        const isNewItem = outPut.find((i: any) => i.id === treeItemRoot.id)
-        if (!isNewItem) {
-          outPut.push(treeItemRoot);
-          indexNewTree = indexNewTree + 1;
-          treeItemRoot.pathFocus = [indexNewTree];
-        }
+      pathNext.push(value);
+      const treeItem2 = get(outPut, pathNext);
+      if (!treeItem2) {
+        set(outPut, pathNext, {path: cloneDeep(pathNext)});
       }
     }
   }
   console.log('outPut: ', outPut);
   return outPut;
+}
+
+function createTreeItem(data: ILeftData[] | any, treeObject: any, nextData?: any) {
+  console.log('============createTreeItem============');
+  console.log('data: ', data);
+  console.log('treeObject: ', treeObject);
+
+  const treeObjectArr = Object.keys(treeObject);
+  let outPut: any = nextData || [];
+  for (let i = 0; i < treeObjectArr.length; i++) {
+    const key = treeObjectArr[i];
+    const value = treeObject[key];
+    const path = value.path;
+    let treeItem = cloneDeep(get(data, path));
+    treeItem.children = [];
+    if (value.children) {
+      let treeChild: any = cloneDeep(get(data, [...path, 'children'], {}));
+      treeItem.children = [];
+    }
+  }
+  console.log('====================================');
 }
