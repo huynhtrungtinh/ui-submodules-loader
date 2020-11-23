@@ -1,4 +1,4 @@
-import {get, orderBy, set} from 'lodash';
+import {cloneDeep, get, orderBy, set} from 'lodash';
 import {IFunction, ILeftData, PATH_TO_STORE_REDUX, PROJECTS_KEY, SET_CLICK_LEFT_MENU_ITEM, SET_OPEN_LEFT_MENU, SET_SEARCH_LEFT_MENU} from '../../constants';
 import {callAPIGetFunctions} from '../call-api';
 import {executeActionReducer} from '../common-actions';
@@ -132,76 +132,112 @@ function findTreeItemByNodeId(data: ILeftData[], nodeId: string, path?: string[]
 
 export const setSearchLeftMenu = (name: string, value: string) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
-  const leftMenuData = state.leftMenuData || [];
+  const leftMenuData = cloneDeep(state.leftMenuData) || [];
   let payload: any = {};
   payload[name] = value;
-  if (value && value.length === 0) {
+  console.log('====================================');
+  console.log('value: ', value);
+  console.log('====================================');
+  if (value.length === 0) {
     payload.leftMenuDataSearch = leftMenuData;
   } else {
-    // const menuData = cloneMenuData(cloneDeep(leftMenuData));
-    // const treeItemList = findTreeItemListByName({data: leftMenuData, nextData: menuData, name: value});
-    // payload.leftMenuDataSearch = treeItemList;
+    const menuData = cloneMenuData(cloneDeep(leftMenuData));
+    const treeItem = findTreeItemByName({data: cloneDeep(leftMenuData), nextData: menuData, name: value});
+    const treeItemFinal = convertTreeItemToLeftData(leftMenuData, treeItem)
+    console.log('========setSearchLeftMenu============');
+    console.log('treeItem: ', treeItem);
+    console.log('treeItemFinal: ', treeItemFinal);
+    console.log('====================================');
+    payload.leftMenuDataSearch = treeItemFinal;
   }
   dispatch(executeActionReducer(SET_SEARCH_LEFT_MENU, payload));
 }
 
-// interface IFindTreeItemListByName {
-//   data: ILeftData[];
-//   name: string;
-//   nextData?: any;
-// }
+interface IFindTreeItemByName {
+  data: ILeftData[];
+  name: string;
+  nextData?: any;
+}
 
-// function findTreeItemListByName(input: IFindTreeItemListByName) {
-//   const {data, name, nextData} = input;
-//   let outPut: any = nextData;
-//   if (data.length === 0) {
-//     return [];
-//   }
-//   for (let index = 0; index < data.length; index++) {
-//     const element: ILeftData = data[index];
-//     if (element.display_name.toLocaleLowerCase().search(name.toLocaleLowerCase()) !== -1) {
-//       set(outPut, element.pathFocus, element);
-//       break;
-//     } else {
-//       let newItem: any = findTreeItemListByName({data: element.children, name, nextData: outPut});
-//       if (newItem.length > 0) {
-//         outPut = newItem;
-//       } else {
-//         if (element.pathFocus[element.pathFocus.length - 1] !== 'children') {
-//           // deletePropertyPath(nextData, element.pathFocus);
-//           set(nextData, element.pathFocus, null)
-//         }
-//       }
-//     }
-//   }
-//   return outPut;
-// }
+function findTreeItemByName(input: IFindTreeItemByName) {
+  const {data, name, nextData} = input;
+  let outPut: any = nextData;
+  if (data.length === 0) {
+    return [];
+  }
+  for (let index = 0; index < data.length; index++) {
+    const element: ILeftData = data[index];
+    if (element.display_name.toLocaleLowerCase().search(name.toLocaleLowerCase()) !== -1) {
+      set(outPut, element.pathFocus, {...element});
+    } else {
+      let newItem: any = findTreeItemByName({data: element.children, name, nextData: outPut});
+      if (newItem.length > 0) {
+        outPut = newItem;
+      } else {
+        if (element.pathFocus[element.pathFocus.length - 1] !== 'children') {
+          set(outPut, element.pathFocus, null)
+        }
+      }
+    }
+  }
+  return outPut;
+}
 
-// function cloneMenuData(data: ILeftData[], nextData?: ILeftData[]) {
-//   let outPut: any = nextData || data;
-//   if (data.length === 0) {
-//     return [];
-//   }
-//   for (let index = 0; index < data.length; index++) {
-//     const element: ILeftData = data[index];
-//     if (element.children.length > 0) {
-//       set(outPut, [...element.pathFocus, "children"], []);
-//     }
-//   }
-//   return outPut;
-// }
+function cloneMenuData(data: ILeftData[], nextData?: ILeftData[]) {
+  let outPut: any = nextData || data;
+  if (data.length === 0) {
+    return [];
+  }
+  for (let index = 0; index < data.length; index++) {
+    const element: ILeftData = data[index];
+    if (element.children.length > 0) {
+      set(outPut, [...element.pathFocus, "children"], []);
+    }
+  }
+  return outPut;
+}
 
-// function convert(data: ILeftData[], nextData?: ILeftData[]) {
-//   let outPut: any = nextData || data;
-//   if (data.length === 0) {
-//     return [];
-//   }
-//   for (let index = 0; index < data.length; index++) {
-//     const element: ILeftData = data[index];
-//     if (element.children.length > 0) {
-//       set(outPut, [...element.pathFocus, "children"], []);
-//     }
-//   }
-//   return outPut;
-// }
+function convertTreeItemToLeftData(dataParent: ILeftData[], data: ILeftData[], pathNext?: any[], pathParent?: any[]) {
+  let outPut: any = [];
+  pathNext = pathNext || [];
+  pathParent = pathParent || [];
+  let indexNext = 0;
+  let parent: any = {}
+  for (let i = 0; i < data.length; i++) {
+    let element: any = data[i];
+    if (!element) {continue;}
+    if (element.children.length > 0) {
+      parent = {
+        ...element,
+        children: [],
+      };
+      if (!element.pathFocus) {
+        parent = {
+          ...get(dataParent, [...pathParent, 'children', i], {}),
+          pathFocus: [...pathNext, 'children', indexNext],
+          children: [],
+        };
+      }
+      else if (element.pathFocus.length > 1) {
+        parent.pathFocus = [...pathNext, 'children', indexNext];
+      } else if (element.pathFocus.length === 1) {
+        parent.pathFocus = [indexNext];
+      }
+      parent.children = convertTreeItemToLeftData(dataParent, element.children, parent.pathFocus, element.pathFocus);
+      if (parent.children.length > 0) {
+        outPut.push(parent);
+        indexNext++
+      }
+    } else if (element.pathFocus.length > 1) {
+      parent = {...element};
+      if (element.pathFocus.length > 1) {
+        parent.pathFocus = [...pathNext, 'children', indexNext++];
+      } else {
+        parent.pathFocus = [indexNext++];
+      }
+      outPut.push(parent);
+    }
+  }
+  return outPut;
+}
 

@@ -1,11 +1,11 @@
 import {CHECK_TOKEN, FAILURE, FETCH_END, FETCH_ERROR, FETCH_START, IAction, IAuthenticationState, LOGIN, LOGOUT, REFRESH_TOKEN, REQUEST, SET_ROUTERS, SHOW_SIGNIN_EXP_TIME, SUCCESS} from '@dgtx/ui-scl';
-import {authenProvider} from '../actions/authentication-actions';
+import {authenProvider, checkTokenExpiration} from '../actions/authentication-actions';
 
 const initialState: IAuthenticationState = {
   routers: [],
   loading: 0,
   isAuthenticatedStatusCode: null,
-  isAuthenticated: false,
+  isAuthenticated: !checkTokenExpiration().isReSingin,
   userInfo: {} as any,
   authenProvider,
   openSigninExpirationTime: false

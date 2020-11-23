@@ -166,7 +166,11 @@ const setAuthRouters = (routers: IRouter[]) => async (dispatch: any) => {
     dispatch(executeActionReducerAuth(SET_ROUTERS, {routers}));
 }
 
-function checkTokenExpiration(accessToken: string, refreshToken: string) {
+function checkTokenExpiration(accessToken?: string, refreshToken?: string) {
+    if(!accessToken || !refreshToken){
+        accessToken = getAccessToken();
+        refreshToken = getRefreshToken();
+    }
     const jwtDataAT: any = parseJwt(accessToken) || null;
     const jwtDataRT: any = parseJwt(refreshToken) || null;
     const timeAT: any = jwtDataAT && jwtDataAT.accessTokenExpiresAt || null;

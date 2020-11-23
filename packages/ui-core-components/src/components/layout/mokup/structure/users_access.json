@@ -1,0 +1,176 @@
+[
+  {
+    "username": "tretv",
+    "project_id": "5d1c75236e3d12001466abf5",
+    "app_name": "operation",
+    "role": "pm",
+    "functions": [
+      {
+        "name": "acquisitions",
+        "sub_app": "production-admin",
+        "perm": "owner"
+      }
+    ]
+  },
+  {
+    "username": "tretv",
+    "project_id": "5d1c75236e3d12001466abf5",
+    "app_name": "operation",
+    "tasks": [
+      {
+        "name": "Classify",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Close or Rework Batches",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Form_40",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Form_400",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Form_41",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Form_42",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Form_43",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Form_44",
+        "sub_scope": "production"
+      },
+      {
+        "name": "QC",
+        "sub_scope": "quality-control"
+      }
+    ]
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      },
+      {
+        "name": "pim-projects",
+        "perm": "owner"
+      }
+    ],
+    "app_name": "pim"
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "role": "pim_cfo",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      },
+      {
+        "name": "pim-projects",
+        "perm": "owner"
+      }
+    ],
+    "app_name": "pim"
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "role": "pim_coo",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      },
+      {
+        "name": "pim-projects",
+        "perm": "owner"
+      }
+    ],
+    "app_name": "pim"
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "role": "pim_project_admin",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      },
+      {
+        "name": "pim-projects",
+        "perm": "owner"
+      }
+    ],
+    "app_name": "pim"
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "role": "pim_customer_admin",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      }
+    ],
+    "app_name": "pim"
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "role": "pim_admin",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      },
+      {
+        "name": "pim-projects",
+        "perm": "owner"
+      }
+    ],
+    "app_name": "pim"
+  },
+  {
+    "username": "tretv",
+    "project_id": "5d1c75236e3d12001466abf5",
+    "role": "pim_admin",
+    "functions": [
+      {
+        "name": "pim-customers",
+        "perm": "owner"
+      },
+      {
+        "name": "pim-projects",
+        "perm": "owner"
+      }
+    ]
+  },
+  {
+    "username": "tretv",
+    "project_id": "NONE",
+    "app_name": "system",
+    "role": "pm",
+    "functions": [
+      {
+        "name": "monitor",
+        "perm": "owner"
+      }
+    ]
+  }
+]

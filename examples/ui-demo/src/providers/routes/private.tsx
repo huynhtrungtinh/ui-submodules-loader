@@ -4,6 +4,12 @@ import React from "react";
 export default (params?: any): any[] => {
   const route = [
     {
+      name: "demo",
+      exact: true,
+      path: "/demo",
+      component: () => <div>demo</div>
+    },
+    {
       name: "home",
       exact: true,
       path: "/",

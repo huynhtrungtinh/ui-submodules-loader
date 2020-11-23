@@ -1,0 +1,22 @@
+[
+  {
+    "functions": [
+      {
+        "name": "acquisitions",
+        "sub_app": "production-admin"
+      },
+      {
+        "name": "tasks_assignment_prd_admin",
+        "sub_app": "production-admin"
+      },
+      {
+        "name": "Classify",
+        "sub_scope": "production"
+      },
+      {
+        "name": "Close or Rework Batches",
+        "sub_scope": "production"
+      }
+    ]
+  }
+]
