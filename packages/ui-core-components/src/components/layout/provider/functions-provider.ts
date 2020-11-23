@@ -2,13 +2,7 @@ import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 import {getFunctions} from '../mokup';
 const FUNCTIONS_RESOURCE = "functions-root";
 const functionsResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, resource, params, apiURI} = input;
-    console.log('====functionsResource===============');
-    console.log('type: ', type);
-    console.log('resource: ', resource);
-    console.log('params: ', params);
-    console.log('apiURI: ', apiURI);
-    console.log('====================================');
+    const {type, apiURI} = input;
     switch (type) {
         case GET:
             return {

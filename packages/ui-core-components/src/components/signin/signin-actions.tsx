@@ -50,9 +50,6 @@ export const setSubmit = () => async (dispatch: any, getState: any) => {
     dispatch(executeActionReducer(SET_SUBMIT, payload));
   } else {
     const dataAPI: any = await dispatch(setAuthLogin(get(state, 'username.value', null), get(state, 'password.value', null)));
-    console.log('===========setSubmit===============');
-    console.log('dataAPI: ', dataAPI);
-    console.log('===================================');
     if (dataAPI.status !== 200) {
       dispatch(setShowAlert(get(dataAPI, 'error.messageFromServer', I18n.t(`${KEY_TRANSLATE}.signin_error`)), 'error'))
     }

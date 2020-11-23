@@ -49,7 +49,7 @@ function MenuComponent(props: any) {
                 vertical: 'top',
                 horizontal: 'right',
             }}
-            style={{top: 20}}
+            style={{top: 4}}
         >
             <MenuItem style={{cursor: "inherit", height: '40px'}} tabIndex={-1}>
                 <IconButton

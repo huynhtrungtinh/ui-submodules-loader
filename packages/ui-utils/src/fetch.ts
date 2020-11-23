@@ -9,8 +9,6 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
         blob: null,
         response: null
     }
-    console.log('============fetchJson============');
-    console.log('options: ', options);
     if (options.response) {
         return options.response;
     } else {
@@ -22,7 +20,6 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
                 req.setRequestHeader('authorization', `Bearer ${getAccessToken()}`);
                 req.onload = (e) => {
                     let resp = req.response;
-                    console.log('resp: ', resp);
                     outPut.status = req.status;
                     outPut.response = req.response;
                     if (resp) {
@@ -63,8 +60,6 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
                 headers: requestHeaders,
                 method: options.method
             }
-            console.log('url: ', url);
-            console.log('requestInit: ', requestInit);
             // mode: 'cors'
             const response: any = await fetch(url, {...requestInit})
                 .then(function (res: any) {
@@ -78,10 +73,7 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
                     }
                 });
             if (response && response.status !== -1) {
-                // const response = await fetch(url, requestInit)
-                console.log('response: ', response);
                 const textIn = await response.text();
-                console.log('textIn: ', textIn);
                 let json;
                 try {
                     json = JSON.parse(textIn);
@@ -94,7 +86,6 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
                 outPut.headers = response.headers;
                 outPut.data = json;
                 if (options.isFile && response.blob()) {
-                    console.log('options.isFile && response.blob()');
                     outPut.blob = response.blob();
                 }
             } else {
@@ -102,8 +93,6 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
                 outPut.status = response.status;
             }
         }
-        console.log('outPut: ', outPut);
-        console.log('===============================');
     }
     return outPut;
 };

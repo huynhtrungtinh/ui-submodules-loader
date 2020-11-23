@@ -6,7 +6,6 @@ class DataProvider {
   private resourceRegistries: IResourceRegistries;
 
   constructor() {
-    console.log('DataProvider: ', DataProvider);
     this.resourceRegistries = {}
   }
 
@@ -47,14 +46,7 @@ class DataProvider {
   }
 
   public getDataProvider(type: string, resource: string, params: any): Promise<any> {
-    console.log('======getDataProvider===============');
-    console.log('getResourceRegistry: ', this.resourceRegistries);
-    console.log('type: ', type);
-    console.log('resource: ', resource);
-    // console.log('params: ', this.getResourceRegistry(resource)(type, resource, params));
-    console.log('====================================');
     const configReq: IProviderOutPut = this.getResourceRegistry(resource)({type, apiURI: config.getConfig(), resource, params});
-    console.log('configReq: ', configReq);
     return fetchJson(
       configReq.uri,
       {

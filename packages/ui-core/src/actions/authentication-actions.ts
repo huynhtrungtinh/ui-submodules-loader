@@ -145,9 +145,6 @@ const authenProvider: IAuthenProvider = {
     },
     getI18n: async () => {
         const response = await fetchJson(`${config.getApiURI()}/apps/designer/translate`);
-        console.log('====================================');
-        console.log('response: ', response);
-        console.log('====================================');
         let outPut: IAuthenProviderOutPut = {
             status: 400,
         };
@@ -179,15 +176,9 @@ function checkTokenExpiration(accessToken: string, refreshToken: string) {
         token: null,
         isReSingin: false
     };
-    console.log('jwtDataAT: ', jwtDataAT);
-    console.log('jwtDataRT: ', jwtDataRT);
-    console.log('timeRT: ', timeRT);
-    console.log('timeRT: ', timeRT);
     if (timeAT || timeRT) {
         const expTimeAT = getMinutes2Dates(new Date(timeAT));
         const expTimeRT = getMinutes2Dates(new Date(timeRT));
-        console.log('expTimeRT: ', expTimeRT);
-        console.log('expTimeAT: ', expTimeAT);
         if (expTimeAT > 0) {
             outPut.token = accessToken
         } else if (expTimeRT > 0) {
@@ -207,9 +198,6 @@ const effectTokenExpiration = (holdPage?: boolean) => async (dispatch: any, getS
     const accessToken = getAccessToken();
     const refreshToken = getRefreshToken();
     const tokenExp = checkTokenExpiration(accessToken, refreshToken);
-    console.log('==========effectTokenExpiration========');
-    console.log('tokenExp: ', tokenExp);
-    console.log('====================================');
     let isError = true;
     let outPut: IUserInfoOutPut = {
         status: 400,
@@ -341,15 +329,10 @@ const effectI18nLocal = () => async (dispatch: any, getState: any) => {
     // create the store
     db.version(DB_VERSION).stores({[DB_STORE_I18N_VI]: '++id,gui_key,value', [DB_STORE_I18N_EN]: '++id,gui_key,value'});
     let i18nFinal: any = await db[DB_STORE_I18N_VI].toArray();
-    console.log('i18nFinal: ', i18nFinal);
     if (i18nFinal.length === 0) {
-        console.log('i18nFinal.length > 0');
         const i18nData = await authenProvider.getI18n();
         i18nFinal = parseI18n(i18nData.body);
-        console.log('i18nFinal: ', i18nFinal);
         const {en = [], vi = []}: any = convertDataToIndexDB({vi: i18nFinal.vi, en: i18nFinal.en})
-        console.log('en: ', en);
-        console.log('vi: ', vi);
         db[DB_STORE_I18N_EN].bulkPut(en).then((e: any) => console.log(e));
         db[DB_STORE_I18N_VI].bulkPut(vi).then((e: any) => console.log(e));
         dispatch(addI18nLocal(i18nFinal));
@@ -394,7 +377,6 @@ const setAuthLogout = (deleteDblocal: boolean = true) => async (dispatch: any, g
         dbLocal.close();
         dbLocal.delete();
     }
-    console.log('========setAuthLogout=============');
     let response = {status: 400};
     if (isAuthenticated) {
         const authenProvider = state.authenProvider;

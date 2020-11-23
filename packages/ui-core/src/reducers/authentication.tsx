@@ -33,10 +33,6 @@ export default (state: IAuthenticationState = {...initialState}, {type, payload}
     case SET_ROUTERS:
     case SUCCESS(CHECK_TOKEN):
     case SUCCESS(LOGIN): {
-      console.log('====================================');
-      console.log('type: ', type);
-      console.log('payload: ', payload);
-      console.log('====================================');
       return {
         ...state,
         ...payload

@@ -2,14 +2,8 @@ import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 const EXPORT_FILE_1_RESOURCE = "export_file_1_dashboard";
 
 const exportFile1Resource = (input: IInputProvider): IProviderOutPut => {
-    const {type, resource, params, apiURI} = input;
+    const {type, params, apiURI} = input;
     const {projectId = '5de0a1527dabcc001e27c39f'} = params;
-    console.log('====exportFile1Resource===============');
-    console.log('type: ', type);
-    console.log('resource: ', resource);
-    console.log('params: ', params);
-    console.log('apiURI: ', apiURI);
-    console.log('====================================');
     switch (type) {
         case GET:
             return {

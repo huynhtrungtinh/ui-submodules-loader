@@ -2,13 +2,7 @@ import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 import {getCustomType} from '@dgtx/ui-utils';
 const APPS_RESOURCE = "apps-dashbard";
 const appsResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, resource, params, apiURI} = input;
-    console.log('====contactInfoResource===============');
-    console.log('type: ', type);
-    console.log('resource: ', resource);
-    console.log('params: ', params);
-    console.log('apiURI: ', apiURI);
-    console.log('====================================');
+    const {type, apiURI} = input;
     switch (type) {
         case GET:
             return {

@@ -170,10 +170,6 @@ function LeftMenuComponent(props: any) {
         version = 0, routeFocus = {}
     } = props;
 
-    console.log('===========LeftMenuComponent=============');
-    console.log('routeFocus: ', routeFocus);
-    console.log('routers: ', routers);
-    console.log('====================================');
     const classes = useStyles();
 
     // const history = useHistory();

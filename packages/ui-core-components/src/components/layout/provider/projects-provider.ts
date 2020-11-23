@@ -2,13 +2,7 @@ import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 import {getProjects} from '../mokup';
 const PROJECTS_RESOURCE = "projects-root";
 const projectsResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, resource, params, apiURI} = input;
-    console.log('====projectsResource===============');
-    console.log('type: ', type);
-    console.log('resource: ', resource);
-    console.log('params: ', params);
-    console.log('apiURI: ', apiURI);
-    console.log('====================================');
+    const {type, apiURI} = input;
     switch (type) {
         case GET:
             return {

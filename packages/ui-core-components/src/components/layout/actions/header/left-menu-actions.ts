@@ -1,4 +1,4 @@
-import {cloneDeep, get, orderBy, set} from 'lodash';
+import {get, orderBy, set} from 'lodash';
 import {IFunction, ILeftData, PATH_TO_STORE_REDUX, PROJECTS_KEY, SET_CLICK_LEFT_MENU_ITEM, SET_OPEN_LEFT_MENU, SET_SEARCH_LEFT_MENU} from '../../constants';
 import {callAPIGetFunctions} from '../call-api';
 import {executeActionReducer} from '../common-actions';
@@ -25,53 +25,20 @@ export const setClickLeftMenuItem = (nodeId: any) => async (dispatch: any, getSt
   const leftMenuLastNodeId = state.leftMenuLastNodeId || 1;
   const leftMenuItem = findTreeItemByNodeId(leftMenuDataSearch, nodeId);
   let payload: any = {};
-  console.log('leftMenuItem: ', leftMenuItem);
   if (get(leftMenuItem, 'data.path', '') === PROJECTS_KEY && get(leftMenuItem, 'data.children.length', 0) === 0) {
-    console.log('==========setClickLeftMenuItem==========');
     const functions: any = await dispatch(callAPIGetFunctions());
     if (functions.error) {
       console.log('get functions data is error.');
     } else {
-      console.log('functions: ', functions);
       const convert = convertFunctions2TreeView(leftMenuDataSearch, leftMenuItem.data.pathFocus, functions.data, leftMenuLastNodeId);
-      console.log('leftMenuItem: ', leftMenuItem);
-      console.log('nodeId: ', nodeId);
-      console.log('leftMenuLastNodeId: ', leftMenuLastNodeId);
-      console.log('convert: ', convert);
-      console.log('====================================');
-      // payload.leftMenuData = convert.data;
       payload.leftMenuDataSearch = convert.data;
       payload.leftMenuLastNodeId = convert.ids;
       dispatch(executeActionReducer(SET_CLICK_LEFT_MENU_ITEM, payload));
     }
   }
-  // let test: any = [];
-  // for (let index = 0; index < 100; index++) {
-  //   test.push({
-  //     "customer_id": "5e04623c37dee202b0256e68",
-  //     "customer_name": "CÔNG TY TNHH BẢO HIỂM NHÂN THỌ SUN LIFE VIỆT NAM",
-  //     "id": `${index}`,
-  //     "name": `${index}`
-  //   })
-  // }
-  // console.log('testtesttesttest: ', JSON.stringify(test));
-
 }
 
 function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], functions: IFunction[], ids: number) {
-  console.log('==========convertFunctions2TreeView=======');
-  console.log('leftMenuData: ', leftMenuData);
-  console.log('functions: ', functions);
-  console.log('ids: ', ids);
-  console.log('path: ', path);
-  console.log('====================================');
-  //   display_name: "",
-  // display_root_scope: "",
-  // name: "",
-  // path: "",
-  // path_prefix: "",
-  // root_scope: "",
-  // type: ""
   let outPut: any = {
     data: leftMenuData,
     ids: 0
@@ -84,7 +51,6 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
     scopes[f.root_scope].push(f)
   })
 
-  console.log('scopes: ', scopes);
   const scopesKey = Object.keys(scopes);
 
   let newFunctions: any = []
@@ -93,7 +59,6 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
     const key = scopesKey[index];
     const values = scopes[key];
     if (values[0]) {
-      console.log('values: ', values);
       let childrens: any = {
         "root_scope": values[0].root_scope,
         "display_root_scope": values[0].display_root_scope,
@@ -133,6 +98,7 @@ function findTreeItemByNodeId(data: ILeftData[], nodeId: string, path?: string[]
   };
   for (let index = 0; index < data.length; index++) {
     const element: ILeftData = data[index];
+    if (!element) {continue;}
     if (!path) {
       outPut.path = [];
       outPut.path.push(index);
@@ -165,9 +131,6 @@ function findTreeItemByNodeId(data: ILeftData[], nodeId: string, path?: string[]
 }
 
 export const setSearchLeftMenu = (name: string, value: string) => async (dispatch: any, getState: any) => {
-  console.log('===========setSearchLeftMenu=======');
-  console.log('name: ', name);
-  console.log('value: ', value);
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuData = state.leftMenuData || [];
   let payload: any = {};
@@ -175,83 +138,70 @@ export const setSearchLeftMenu = (name: string, value: string) => async (dispatc
   if (value && value.length === 0) {
     payload.leftMenuDataSearch = leftMenuData;
   } else {
-    const foundData = findTreeItemLisByName(leftMenuData, value);
-    console.log('foundData: ', foundData);
-    const newTreeData = createTreeMenuByPathFocus(cloneDeep(leftMenuData), foundData)
-    console.log('newTreeData: ', newTreeData);
-
-    const newTreeData2 = createTreeItem(cloneDeep(leftMenuData), newTreeData)
-    console.log('newTreeData2: ', newTreeData2);
-
-    console.log('====================================');
-    // payload.leftMenuDataSearch = foundData;
+    // const menuData = cloneMenuData(cloneDeep(leftMenuData));
+    // const treeItemList = findTreeItemListByName({data: leftMenuData, nextData: menuData, name: value});
+    // payload.leftMenuDataSearch = treeItemList;
   }
   dispatch(executeActionReducer(SET_SEARCH_LEFT_MENU, payload));
 }
 
-function findTreeItemLisByName(data: ILeftData[], name: string, nextData?: any) {
-  let outPut: any = nextData || {};
-  if (data.length === 0) {
-    return [];
-  }
-  for (let index = 0; index < data.length; index++) {
-    const element: ILeftData = data[index];
-    if (element.display_name.toLocaleLowerCase().search(name.toLocaleLowerCase()) !== -1) {
-      if (!element.pathFocus.join(',')) {
-        outPut[element.pathFocus.join(',')] = {};
-      }
-      outPut[element.pathFocus.join(',')] = element.pathFocus;
-    } else {
-      let newItem: any = findTreeItemLisByName(element.children, name, outPut);
-      if (newItem.length > 0) {
-        outPut = {...outPut, ...newItem};
-      }
-    }
-  }
-  return outPut;
-}
+// interface IFindTreeItemListByName {
+//   data: ILeftData[];
+//   name: string;
+//   nextData?: any;
+// }
 
+// function findTreeItemListByName(input: IFindTreeItemListByName) {
+//   const {data, name, nextData} = input;
+//   let outPut: any = nextData;
+//   if (data.length === 0) {
+//     return [];
+//   }
+//   for (let index = 0; index < data.length; index++) {
+//     const element: ILeftData = data[index];
+//     if (element.display_name.toLocaleLowerCase().search(name.toLocaleLowerCase()) !== -1) {
+//       set(outPut, element.pathFocus, element);
+//       break;
+//     } else {
+//       let newItem: any = findTreeItemListByName({data: element.children, name, nextData: outPut});
+//       if (newItem.length > 0) {
+//         outPut = newItem;
+//       } else {
+//         if (element.pathFocus[element.pathFocus.length - 1] !== 'children') {
+//           // deletePropertyPath(nextData, element.pathFocus);
+//           set(nextData, element.pathFocus, null)
+//         }
+//       }
+//     }
+//   }
+//   return outPut;
+// }
 
-function createTreeMenuByPathFocus(data: ILeftData[], pathFocus: any) {
-  console.log('============createTreeMenuByPathFocus===============');
-  console.log('data: ', data);
-  console.log('pathFocus: ', pathFocus);
-  const pathFocusArr = Object.keys(pathFocus);
-  let outPut: any = {}
-  for (let i = 0; i < pathFocusArr.length; i++) {
-    const key = pathFocusArr[i];
-    const values = pathFocus[key];
-    let pathNext: any = [];
-    for (let j = 0; j < values.length; j++) {
-      const value = values[j];
-      pathNext.push(value);
-      const treeItem2 = get(outPut, pathNext);
-      if (!treeItem2) {
-        set(outPut, pathNext, {path: cloneDeep(pathNext)});
-      }
-    }
-  }
-  console.log('outPut: ', outPut);
-  return outPut;
-}
+// function cloneMenuData(data: ILeftData[], nextData?: ILeftData[]) {
+//   let outPut: any = nextData || data;
+//   if (data.length === 0) {
+//     return [];
+//   }
+//   for (let index = 0; index < data.length; index++) {
+//     const element: ILeftData = data[index];
+//     if (element.children.length > 0) {
+//       set(outPut, [...element.pathFocus, "children"], []);
+//     }
+//   }
+//   return outPut;
+// }
 
-function createTreeItem(data: ILeftData[] | any, treeObject: any, nextData?: any) {
-  console.log('============createTreeItem============');
-  console.log('data: ', data);
-  console.log('treeObject: ', treeObject);
+// function convert(data: ILeftData[], nextData?: ILeftData[]) {
+//   let outPut: any = nextData || data;
+//   if (data.length === 0) {
+//     return [];
+//   }
+//   for (let index = 0; index < data.length; index++) {
+//     const element: ILeftData = data[index];
+//     if (element.children.length > 0) {
+//       set(outPut, [...element.pathFocus, "children"], []);
+//     }
+//   }
+//   return outPut;
+// }
 
-  const treeObjectArr = Object.keys(treeObject);
-  let outPut: any = nextData || [];
-  for (let i = 0; i < treeObjectArr.length; i++) {
-    const key = treeObjectArr[i];
-    const value = treeObject[key];
-    const path = value.path;
-    let treeItem = cloneDeep(get(data, path));
-    treeItem.children = [];
-    if (value.children) {
-      let treeChild: any = cloneDeep(get(data, [...path, 'children'], {}));
-      treeItem.children = [];
-    }
-  }
-  console.log('====================================');
-}

@@ -31,10 +31,10 @@ export const ICON: any = {
     "project": FormatListNumbered,
     "function": AssignmentInd,
 }
-function getHref(path: string) {
-    const baseHref = window.location.origin;
-    return `${baseHref}${path}`;
-}
+// function getHref(path: string) {
+//     const baseHref = window.location.origin;
+//     return `${baseHref}${path}`;
+// }
 function MinusSquare(props: SvgIconProps) {
     return (
         <SvgIcon fontSize="inherit" style={{width: 14, height: 14}} {...props}>
@@ -48,15 +48,6 @@ function PlusSquare(props: SvgIconProps) {
         <SvgIcon fontSize="inherit" style={{width: 14, height: 14}} {...props}>
             {/* tslint:disable-next-line: max-line-length */}
             <path d="M22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0zM17.873 12.977h-4.923v4.896q0 .401-.281.682t-.682.281v0q-.375 0-.669-.281t-.294-.682v-4.896h-4.923q-.401 0-.682-.294t-.281-.669v0q0-.401.281-.682t.682-.281h4.923v-4.896q0-.401.294-.682t.669-.281v0q.401 0 .682.281t.281.682v4.896h4.923q.401 0 .682.281t.281.682v0q0 .375-.281.669t-.682.294z" />
-        </SvgIcon>
-    );
-}
-
-function CloseSquare(props: SvgIconProps) {
-    return (
-        <SvgIcon className="close" fontSize="inherit" style={{width: 14, height: 14}} {...props}>
-            {/* tslint:disable-next-line: max-line-length */}
-            <path d="M17.485 17.512q-.281.281-.682.281t-.696-.268l-4.12-4.147-4.12 4.147q-.294.268-.696.268t-.682-.281-.281-.682.294-.669l4.12-4.147-4.12-4.147q-.294-.268-.294-.669t.281-.682.682-.281.696 .268l4.12 4.147 4.12-4.147q.294-.268.696-.268t.682.281 .281.669-.294.682l-4.12 4.147 4.12 4.147q.294.268 .294.669t-.281.682zM22.047 22.074v0 0-20.147 0h-20.12v0 20.147 0h20.12zM22.047 24h-20.12q-.803 0-1.365-.562t-.562-1.365v-20.147q0-.776.562-1.351t1.365-.575h20.147q.776 0 1.351.575t.575 1.351v20.147q0 .803-.575 1.365t-1.378.562v0z" />
         </SvgIcon>
     );
 }
@@ -311,7 +302,8 @@ let timeoutIdSearch: any = 0;
 
 function LeftMenuComponent(props: any) {
     const {isOpen = false, routers = [], setOpen = () => null,
-        version = 0, routeFocus = {},
+        version = 0,
+        // routeFocus = {},
 
         leftMenuData = [],
         setClickItem = () => null,
@@ -325,24 +317,11 @@ function LeftMenuComponent(props: any) {
     const [searchValue, setSearchValue] = React.useState(leftMenuSearch);
 
     React.useEffect(() => {
-        console.log('========React.useEffect==========');
-        console.log('refContainer :', refContainer);
-        console.log('====================================');
-        // const childrens: any = Array.from(refContainer.current.children);
-        // if (childrens) {
-        // onChangeRefContainer(refContainer)
-        // }
     }, [refContainer])
 
     const handleScroll = (e: any) => {
-        console.log('====================================');
-        console.log(get(refContainer, 'current.scrollTop', 0));
-        console.log('====================================');
         if (get(refContainer, 'current.scrollTop', 0) > 150 && !isViewScrollTop) {
             setIsViewScrollTop(true);
-            console.log('========handleScroll==========');
-            console.log('refContainer: ', refContainer);
-            console.log('==============================');
         } else if (get(refContainer, 'current.scrollTop', 0) <= 150 && isViewScrollTop) {
             setIsViewScrollTop(false);
         }
@@ -379,26 +358,18 @@ function LeftMenuComponent(props: any) {
 
     const handleClickUp = (event: any) => {
         if (refContainer.current) {
-            console.log('========handleClickUp===============');
-            console.log('refContainer: ', refContainer);
-            console.log('====================================');
             refContainer.current.scrollTo(0, 0)
         }
     }
 
     const handleClickDown = (event: any) => {
         if (refContainer.current) {
-            console.log('========handleClickDown===============');
-            console.log('refContainer: ', refContainer);
-            console.log('====================================');
             refContainer.current.scrollTo(0, get(refContainer, 'current.scrollHeight', 0))
         }
     }
 
     const handleSearch = (event: any) => {
-        console.log('============handleSearch==============');
         const {name, value} = event.target;
-        console.log(name, value);
         setSearchValue(value);
         clearTimeout(timeoutIdSearch);
         timeoutIdSearch = setTimeout(() => {
@@ -409,16 +380,19 @@ function LeftMenuComponent(props: any) {
     const renderTreeItem = (leftMenuData: ILeftData[]) => {
         if (leftMenuData && leftMenuData[0]) {
             return leftMenuData.map((data: ILeftData) => {
-                return (
-                    <StyledTreeItem key={data.id} nodeId={data.id} labelText={data.display_name} labelInfo={data.info} LabelIcon={ICON[data.name] || (data.children.length > 0 ? PlusSquare : MinusSquare)} >
-                        {
-                            data.children.length > 0 && renderTreeItem(data.children)
-                        }
-                    </StyledTreeItem>
-                )
+                if (data) {
+                    return (
+                        <StyledTreeItem key={data.id} nodeId={data.id} labelText={data.display_name} labelInfo={data.info} LabelIcon={ICON[data.name] || (data.children.length > 0 ? PlusSquare : MinusSquare)} >
+                            {
+                                data.children.length > 0 && renderTreeItem(data.children)
+                            }
+                        </StyledTreeItem>
+                    )
+                }
+                return <></>;
             })
         }
-        return <></>
+        return <></>;
     }
 
     return (

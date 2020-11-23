@@ -1,5 +1,6 @@
 export * from './cancel-event';
 export * from './config';
+export * from './convert-data-mokup';
 export * from './convert-response-message-from-api';
 export * from './encode';
 export * from './fetch';

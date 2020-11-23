@@ -5,13 +5,7 @@ import {getScope} from '../mokup';
 
 const SCOPE_RESOURCE = "scope-root";
 const scopeResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, resource, params, apiURI} = input;
-    console.log('====scope-provider=========scope-root===============');
-    console.log('type: ', type);
-    console.log('resource: ', resource);
-    console.log('params: ', params);
-    console.log('apiURI: ', apiURI);
-    console.log('====================================');
+    const {type, apiURI} = input;
     switch (type) {
         case GET:
             return {

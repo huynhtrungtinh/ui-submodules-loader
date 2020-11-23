@@ -1,5 +1,5 @@
 import React from "react";
-import {DashboardPage} from '../../views';
+// import {DashboardPage} from '../../views';
 
 export default (params?: any): any[] => {
   const route = [
@@ -7,8 +7,8 @@ export default (params?: any): any[] => {
       name: "home",
       exact: true,
       path: "/",
-      // component: () => <div>Dashboard Page</div>
-      component: DashboardPage
+      component: () => <div>Dashboard Page</div>
+      // component: DashboardPage
     },
     {
       name: "page404",

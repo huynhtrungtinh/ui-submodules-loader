@@ -15,15 +15,10 @@ function effectProvider({action, dispatch, getState}: IEffectProvider) {
         payload,
         meta: {fetch: fetchMeta, onResponse, ...meta},
     } = action;
-    console.log('======effectProvider===========');
     const restType = fetchMeta;
     dispatch(fetchStart());
-    dispatch({type: `${type}/${REQUEST_KEY}`})
-    console.log('restType: ', restType);
-    console.log('meta.resource: ', meta.resource);
-    console.log('payload: ', payload);
+    dispatch({type: `${type}/${REQUEST_KEY}`});
     (window as any).dataProvider.getDataProvider(restType, meta.resource, payload).then(async (response: any) => {
-        console.log('dataProvider response222222222222222222222: ', response);
         let onResponseIn = onResponse;
         if (typeof onResponseIn === 'function') {
             onResponseIn = onResponse({dispatch, getState, result: response})
@@ -70,7 +65,6 @@ function effectProvider({action, dispatch, getState}: IEffectProvider) {
         })
         dispatch(fetchError());
     })
-    console.log('====================================');
 }
 
 const createAPIMiddleware = () => ({dispatch, getState}: any) => (next: any) => (action: any) => {
@@ -84,14 +78,9 @@ const createAPIMiddleware = () => ({dispatch, getState}: any) => (next: any) => 
     }
     if (action.type.indexOf('@DGS/API') > -1
         && [REQUEST_KEY, SUCCESS_KEY, FAILURE_KEY].every(item => (action.type.indexOf(item) === -1))) {
-        console.log('iffffffffffffffffffffffff');
         const accessToken = getAccessToken();
         const refreshToken = getRefreshToken();
         const tokenExp = checkTokenExpiration(accessToken, refreshToken);
-        console.log('tokenExp: ', tokenExp);
-        // console.log('dataProvider: ', dataProvider);
-        // console.log('tokenExp: ', tokenExp);
-        // console.log('action: ', action);
         if (tokenExp.isRefresh || !tokenExp.token) {
             dispatch(effectTokenExpiration(true)).then((res: IUserInfoOutPut) => {
                 if (res.status === 200) {
