@@ -45,10 +45,10 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
   };
   let scopes: any = {}
   functions.map((f: IFunction) => {
-    if (!scopes[f.root_scope]) {
-      scopes[f.root_scope] = [];
+    if (!scopes[f.root_app]) {
+      scopes[f.root_app] = [];
     }
-    scopes[f.root_scope].push(f)
+    scopes[f.root_app].push(f)
   })
 
   const scopesKey = Object.keys(scopes);
@@ -60,17 +60,17 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
     const values = scopes[key];
     if (values[0]) {
       let childrens: any = {
-        "root_scope": values[0].root_scope,
-        "display_root_scope": values[0].display_root_scope,
-        "name": values[0].root_scope,
-        "display_name": values[0].display_root_scope,
+        "root_app": values[0].root_app,
+        "display_root_app": values[0].display_root_app,
+        "name": values[0].root_app,
+        "display_name": values[0].display_root_app,
         "path": null,
         "id": `${ids++}`,
         "pathFocus": [...path, 'children', index],
         "info": values.length,
         "children": []
       }
-      orderBy(values, ["sub_scope"]).map((f: IFunction, iFunc: any) => {
+      orderBy(values, ["sub_app"]).map((f: IFunction, iFunc: any) => {
         let ff: any = {
           ...f,
           "pathFocus": [...childrens.pathFocus, 'children', iFunc],

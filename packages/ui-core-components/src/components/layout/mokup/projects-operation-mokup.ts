@@ -1,4 +1,4 @@
-export function getProjects() {
+export function getProjectsOperation() {
     return [
         {
             "customer_id": "5e04623c37dee202b0256e67",

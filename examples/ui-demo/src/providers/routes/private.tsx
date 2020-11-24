@@ -1,13 +1,14 @@
-import React from "react";
 // import {DashboardPage} from '../../views';
+import {SystemAssignment} from '@dgtx/ui-core-components';
+import React from "react";
 
 export default (params?: any): any[] => {
   const route = [
     {
-      name: "demo",
+      name: "system",
       exact: true,
-      path: "/demo",
-      component: () => <div>demo</div>
+      path: "/system-assignment",
+      component: SystemAssignment
     },
     {
       name: "home",

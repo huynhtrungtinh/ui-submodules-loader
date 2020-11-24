@@ -15,10 +15,10 @@ export interface IApps {
     path: string;
 }
 export interface ILeftData {
-    root_scope: string;
-    display_root_scope?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
-    sub_scope?: string;
-    display_sub_scope?: string;
+    root_app: string;
+    display_root_app?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
+    sub_app?: string;
+    display_sub_app?: string;
     // path_prefix, path là phần hậu tố sau domain: https://elrond.digi-texx.vn/:path_prefix/:path
     path_prefix?: string;
     path: string;
@@ -36,10 +36,10 @@ export interface ILeftData {
     children: ILeftData[];
 }
 export interface IFunction {
-    root_scope: string;
-    display_root_scope?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
-    sub_scope?: string;
-    display_sub_scope?: string;
+    root_app: string;
+    display_root_app?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
+    sub_app?: string;
+    display_sub_app?: string;
     // path_prefix, path là phần hậu tố sau domain: https://elrond.digi-texx.vn/:path_prefix/:path
     path_prefix?: string;
     path: string;

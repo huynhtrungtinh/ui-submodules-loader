@@ -1,56 +1,56 @@
 export function getFunctions() {
     return [
         // Training
-        {
-            "root_scope": "training",
-            "display_root_scope": "Training",
-            // "sub_scope": "training",
-            // "display_sub_scope": "Training",
-            "type": "config",
-            "path_prefix": "training",
-            "name": "Form_40",
-            "display_name": "Form_40",
-            "path": "capture/5d1465340fb92b0017a5621a/Form_40/Form_40"
-        },
-        {
-            "root_scope": "training",
-            "display_root_scope": "Training",
-            // "sub_scope": "training",
-            // "display_sub_scope": "Training",
-            "type": "config",
-            "path_prefix": "training",
-            "name": "Form_20",
-            "display_name": "Form_20",
-            "path": "capture/5d1465340fb92b0017a5621a/Form_20/Form_20"
-        },
-        {
-            "root_scope": "training",
-            "display_root_scope": "Training",
-            // "sub_scope": "training",
-            // "display_sub_scope": "Training",
-            "type": "config",
-            "path_prefix": "training",
-            "name": "Form_50",
-            "display_name": "Form_50",
-            "path": "capture/5d1465340fb92b0017a5621a/Form_50/Form_50"
-        },
+        // {
+        //     "root_app": "training",
+        //     "display_root_app": "Training",
+        //     // "sub_app": "training",
+        //     // "display_sub_app": "Training",
+        //     "type": "config",
+        //     "path_prefix": "training",
+        //     "name": "Form_40",
+        //     "display_name": "Form_40",
+        //     "path": "capture/5d1465340fb92b0017a5621a/Form_40/Form_40"
+        // },
+        // {
+        //     "root_app": "training",
+        //     "display_root_app": "Training",
+        //     // "sub_app": "training",
+        //     // "display_sub_app": "Training",
+        //     "type": "config",
+        //     "path_prefix": "training",
+        //     "name": "Form_20",
+        //     "display_name": "Form_20",
+        //     "path": "capture/5d1465340fb92b0017a5621a/Form_20/Form_20"
+        // },
+        // {
+        //     "root_app": "training",
+        //     "display_root_app": "Training",
+        //     // "sub_app": "training",
+        //     // "display_sub_app": "Training",
+        //     "type": "config",
+        //     "path_prefix": "training",
+        //     "name": "Form_50",
+        //     "display_name": "Form_50",
+        //     "path": "capture/5d1465340fb92b0017a5621a/Form_50/Form_50"
+        // },
 
-        {
-            "root_scope": "training",
-            "display_root_scope": "Training",
-            "type": null,
-            "path_prefix": "training",
-            "name": "user_guide",
-            "display_name": "User Guide",
-            "path": "projects/:projectId/user-guide"
-        },
+        // {
+        //     "root_app": "training",
+        //     "display_root_app": "Training",
+        //     "type": null,
+        //     "path_prefix": "training",
+        //     "name": "user_guide",
+        //     "display_name": "User Guide",
+        //     "path": "projects/:projectId/user-guide"
+        // },
 
         // Operator
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_1o8qx7z",
@@ -58,10 +58,10 @@ export function getFunctions() {
             "path": "assign/tasks/5d1465340fb92b0017a5621a/Task_1o8qx7z"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_0ym5ac7",
@@ -69,10 +69,10 @@ export function getFunctions() {
             "path": "invoice/5d1465340fb92b0017a5621a/keying/Invoice/Task_0ym5ac7"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_18rrsvu",
@@ -80,10 +80,10 @@ export function getFunctions() {
             "path": "invoice/5d1465340fb92b0017a5621a/proof/Invoice/Task_18rrsvu"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_1qfw4tc",
@@ -91,10 +91,10 @@ export function getFunctions() {
             "path": "verifying/hold/10/true/5d1465340fb92b0017a5621a/Task_1qfw4tc"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_0rzw5ve",
@@ -102,10 +102,10 @@ export function getFunctions() {
             "path": "verifying/hold/10/true/5d1465340fb92b0017a5621a/Task_0rzw5ve"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_0oa8o9e",
@@ -113,10 +113,10 @@ export function getFunctions() {
             "path": "invoice/5d1465340fb92b0017a5621a/supervisor/Invoice/Task_0oa8o9e"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_0fsh84b",
@@ -124,10 +124,10 @@ export function getFunctions() {
             "path": "verifying/hold/10/true/5d1465340fb92b0017a5621a/Task_0fsh84b"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_1v7ehsl",
@@ -135,10 +135,10 @@ export function getFunctions() {
             "path": "data/invoice/5d1465340fb92b0017a5621a/Task_1v7ehsl"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "production",
-            "display_sub_scope": "Operator",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "production",
+            "display_sub_app": "Operator",
             "type": "workflow",
             "path_prefix": "production",
             "name": "Task_08iat1i",
@@ -148,10 +148,10 @@ export function getFunctions() {
 
         // QC Execution
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "quality-control",
-            "display_sub_scope": "QC Execution",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "quality-control",
+            "display_sub_app": "QC Execution",
             "type": "workflow",
             "path_prefix": "quality-control",
             "name": "Task_1s4593u",
@@ -159,10 +159,10 @@ export function getFunctions() {
             "path": "qc/5d1465340fb92b0017a5621a/5/Invoice/Invoice/Task_1s4593u"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "quality-control",
-            "display_sub_scope": "QC Execution",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "quality-control",
+            "display_sub_app": "QC Execution",
             "type": "workflow",
             "path_prefix": "quality-control",
             "name": "Task_11gcu4r",
@@ -170,10 +170,10 @@ export function getFunctions() {
             "path": "qc/5d1465340fb92b0017a5621a/5/Invoice/Type/Task_11gcu4r"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "quality-control",
-            "display_sub_scope": "QC Execution",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "quality-control",
+            "display_sub_app": "QC Execution",
             "type": "workflow",
             "path_prefix": "quality-control",
             "name": "Task_06sz78q",
@@ -181,10 +181,10 @@ export function getFunctions() {
             "path": "qc/5d1465340fb92b0017a5621a/5/Invoice/Proof/Task_06sz78q"
         },
         {
-            "root_scope": "operator",
-            "display_root_scope": "Operator",
-            "sub_scope": "quality-control",
-            "display_sub_scope": "QC Execution",
+            "root_app": "operator",
+            "display_root_app": "Operator",
+            "sub_app": "quality-control",
+            "display_sub_app": "QC Execution",
             "type": "workflow",
             "path_prefix": "quality-control",
             "name": "Task_1myjfvk",
@@ -194,10 +194,10 @@ export function getFunctions() {
 
         // Prd Management
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "acquisitions",
@@ -205,10 +205,10 @@ export function getFunctions() {
             "path": "projects/:projectId/acquisitions"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "tasks_assignment_prd_admin",
@@ -216,10 +216,10 @@ export function getFunctions() {
             "path": "projects/:projectId/tasks-assignment"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "functions_assignment_prd_admin",
@@ -227,10 +227,10 @@ export function getFunctions() {
             "path": "projects/:projectId/functions-assignment"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "approve_qc",
@@ -238,10 +238,10 @@ export function getFunctions() {
             "path": "projects/:projectId/approve-qc"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "batch_information",
@@ -249,10 +249,10 @@ export function getFunctions() {
             "path": "projects/:projectId/batch-information"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "batch_priority",
@@ -260,10 +260,10 @@ export function getFunctions() {
             "path": "projects/:projectId/batch-priority"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "document_information",
@@ -271,10 +271,10 @@ export function getFunctions() {
             "path": "projects/:projectId/document-information"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "export_data",
@@ -282,10 +282,10 @@ export function getFunctions() {
             "path": "projects/:projectId/export-data"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "manual_upload",
@@ -293,10 +293,10 @@ export function getFunctions() {
             "path": "projects/:projectId/manual-upload"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "project_announcement",
@@ -304,10 +304,10 @@ export function getFunctions() {
             "path": "projects/:projectId/project-announcement"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "project_guide",
@@ -315,10 +315,10 @@ export function getFunctions() {
             "path": "projects/:projectId/project-guide"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "rework_details",
@@ -326,10 +326,10 @@ export function getFunctions() {
             "path": "projects/:projectId/rework-details"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "training_configs",
@@ -337,10 +337,10 @@ export function getFunctions() {
             "path": "projects/:projectId/training-configs"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "training_report",
@@ -348,10 +348,10 @@ export function getFunctions() {
             "path": "projects/:projectId/training-report"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "verifying_configuration",
@@ -359,10 +359,10 @@ export function getFunctions() {
             "path": "projects/:projectId/verifying-configuration"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "monitor_citi",
@@ -370,10 +370,10 @@ export function getFunctions() {
             "path": "projects/:projectId/monitor-citi"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "production-admin",
-            "display_sub_scope": "Prd Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "production-admin",
+            "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
             "name": "view_data_entry",
@@ -383,10 +383,10 @@ export function getFunctions() {
 
         // qc-admin
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "qc-admin",
-            "display_sub_scope": "QC Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "qc-admin",
+            "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
             "name": "tasks_assignment_qc",
@@ -394,10 +394,10 @@ export function getFunctions() {
             "path": "projects/:projectId/tasks-assignment"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "qc-admin",
-            "display_sub_scope": "QC Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "qc-admin",
+            "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
             "name": "functions_assignment_qc",
@@ -405,10 +405,10 @@ export function getFunctions() {
             "path": "projects/:projectId/functions-assignment"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "qc-admin",
-            "display_sub_scope": "QC Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "qc-admin",
+            "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
             "name": "qc_setting",
@@ -416,10 +416,10 @@ export function getFunctions() {
             "path": "projects/:projectId/qc-setting"
         },
         {
-            "root_scope": "manager",
-            "display_root_scope": "Manager",
-            "sub_scope": "qc-admin",
-            "display_sub_scope": "QC Management",
+            "root_app": "manager",
+            "display_root_app": "Manager",
+            "sub_app": "qc-admin",
+            "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
             "name": "qc_sampling",
@@ -430,10 +430,10 @@ export function getFunctions() {
         // monitoring
         {
 
-            "root_scope": "monitoring",
-            "display_root_scope": "Monitoring",
-            // "sub_scope": "reports",
-            // "display_sub_scope": "Reports",
+            "root_app": "monitoring",
+            "display_root_app": "Monitoring",
+            // "sub_app": "reports",
+            // "display_sub_app": "Reports",
             "type": null,
             "path_prefix": "reports",
             "name": "monitor_operator",
@@ -443,10 +443,10 @@ export function getFunctions() {
 
         // reporting
         {
-            "root_scope": "reporting",
-            "display_root_scope": "Reporting",
-            // "sub_scope": "monitor",
-            // "display_sub_scope": "Monitor",
+            "root_app": "reporting",
+            "display_root_app": "Reporting",
+            // "sub_app": "monitor",
+            // "display_sub_app": "Monitor",
             "type": null,
             "path_prefix": "reports",
             "name": "details_mistake_report",
@@ -454,10 +454,10 @@ export function getFunctions() {
             "path": "projects/:projectId/details-mistake-report"
         },
         {
-            "root_scope": "reporting",
-            "display_root_scope": "Reporting",
-            // "sub_scope": "monitor",
-            // "display_sub_scope": "Monitor",
+            "root_app": "reporting",
+            "display_root_app": "Reporting",
+            // "sub_app": "monitor",
+            // "display_sub_app": "Monitor",
             "type": null,
             "path_prefix": "reports",
             "name": "performance_report",

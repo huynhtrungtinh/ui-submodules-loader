@@ -15,6 +15,7 @@ import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import AssignmentInd from "@material-ui/icons/AssignmentInd";
 import Folder from "@material-ui/icons/Folder";
 import FormatListNumbered from "@material-ui/icons/FormatListNumbered";
+import School from "@material-ui/icons/School";
 import SearchIcon from '@material-ui/icons/Search';
 import Settings from "@material-ui/icons/Settings";
 import TreeItem, {TreeItemProps} from '@material-ui/lab/TreeItem';
@@ -25,6 +26,7 @@ import React from 'react';
 import {ILeftData} from '../../constants';
 
 export const ICON: any = {
+    "training": School,
     "system": AccountCircle,
     "functional": Settings,
     "operation": Folder,
@@ -84,17 +86,20 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
                 backgroundColor: 'transparent',
             },
             overflow: 'auto',
-            marginTop: 8
+            // marginTop: 8
         },
         content: {
             color: theme.palette.text.secondary,
-            borderTopRightRadius: theme.spacing(2),
-            borderBottomRightRadius: theme.spacing(2),
-            paddingRight: theme.spacing(1),
+            // borderTopRightRadius: theme.spacing(2),
+            // borderBottomRightRadius: theme.spacing(2),
+            // paddingRight: theme.spacing(1),
             fontWeight: theme.typography.fontWeightMedium,
             '$expanded > &': {
                 fontWeight: theme.typography.fontWeightRegular,
             },
+            margin: '4px',
+            width: 'calc(100% - 8px)',
+            height: 'calc(100% - 8px)',
         },
         group: {
             marginLeft: 15,
@@ -275,7 +280,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
             marginLeft: 0,
             [theme.breakpoints.up('sm')]: {
-                marginLeft: theme.spacing(1),
+                // marginLeft: theme.spacing(1),
                 width: 'auto',
             },
             height: '50px',
@@ -295,6 +300,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '50px',
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             paddingRight: `calc(1em + ${theme.spacing(6)}px)`,
+            // borderRadius: '5px'
         }
     }),
 );

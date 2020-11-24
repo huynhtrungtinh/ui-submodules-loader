@@ -4,7 +4,6 @@ export function getApps() {
       "app_name": "system",
       "display_name": "System",
       "path": "/system",
-      "is_view_breadcrumbs": true,
       "breadcrumbs": [
         "app",
         "function"
@@ -21,7 +20,6 @@ export function getApps() {
       "app_name": "functional",
       "display_name": "Functional",
       "path": "/functional",
-      "is_view_breadcrumbs": true,
       "breadcrumbs": [
         "app",
         "function"
@@ -38,7 +36,23 @@ export function getApps() {
       "app_name": "operation",
       "display_name": "Operation",
       "path": "/operation",
-      "is_view_breadcrumbs": true,
+      "breadcrumbs": [
+        "app",
+        "project",
+        "function"
+      ],
+      "breakpoints": [
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ]
+    },
+    {
+      "app_name": "training",
+      "display_name": "Training",
+      "path": "/training",
       "breadcrumbs": [
         "app",
         "project",
