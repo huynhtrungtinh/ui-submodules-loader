@@ -7,7 +7,6 @@
     "functions": [
       {
         "name": "acquisitions",
-        "sub_app": "production-admin",
         "perm": "owner"
       }
     ]
@@ -18,40 +17,31 @@
     "app_name": "operation",
     "tasks": [
       {
-        "name": "Classify",
-        "sub_scope": "production"
+        "name": "Classify"
       },
       {
-        "name": "Close or Rework Batches",
-        "sub_scope": "production"
+        "name": "Close or Rework Batches"
       },
       {
-        "name": "Form_40",
-        "sub_scope": "production"
+        "name": "Form_40"
       },
       {
-        "name": "Form_400",
-        "sub_scope": "production"
+        "name": "Form_400"
       },
       {
-        "name": "Form_41",
-        "sub_scope": "production"
+        "name": "Form_41"
       },
       {
-        "name": "Form_42",
-        "sub_scope": "production"
+        "name": "Form_42"
       },
       {
-        "name": "Form_43",
-        "sub_scope": "production"
+        "name": "Form_43"
       },
       {
-        "name": "Form_44",
-        "sub_scope": "production"
+        "name": "Form_44"
       },
       {
-        "name": "QC",
-        "sub_scope": "quality-control"
+        "name": "QC"
       }
     ]
   },

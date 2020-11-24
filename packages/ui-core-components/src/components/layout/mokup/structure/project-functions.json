@@ -2,20 +2,16 @@
   {
     "functions": [
       {
-        "name": "acquisitions",
-        "sub_app": "production-admin"
+        "name": "acquisitions"
       },
       {
-        "name": "tasks_assignment_prd_admin",
-        "sub_app": "production-admin"
+        "name": "tasks_assignment_prd_admin"
       },
       {
-        "name": "Classify",
-        "sub_scope": "production"
+        "name": "Classify"
       },
       {
-        "name": "Close or Rework Batches",
-        "sub_scope": "production"
+        "name": "Close or Rework Batches"
       }
     ]
   }

@@ -169,13 +169,23 @@ function findTreeItemByName(input: IFindTreeItemByName) {
     const element: ILeftData = data[index];
     if (element.display_name.toLocaleLowerCase().search(name.toLocaleLowerCase()) !== -1) {
       set(outPut, element.pathFocus, {...element});
+      if (element.children.length > 0) {
+        let newItem: any = findTreeItemByName({data: element.children, name, nextData: outPut});
+        if (newItem.length > 0) {
+          outPut = newItem;
+        } else {
+          if (element.pathFocus[element.pathFocus.length - 1] !== 'children') {
+            set(outPut, element.pathFocus, null);
+          }
+        }
+      }
     } else {
       let newItem: any = findTreeItemByName({data: element.children, name, nextData: outPut});
       if (newItem.length > 0) {
         outPut = newItem;
       } else {
         if (element.pathFocus[element.pathFocus.length - 1] !== 'children') {
-          set(outPut, element.pathFocus, null)
+          set(outPut, element.pathFocus, null);
         }
       }
     }
@@ -226,7 +236,7 @@ function convertTreeItemToLeftData(dataParent: ILeftData[], data: ILeftData[], p
       parent.children = convertTreeItemToLeftData(dataParent, element.children, parent.pathFocus, element.pathFocus);
       if (parent.children.length > 0) {
         outPut.push(parent);
-        indexNext++
+        indexNext++;
       }
     } else if (element.pathFocus.length > 1) {
       parent = {...element};
