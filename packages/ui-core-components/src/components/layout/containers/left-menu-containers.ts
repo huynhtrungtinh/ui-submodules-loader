@@ -15,6 +15,7 @@ const mapStateToProps = (state: any) => {
     version: config.getAppVersion(),
     leftMenuData: cloneDeep(stateRedux.leftMenuDataSearch),
     leftMenuSearch: stateRedux.leftMenuSearch,
+    breakpoint: stateRedux.breakpoint,
   };
 };
 

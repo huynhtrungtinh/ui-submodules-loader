@@ -1,4 +1,4 @@
-export function getScope() {
+export function getFunctionOtherApps() {
   return [
     // System
     {
@@ -7,10 +7,22 @@ export function getScope() {
       // "sub_app": "",
       // "display_sub_app": "",
       // "type": "workflow",
-      // "path_prefix": "",
+      // "path_prefix": "/system",
       "name": "system_configuration",
-      "display_name": "System Configuration",
-      "path": "/system-configuration"
+      "display_name": "Configuration",
+      "path": "/configuration"
+    },
+
+    {
+      "root_app": "system",
+      "display_root_app": "System",
+      // "sub_app": "",
+      // "display_sub_app": "",
+      // "type": "workflow",
+      // "path_prefix": "/system",
+      "name": "system_assignment",
+      "display_name": "Assignment",
+      "path": "/assignment"
     },
 
     // Functional
@@ -19,7 +31,7 @@ export function getScope() {
       "display_root_app": "Functional",
       // "sub_app": "",
       // "display_sub_app": "",
-      // "path_prefix": "",
+      // "path_prefix": "/functional",
       // "type": "workflow",
       "name": "account_management",
       "display_name": "Account Management",
@@ -30,7 +42,7 @@ export function getScope() {
       "display_root_app": "Functional",
       // "sub_app": "",
       // "display_sub_app": "",
-      // "path_prefix": "",
+      // "path_prefix": "/functional",
       // "type": "workflow",
       "name": "customers_information",
       "display_name": "Customers Information",
@@ -41,7 +53,7 @@ export function getScope() {
       "display_root_app": "Functional",
       // "sub_app": "",
       // "display_sub_app": "",
-      // "path_prefix": "",
+      // "path_prefix": "/functional",
       // "type": "workflow",
       "name": "projects_information",
       "display_name": "Projects Information",
@@ -52,7 +64,7 @@ export function getScope() {
       "display_root_app": "Functional",
       // "sub_app": "",
       // "display_sub_app": "",
-      // "path_prefix": "",
+      // "path_prefix": "/functional",
       // "type": "workflow",
       "name": "user_assignment",
       "display_name": "User Assignment",
@@ -63,18 +75,18 @@ export function getScope() {
       "display_root_app": "Functional",
       // "sub_app": "",
       // "display_sub_app": "",
-      // "path_prefix": "",
+      // "path_prefix": "////functional///",
       // "type": "workflow",
       "name": "project_setting",
       "display_name": "Project Setting",
-      "path": "/project-setting"
+      "path": "///project-setting//"
     },
     {
       "root_app": "functional",
       "display_sub_app": "Functional",
       // "sub_app": "",
       // "display_sub_app": "",
-      // "path_prefix": "",
+      // "path_prefix": "/functional",
       // "type": "workflow",
       "name": "basic_training",
       "display_name": "Basic Training",

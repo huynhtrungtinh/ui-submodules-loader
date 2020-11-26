@@ -9,9 +9,20 @@ export const MENU_ID = 'account menu';
 export const CONTACT_MENU_ID = 'contact menu';
 export const MOBILE_MENU_ID = 'mobile menu';
 export const SCOPE_ROOT = ["system", "functional", "operation"]
-export const PROJECTS_KEY = 'project';
+export const PROJECTS_OPERATION_KEY = 'project-operation';
+export const PROJECTS_TRAINING_KEY = 'project-training';
 export const OPERATION_KEY = 'operation';
 export const TRAINING_KEY = 'training';
 export const SYSTEM_KEY = 'system';
 export const FUNCTIONAL_KEY = 'functional';
 export const APPS = [TRAINING_KEY, SYSTEM_KEY, FUNCTIONAL_KEY, OPERATION_KEY];
+export const BREADCRUMB_HOME = {
+  path: '/',
+  name: 'home',
+};
+export const MATCH_DEFAULT = {
+  isExact: false,
+  params: {},
+  path: "",
+  url: ""
+}

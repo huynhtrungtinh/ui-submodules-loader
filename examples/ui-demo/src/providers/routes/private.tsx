@@ -5,9 +5,21 @@ import React from "react";
 export default (params?: any): any[] => {
   const route = [
     {
+      name: "operation",
+      exact: true,
+      path: "/:appName/projects/:projectId/acquisitions/",
+      component: () => <div>Acquisitions Page</div>
+    },
+    {
+      name: "operation",
+      exact: true,
+      path: "/:appName/invoice/:projectId/:action/:layoutName/:taskKeyDef+",
+      component: () => <div>invoice</div>
+    },
+    {
       name: "system",
       exact: true,
-      path: "/system-assignment",
+      path: "/:appName/assignment",
       component: SystemAssignment
     },
     {

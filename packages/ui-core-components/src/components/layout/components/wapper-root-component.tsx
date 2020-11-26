@@ -4,6 +4,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import {createMuiTheme, makeStyles, MuiThemeProvider, Theme} from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import React from 'react';
+import {match, useHistory} from 'react-router-dom';
+import {AlertComponent} from '../../alert';
 import {Backdrop} from '../../backdrop';
 import {SigninExpirationTime} from '../../signin-expiration-time';
 import {HEIGHT_HEADER, ID_HEADER} from '../constants';
@@ -40,7 +42,7 @@ interface IProps {
     getDataForReady?: Function;
     isReady?: Boolean;
     version?: string;
-    match?: any;
+    match?: match;
     setBreakpoints?: Function;
     width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     heightRoot?: number;
@@ -57,19 +59,22 @@ function WapperComponent(props: IProps) {
         isReady = false,
         width,
         heightRoot = 0,
+        match = {}
         // widthRoot = 0,
         // isRejectRoom, socketIO,
     } = props;
     const size: any = useWindowSize();
     const classes = useStyles({heightRoot});
+    const history = useHistory();
 
     React.useEffect(() => {
-        getDataForReady({version})
+        getDataForReady({version, match, history})
     }, [])
 
     React.useEffect(() => {
         setBreakpoints(width, size);
     }, [width])
+
     return (
         <React.Fragment>
             <MuiThemeProvider theme={theme}>
@@ -85,6 +90,7 @@ function WapperComponent(props: IProps) {
                         </div>
                     </div>
                 }
+                <AlertComponent />
                 <Backdrop />
                 <SigninExpirationTime />
             </MuiThemeProvider>

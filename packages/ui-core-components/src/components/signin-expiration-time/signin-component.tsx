@@ -105,7 +105,7 @@ function SigninComponent(props: any) {
     //   handleSubmit();
     // }
   }
-
+  if (!open) {return <></>}
   return (
     <Dialog
       open={open}

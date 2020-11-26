@@ -7,36 +7,20 @@ import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
 import SvgIcon, {SvgIconProps} from '@material-ui/core/SvgIcon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import AssignmentInd from "@material-ui/icons/AssignmentInd";
-import Folder from "@material-ui/icons/Folder";
-import FormatListNumbered from "@material-ui/icons/FormatListNumbered";
-import School from "@material-ui/icons/School";
+import HighlightOff from '@material-ui/icons/HighlightOff';
 import SearchIcon from '@material-ui/icons/Search';
-import Settings from "@material-ui/icons/Settings";
 import TreeItem, {TreeItemProps} from '@material-ui/lab/TreeItem';
 import TreeView from '@material-ui/lab/TreeView';
 import clsx from 'clsx';
 import {get} from 'lodash';
 import React from 'react';
-import {ILeftData} from '../../constants';
+import {useHistory} from 'react-router-dom';
+import {ICON, ILeftData} from '../../constants';
 
-export const ICON: any = {
-    "training": School,
-    "system": AccountCircle,
-    "functional": Settings,
-    "operation": Folder,
-    "project": FormatListNumbered,
-    "function": AssignmentInd,
-}
-// function getHref(path: string) {
-//     const baseHref = window.location.origin;
-//     return `${baseHref}${path}`;
-// }
 function MinusSquare(props: SvgIconProps) {
     return (
         <SvgIcon fontSize="inherit" style={{width: 14, height: 14}} {...props}>
@@ -73,8 +57,8 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
         root: {
             color: theme.palette.text.secondary,
             '&:hover > $content': {
-                backgroundColor: theme.palette.primary.light,
-                color: `${theme.palette.primary.contrastText}`,
+                backgroundColor: theme.palette.grey[200],
+                // color: `${theme.palette.primary.contrastText}`,
                 fontWeight: 'bold'
             },
             '&:focus > $content, &$selected > $content': {
@@ -85,8 +69,7 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
             '&:focus > $content $label, &:hover > $content $label, &$selected > $content $label': {
                 backgroundColor: 'transparent',
             },
-            overflow: 'auto',
-            // marginTop: 8
+            overflow: 'hidden'
         },
         content: {
             color: theme.palette.text.secondary,
@@ -183,7 +166,6 @@ function StyledTreeItem(props: StyledTreeItemProps) {
     );
 }
 
-const drawerWidth = 430;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawerPaper: {
@@ -196,17 +178,12 @@ const useStyles = makeStyles((theme: Theme) =>
             // backgroundColor: theme.palette.background.default,
             // backgroundColor: 'transparent',
             // ...boxShadow,
-            width: drawerWidth,
-            [theme.breakpoints.up("md")]: {
-                width: drawerWidth,
-                position: "fixed",
-                height: "100%"
-            },
+            width: (props: any) => props.drawerWidth,
             overflow: 'auto',
         },
         logo: {
             position: "relative",
-            padding: "15px 15px",
+            padding: "15px 40px",
             zIndex: 4,
             textAlign: "center",
             "&:after": {
@@ -227,6 +204,7 @@ const useStyles = makeStyles((theme: Theme) =>
             lineHeight: "30px",
             textDecoration: "none",
             display: "inline-block",
+            cursor: 'pointer',
         },
         version: {
             left: '25px',
@@ -242,13 +220,10 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'relative'
         },
         arrowDownward: {
-            // width: '40px',
-            // height: '40px',
             position: 'absolute',
             top: 110,
-            left: drawerWidth - 55,
-            backgroundColor: theme.palette.primary.light,
-            color: theme.palette.primary.contrastText,
+            left: (props: any) => props.drawerWidth - 55,
+            color: theme.palette.secondary.main,
             '&:hover': {
                 color: theme.palette.secondary.contrastText,
                 backgroundColor: theme.palette.secondary.main,
@@ -256,13 +231,10 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         arrowUpward: {
-            // width: '40px',
-            // height: '40px',
             position: 'absolute',
             bottom: 8,
-            left: drawerWidth - 55,
-            backgroundColor: theme.palette.primary.light,
-            color: theme.palette.primary.contrastText,
+            left: (props: any) => props.drawerWidth - 55,
+            color: theme.palette.secondary.main,
             '&:hover': {
                 backgroundColor: theme.palette.secondary.main,
                 color: theme.palette.secondary.contrastText,
@@ -301,29 +273,60 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
             paddingRight: `calc(1em + ${theme.spacing(6)}px)`,
             // borderRadius: '5px'
+        },
+        closeIcon: {
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            padding: '2px',
+            color: theme.palette.error.main,
+            zIndex: 10,
+            '&:hover': {
+                backgroundColor: fade(theme.palette.error.main, 0.2),
+            },
         }
     }),
 );
 let timeoutIdSearch: any = 0;
 
 function LeftMenuComponent(props: any) {
-    const {isOpen = false, routers = [], setOpen = () => null,
+    const {
+        isOpen = false,
+        routers = [],
+        setOpen = () => null,
         version = 0,
         // routeFocus = {},
 
         leftMenuData = [],
         setClickItem = () => null,
         setSearch = () => null,
-        leftMenuSearch = ""
+        leftMenuSearch = "",
+        breakpoint
     } = props;
 
-    const classes = useStyles();
     const refContainer: any = React.useRef();
     const [isViewScrollTop, setIsViewScrollTop] = React.useState(false);
+    const [drawerWidth, setDrawerWidth] = React.useState(430);
     const [searchValue, setSearchValue] = React.useState(leftMenuSearch);
+    const classes = useStyles({drawerWidth});
+    const history = useHistory();
 
     React.useEffect(() => {
     }, [refContainer])
+
+    React.useEffect(() => {
+        switch (breakpoint) {
+            case 'xs':
+            case 'sm': {
+                setDrawerWidth(320);
+                break;
+            }
+            default: {
+                setDrawerWidth(430);
+                break;
+            }
+        }
+    }, [breakpoint])
 
     const handleScroll = (e: any) => {
         if (get(refContainer, 'current.scrollTop', 0) > 150 && !isViewScrollTop) {
@@ -333,7 +336,6 @@ function LeftMenuComponent(props: any) {
         }
     }
 
-    // const history = useHistory();
     const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent, ) => {
         if (event.type === 'keydown' &&
             ((event as React.KeyboardEvent).key === 'Tab' ||
@@ -343,23 +345,20 @@ function LeftMenuComponent(props: any) {
     };
 
     const handleClickHome = () => {
-        const route = routers.filter((r: any) => r.app_name === 'home')[0];
-        // history.push(route.path);
-        redirect("")
-        setOpen(false, route);
+        redirect("/")
     }
 
     const brand = (
-        <div className={classes.logo} onClick={handleClickHome}>
-            <div className={classes.logoLink}>
-                <img width={'250px'} height="50px" src="/company_logo.png" alt="logo" />
+        <div className={classes.logo}>
+            <div className={classes.logoLink} >
+                <img width={'250px'} height="50px" src="/company_logo.png" alt="logo" onClick={handleClickHome} />
             </div>
             <div className={classes.version}><i>{`v${version}`}</i></div>
         </div>
     );
 
     const handleSelectedTreeItem = (event: any, nodeIds: string) => {
-        setClickItem(nodeIds);
+        setClickItem(nodeIds, history);
     }
 
     const handleClickUp = (event: any) => {
@@ -375,10 +374,14 @@ function LeftMenuComponent(props: any) {
     }
 
     const handleSearch = (event: any) => {
+        clearTimeout(timeoutIdSearch);
         const {name, value} = event.target;
         setSearchValue(value);
-        clearTimeout(timeoutIdSearch);
         timeoutIdSearch = setTimeout(() => {
+            console.log('============handleSearch===========');
+            console.log('name: ', name);
+            console.log('value: ', value);
+            console.log('====================================');
             setSearch(name, value);
         }, 200);
     }
@@ -401,6 +404,9 @@ function LeftMenuComponent(props: any) {
         return <></>;
     }
 
+    const handleClickClose = (event: any) => {
+        setOpen()
+    }
     return (
         <div style={{position: "relative"}}>
             <Drawer
@@ -415,6 +421,11 @@ function LeftMenuComponent(props: any) {
                     keepMounted: true // Better open performance on mobile.
                 }}
             >
+
+                <IconButton className={classes.closeIcon} onClick={handleClickClose}>
+                    <HighlightOff fontSize='large' />
+                </IconButton>
+
                 {brand}
                 <Divider variant="middle" />
 
@@ -430,10 +441,10 @@ function LeftMenuComponent(props: any) {
                         classes={{
                             root: classes.inputRoot,
                         }}
-                        inputProps={{'aria-label': 'search'}}
                         onChange={handleSearch}
                         value={searchValue}
                         fullWidth={true}
+                        autoComplete="------------------"
                     />
                 </div>
 
@@ -453,6 +464,8 @@ function LeftMenuComponent(props: any) {
                     onNodeSelect={handleSelectedTreeItem}
                     ref={refContainer}
                     onScroll={handleScroll}
+                // expanded={['4', '14']}
+                // selected={'30'}
                 >
                     {
                         renderTreeItem(leftMenuData)

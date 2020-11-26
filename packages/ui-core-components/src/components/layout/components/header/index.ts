@@ -1,3 +1,4 @@
+export * from './breadcrumbs-component';
 export * from './contact-menu-component';
 export * from './header-component';
 export * from './left-menu-component';

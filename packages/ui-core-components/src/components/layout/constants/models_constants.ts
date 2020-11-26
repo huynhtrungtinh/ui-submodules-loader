@@ -34,6 +34,9 @@ export interface ILeftData {
     pathFocus: any[];
     id: string;
     children: ILeftData[];
+    nodeIds: string[];
+    projectId?: string;
+    projectName?: string;
 }
 export interface IFunction {
     root_app: string;

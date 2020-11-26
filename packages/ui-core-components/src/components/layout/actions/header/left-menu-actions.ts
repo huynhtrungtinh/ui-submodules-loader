@@ -1,7 +1,8 @@
+import {redirect} from '@dgtx/ui-utils';
 import {cloneDeep, get, orderBy, set} from 'lodash';
-import {IFunction, ILeftData, PATH_TO_STORE_REDUX, PROJECTS_KEY, SET_CLICK_LEFT_MENU_ITEM, SET_OPEN_LEFT_MENU, SET_SEARCH_LEFT_MENU} from '../../constants';
-import {callAPIGetFunctions} from '../call-api';
-import {executeActionReducer} from '../common-actions';
+import {IFunction, ILeftData, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_CLICK_LEFT_MENU_ITEM, SET_OPEN_LEFT_MENU, SET_SEARCH_LEFT_MENU} from '../../constants';
+import {callAPIGetFunctionsOperation} from '../call-api';
+import {executeActionReducer, getPathPrefix, mergePath} from '../common-actions';
 export const setOpenLeftMenu = (isOpen?: Boolean, route?: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const routeFocus = state.routeFocus;
@@ -19,28 +20,126 @@ export const setOpenLeftMenu = (isOpen?: Boolean, route?: any) => async (dispatc
   dispatch(executeActionReducer(SET_OPEN_LEFT_MENU, payload));
 };
 
-export const setClickLeftMenuItem = (nodeId: any) => async (dispatch: any, getState: any) => {
+export const setClickLeftMenuItem = (nodeId: any, history: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuDataSearch = state.leftMenuDataSearch || [];
-  const leftMenuLastNodeId = state.leftMenuLastNodeId || 1;
+  let routers = state.routers || {};
+  const leftMenuLastNodeId = state.leftMenuLastNodeId;
   const leftMenuItem = findTreeItemByNodeId(leftMenuDataSearch, nodeId);
   let payload: any = {};
-  if (get(leftMenuItem, 'data.path', '') === PROJECTS_KEY && get(leftMenuItem, 'data.children.length', 0) === 0) {
-    const functions: any = await dispatch(callAPIGetFunctions());
+  console.log('=========setClickLeftMenuItem========');
+  console.log('nodeId: ', nodeId);
+  console.log('leftMenuItem: ', leftMenuItem);
+  console.log('leftMenuDataSearch: ', leftMenuDataSearch);
+  payload.leftMenuSelected = leftMenuItem.data;
+  const path = get(leftMenuItem, 'data.path', '');
+  if (get(leftMenuItem, 'data.children.length', 0) === 0 && [PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY].includes(path)) {
+    const project = get(leftMenuItem, 'data', null);
+    const projectId = project.name;
+    const projectName = project.display_name;
+    console.log('project: ', project);
+    const functions: any = await dispatch(callAPIGetFunctionsOperation(projectId, path));
+    console.log('functions: ', functions);
+    console.log('leftMenuLastNodeId: ', leftMenuLastNodeId);
     if (functions.error) {
       console.log('get functions data is error.');
     } else {
-      const convert = convertFunctions2TreeView(leftMenuDataSearch, leftMenuItem.data.pathFocus, functions.data, leftMenuLastNodeId);
-      payload.leftMenuDataSearch = convert.data;
-      payload.leftMenuLastNodeId = convert.ids;
-      dispatch(executeActionReducer(SET_CLICK_LEFT_MENU_ITEM, payload));
+      payload.projectId = projectId;
+      payload.projectName = projectName;
+      if (path === PROJECTS_OPERATION_KEY) {
+        const convertOperation = convertFunctionsOperation2TreeView({
+          leftMenuData: leftMenuDataSearch,
+          path: leftMenuItem.data.pathFocus,
+          functions: functions.data,
+          ids: leftMenuLastNodeId,
+          routers,
+          projectId, projectName
+        });
+        console.log(PROJECTS_OPERATION_KEY);
+        console.log('convertOperation: ', convertOperation);
+        console.log('====================================');
+        payload.leftMenuDataSearch = convertOperation.data;
+        payload.leftMenuLastNodeId = convertOperation.ids;
+        payload.routers = convertOperation.routers;
+      } else if (path === PROJECTS_TRAINING_KEY) {
+        const convertTraining = convertFunctionsTraining2TreeView({
+          leftMenuData: leftMenuDataSearch,
+          path: leftMenuItem.data.pathFocus,
+          functions: functions.data,
+          ids: leftMenuLastNodeId,
+          routers,
+          projectId, projectName
+        });
+        console.log(PROJECTS_TRAINING_KEY);
+        console.log('convertTraining: ', convertTraining);
+        payload.leftMenuDataSearch = convertTraining.data;
+        payload.leftMenuLastNodeId = convertTraining.ids;
+        payload.routers = convertTraining.routers;
+      }
     }
+    dispatch(executeActionReducer(SET_CLICK_LEFT_MENU_ITEM, payload));
+  } else if (path && ![PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY].includes(path)) {
+    payload.breadcrumbsData = createBreadcrumbsData(leftMenuItem.data);
+    dispatch(setOpenLeftMenu(false));
+    dispatch(executeActionReducer(SET_CLICK_LEFT_MENU_ITEM, payload));
+    if (!leftMenuItem.data.path_prefix) {
+      console.log('==============if======================');
+      history.push(leftMenuItem.data.path);
+    } else {
+      console.log('==============else======================');
+      redirect(`${leftMenuItem.data.path}`)
+    }
+  } else {
+    dispatch(executeActionReducer(SET_CLICK_LEFT_MENU_ITEM, payload));
   }
+  console.log('====================================');
 }
 
-function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], functions: IFunction[], ids: number) {
+function createBreadcrumbsData(data: ILeftData) {
+  let outPut: any = [];
+  if (data.projectId) {
+    outPut.push({
+      name: data.root_app,
+      path: "/"
+    })
+    outPut.push({
+      name: data.projectName,
+      path: `/${data.root_app}/${data.projectId}/`
+    })
+    let lastItem = {
+      name: data.name,
+      path: data.path
+    };
+    if (data.root_app === OPERATION_KEY) {
+      lastItem.name = data.display_name
+    }
+    outPut.push(lastItem)
+  } else {
+    outPut.push({
+      name: data.root_app,
+      path: "/"
+    })
+    outPut.push({
+      name: data.name,
+      path: data.path
+    })
+  }
+  return outPut;
+}
+interface IFunctions2TreeView {
+  leftMenuData: ILeftData[];
+  path: string[];
+  functions: IFunction[];
+  ids: number;
+  routers: any;
+  projectId: string;
+  projectName: string;
+}
+function convertFunctionsOperation2TreeView(input: IFunctions2TreeView) {
+  let {leftMenuData = [], path = '', functions = [], ids = 1, routers = {}, projectId, projectName} = input;
   let outPut: any = {
     data: leftMenuData,
+    routers,
     ids: 0
   };
   let scopes: any = {}
@@ -52,7 +151,15 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
   })
 
   const scopesKey = Object.keys(scopes);
-
+  const parentId = get(leftMenuData, [...path, 'nodeIds'])
+  const rootItem = get(leftMenuData, path[0])
+  console.log('====================================');
+  console.log('path: ', path);
+  console.log('rootItem: ', path);
+  console.log('parent: ', parent);
+  console.log('parentId: ', parentId);
+  console.log('====================================');
+  const pathPrefix = getPathPrefix();
   let newFunctions: any = []
   let idChild = ids + scopesKey.length;
   for (let index = 0; index < scopesKey.length; index++) {
@@ -65,15 +172,23 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
         "name": values[0].root_app,
         "display_name": values[0].display_root_app,
         "path": null,
+        "nodeIds": [...parentId, `${ids}`],
         "id": `${ids++}`,
         "pathFocus": [...path, 'children', index],
         "info": values.length,
         "children": []
       }
       orderBy(values, ["sub_app"]).map((f: IFunction, iFunc: any) => {
+        let pathItem = mergePath({path1: f.path_prefix, path2: f.path, projectId, appName: rootItem.name, pathPrefix});
         let ff: any = {
           ...f,
+          "root_app": rootItem.name,
+          "display_root_app": rootItem.display_name,
+          "projectId": projectId,
+          "projectName": projectName,
+          "path": pathItem,
           "pathFocus": [...childrens.pathFocus, 'children', iFunc],
+          "nodeIds": [...childrens.nodeIds, `${idChild}`],
           "id": `${idChild++}`,
           "children": []
         }
@@ -81,8 +196,53 @@ function convertFunctions2TreeView(leftMenuData: ILeftData[], path: string[], fu
           ff.info = 100000
         }
         childrens.children.push(ff);
+        if (!outPut.routers[rootItem.name]) {
+          outPut.routers[rootItem.name] = []
+        }
+        outPut.routers[rootItem.name].push(pathItem);
       })
       newFunctions.push(childrens)
+    }
+  }
+  outPut.ids = idChild;
+  set(outPut.data, [...path, 'children'], newFunctions)
+  set(outPut.data, [...path, 'info'], newFunctions.length)
+  return outPut;
+}
+
+function convertFunctionsTraining2TreeView(input: IFunctions2TreeView) {
+  let {leftMenuData = [], path = '', functions = [], ids = 1, routers = {}, projectId, projectName} = input;
+  let outPut: any = {
+    data: leftMenuData,
+    routers,
+    ids
+  };
+  const pathPrefix = getPathPrefix();
+  let newFunctions: any = [];
+  const parentId = get(leftMenuData, [...path, 'nodeIds'])
+  for (let index = 0; index < functions.length; index++) {
+    const values = functions[index];
+    if (values) {
+      let pathItem = mergePath({path1: values.path_prefix, path2: values.path, projectId, appName: values.root_app, pathPrefix});
+      let childrens: any = {
+        "root_app": values.root_app,
+        "display_root_app": values.display_root_app,
+        "name": values.name,
+        "display_name": values.display_name,
+        "path": pathItem,
+        "path_prefix": values.path_prefix,
+        "projectId": projectId,
+        "projectName": projectName,
+        "nodeIds": [...parentId, `${ids}`],
+        "id": `${ids++}`,
+        "pathFocus": [...path, 'children', index],
+        "children": []
+      }
+      newFunctions.push(childrens);
+      if (!outPut.routers[values.root_app]) {
+        outPut.routers[values.root_app] = []
+      }
+      outPut.routers[values.root_app].push(pathItem);
     }
   }
   outPut.ids = ids;
@@ -133,6 +293,9 @@ function findTreeItemByNodeId(data: ILeftData[], nodeId: string, path?: string[]
 export const setSearchLeftMenu = (name: string, value: string) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuData = cloneDeep(state.leftMenuData) || [];
+  let leftMenuDataClonelv1 = state.leftMenuDataClonelv1;
+  let isReady = state.isReady;
+  if (!isReady) {return;}
   let payload: any = {};
   payload[name] = value;
   console.log('====================================');
@@ -141,9 +304,11 @@ export const setSearchLeftMenu = (name: string, value: string) => async (dispatc
   if (value.length === 0) {
     payload.leftMenuDataSearch = leftMenuData;
   } else {
-    const menuData = cloneMenuData(cloneDeep(leftMenuData));
-    const treeItem = findTreeItemByName({data: cloneDeep(leftMenuData), nextData: menuData, name: value});
-    const treeItemFinal = convertTreeItemToLeftData(leftMenuData, treeItem)
+    if (leftMenuDataClonelv1.length === 0) {
+      leftMenuDataClonelv1 = cloneMenuData(cloneDeep(leftMenuData));
+    }
+    const treeItem = findTreeItemByName({data: cloneDeep(leftMenuData), nextData: leftMenuDataClonelv1, name: value});
+    const treeItemFinal = convertTreeItemToLeftData(leftMenuData, treeItem);
     console.log('========setSearchLeftMenu============');
     console.log('treeItem: ', treeItem);
     console.log('treeItemFinal: ', treeItemFinal);

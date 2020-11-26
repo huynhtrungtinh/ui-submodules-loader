@@ -1,10 +1,8 @@
 import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
-import {getScope} from '../mokup';
-// import {fetchJson, getApiUacURI} from '@dgtx/ui-utils';
-// import {getScope} from '../mokup';
+import {getFunctionOtherApps} from '../mokup';
 
-const SCOPE_RESOURCE = "scope-root";
-const scopeResource = (input: IInputProvider): IProviderOutPut => {
+const OTHER_APPS_RESOURCE = "other-apps-root";
+const otherAppsResource = (input: IInputProvider): IProviderOutPut => {
     const {type, apiURI} = input;
     switch (type) {
         case GET:
@@ -15,7 +13,7 @@ const scopeResource = (input: IInputProvider): IProviderOutPut => {
                 method: 'GET',
                 response: {
                     blod: null,
-                    data: getScope(),
+                    data: getFunctionOtherApps(),
                     headers: null,
                     response: null,
                     status: 200
@@ -35,5 +33,5 @@ const scopeResource = (input: IInputProvider): IProviderOutPut => {
     }
 }
 
-export {scopeResource, SCOPE_RESOURCE};
+export {otherAppsResource, OTHER_APPS_RESOURCE};
 
