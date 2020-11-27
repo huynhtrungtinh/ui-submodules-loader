@@ -20,6 +20,7 @@ export interface IAuthenticationState {
   loading: number;
   isAuthenticatedStatusCode: number | null;
   isAuthenticated: boolean;
+  isCheckToken: boolean;
   userInfo: IUserInfo;
   authenProvider: IAuthenProvider;
   openSigninExpirationTime: boolean;

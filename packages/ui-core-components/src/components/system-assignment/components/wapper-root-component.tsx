@@ -35,7 +35,9 @@ function WapperComponent(props: IProps) {
     } = props;
     const size: any = useWindowSize();
     const classes = useStyles({heightRoot});
-
+    console.log('=========matchmatchmatchmatchmatch===========================');
+    console.log('match: ', props.match);
+    console.log('====================================');
     React.useEffect(() => {
         getDataForReady()
     }, [])

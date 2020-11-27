@@ -1,4 +1,5 @@
 import {PageDecorator} from '@dgtx/ui-core';
+import {PATH_TO_STORE_AUTH} from '@dgtx/ui-scl';
 import {get} from 'lodash';
 import {getDataForReady, setBreakpoints} from '../actions';
 import {WapperRootComponent} from '../components';
@@ -8,11 +9,15 @@ import reducers from '../reducers';
 
 const mapStateToProps = (state: any) => {
   let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});
+  const authentication = get(state, PATH_TO_STORE_AUTH, {});
+  const {isAuthenticated = false, isCheckToken = false} = authentication || {};
   return {
+    isAuthenticated,
+    isCheckToken,
     breakpoint: stateRedux.breakpoint,
     heightRoot: stateRedux.height,
     isReady: stateRedux.isReady,
-    widthRoot: stateRedux.width,
+    widthRoot: stateRedux.width
   };
 };
 const mapDispatchToProps = () => {

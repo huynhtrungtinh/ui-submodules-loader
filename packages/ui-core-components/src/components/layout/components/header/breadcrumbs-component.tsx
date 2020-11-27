@@ -6,26 +6,21 @@ import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import {I18n} from 'react-redux-i18n';
 import {useHistory} from 'react-router-dom';
-import {ICON, KEY_TRANSLATE} from '../../constants';
+import {KEY_TRANSLATE} from '../../constants';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    color: theme.palette.primary.contrastText
-  },
-  link: {
-    display: 'flex',
+    color: theme.palette.primary.contrastText,
     maxHeight: 44,
     minHeight: 44,
     lineHeight: '45px',
-    // color: theme.palette.primary.contrastText
   },
-  icon: {
-    marginRight: theme.spacing(0.5),
-    marginTop: 12,
-    width: 20,
-    height: 20,
+  link: {
+    display: 'flex',
+
+    cursor: 'pointer'
     // color: theme.palette.primary.contrastText
-  },
+  }
 }));
 
 function BreadcrumbsComponent(props: any) {
@@ -43,7 +38,6 @@ function BreadcrumbsComponent(props: any) {
         {
           tabs.map((t: any, index: any) => {
             if (t.name) {
-              let IconTab: any = <></>;
               let Item: any = <></>;
               let label = "";
               let labelFull = "";
@@ -51,10 +45,8 @@ function BreadcrumbsComponent(props: any) {
               label = labelFull.length > 20 ? `${labelFull.substr(0, 20)}....` : labelFull;
               if (breakpoint === "xs" || breakpoint === "sm") {
                 if (index === tabs.length - 1) {
-                  IconTab = ICON['home'];
                   return (
-                    <Link color="inherit" onClick={handleClick(t)} className={classes.link}>
-                      <IconTab className={classes.icon} />
+                    <Link key={index} color="inherit" onClick={handleClick(t)} className={classes.link}>
                       {label}
                     </Link>
                   )
@@ -64,30 +56,24 @@ function BreadcrumbsComponent(props: any) {
 
               switch (index) {
                 case 0: {
-                  IconTab = ICON[t.name];
                   Item = (
-                    <Link color="inherit" onClick={handleClick(t)} className={classes.link}>
-                      <IconTab className={classes.icon} />
+                    <Link key={index} color="inherit" onClick={handleClick(t)} className={classes.link}>
                       {label}
                     </Link>
                   )
                   break;
                 }
                 case 1: {
-                  IconTab = ICON['project'];
                   Item = (
-                    <Typography className={classes.link}>
-                      <IconTab className={classes.icon} />
+                    <Typography key={index} className={classes.link}>
                       {label}
                     </Typography>
                   )
                   break;
                 }
                 case 2: {
-                  IconTab = ICON['function'];
                   Item = (
-                    <Typography className={classes.link}>
-                      <IconTab className={classes.icon} />
+                    <Typography key={index} className={classes.link}>
                       {label}
                     </Typography>
                   )

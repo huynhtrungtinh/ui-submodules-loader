@@ -28,10 +28,6 @@ export default (params?: any): any[] => {
       path: "/",
       component: () => <div>Dashboard Page</div>
       // component: DashboardPage
-    },
-    {
-      name: "page404",
-      component: () => <div>404</div>
     }
   ];
   return route;

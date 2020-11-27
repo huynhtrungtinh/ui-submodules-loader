@@ -1,5 +1,5 @@
 import {IAction} from '@dgtx/ui-scl';
-import {BREADCRUMB_HOME, NAME_REDUCER, SET_BREAKPOINT, SET_CLICK_LEFT_MENU_ITEM, SET_DATA_READY, SET_OPEN_CONTACT_MENU, SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_SEARCH_LEFT_MENU, UNMOUNT} from '../constants';
+import {ADD_TREE_ITEM_BY_TREE_NODE, BREADCRUMB_HOME, CREATE_BREADCRUMBS_BY_TREE_NODE, NAME_REDUCER, SET_BREAKPOINT, SET_CLICK_LEFT_MENU_ITEM, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, SET_OPEN_CONTACT_MENU, SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_SEARCH_LEFT_MENU, UNMOUNT} from '../constants';
 
 export const initialState: any = {
     isReady: false,
@@ -46,6 +46,10 @@ export default {
                 case SET_DATA_READY:
                 case SET_CLICK_LEFT_MENU_ITEM:
                 case SET_SEARCH_LEFT_MENU:
+                case ADD_TREE_ITEM_BY_TREE_NODE:
+                case SET_DATA_TRAINING:
+                case SET_DATA_OPERATION:
+                case CREATE_BREADCRUMBS_BY_TREE_NODE:
                     return {
                         ...state,
                         ...payload
@@ -59,4 +63,3 @@ export default {
         return state;
     }
 };
-

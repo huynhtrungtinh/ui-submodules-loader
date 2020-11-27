@@ -167,7 +167,7 @@ const setAuthRouters = (routers: IRouter[]) => async (dispatch: any) => {
 }
 
 function checkTokenExpiration(accessToken?: string, refreshToken?: string) {
-    if(!accessToken || !refreshToken){
+    if (!accessToken || !refreshToken) {
         accessToken = getAccessToken();
         refreshToken = getRefreshToken();
     }
@@ -216,6 +216,7 @@ const effectTokenExpiration = (holdPage?: boolean) => async (dispatch: any, getS
                 payload: {
                     isAuthenticatedStatusCode: outPut.status,
                     isAuthenticated: true,
+                    isCheckToken: true,
                     userInfo: outPut.userInfo
                 }
             });
@@ -239,7 +240,7 @@ const effectTokenExpiration = (holdPage?: boolean) => async (dispatch: any, getS
             isError = false;
             outPut.status = 401;
             dispatch(showSigninExpTime(true));
-        } else if (tokenExp.isReSingin) {
+        } else if (tokenExp.isReSingin && (accessToken || refreshToken)) {
             isError = false;
             outPut.status = 401;
             dispatch(showSigninExpTime(true));
@@ -258,7 +259,7 @@ const executeActionReducerAuth = (type: string, payload: any) => {
 };
 
 const showSigninExpTime = (open: boolean) => async (dispatch: any) => {
-    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isAuthenticatedStatusCode: 401}));
+    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isCheckToken: false, isAuthenticatedStatusCode: 401}));
 }
 
 const setAuthLoginFailure = () => async (dispatch: any) => {
@@ -277,6 +278,7 @@ const setAuthLogin = (username: string, password: string) => async (dispatch: an
             dispatch(executeActionReducerAuth(SUCCESS(LOGIN), {
                 isAuthenticatedStatusCode: userInfo.status,
                 isAuthenticated: true,
+                isCheckToken: true,
                 userInfo: userInfo.userInfo
             }));
             dispatch(effectI18nLocal());
@@ -407,10 +409,11 @@ const setAuthRefresh = () => async (dispatch: any, getState: any) => {
             payload = {
                 isAuthenticatedStatusCode: userInfo.status,
                 isAuthenticated: true,
+                isCheckToken: true,
                 userInfo: userInfo.userInfo
             }
         }
-        dispatch(executeActionReducerAuth(REFRESH_TOKEN, payload));
+        dispatch(executeActionReducerAuth(SUCCESS(REFRESH_TOKEN), payload));
     }
     return response;
 }

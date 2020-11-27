@@ -19,7 +19,7 @@ export function getProjectsTraining() {
             "name": "105_110919_Juris_V_01650_Konvertieren_Anwaltsblatt_Online"
         },
         {
-            "customer_id": "5e04623c37dee202b0256e68",
+            "customer_id": "5e04623c37dee202b0256e70",
             "customer_name": "CÔNG TY TNHH BẢO HIỂM NHÂN THỌ SUN LIFE VIỆT NAM",
             "id": "12312332543",
             "name": "thang tre loi"

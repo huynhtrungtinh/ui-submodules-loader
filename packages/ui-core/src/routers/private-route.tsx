@@ -1,4 +1,4 @@
-import {Page403, Page404} from '@dgtx/ui-core-components';
+import {Page404} from '@dgtx/ui-core-components';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom';
@@ -18,26 +18,22 @@ export const PrivateRouteComponent = ({
   const renderRedirect = (props: any) => {
     if (!computedMatch.isExact) {
       return (
-        <ErrorBoundary>
+        <ErrorBoundary {...props}>
           <RootLayout {...props}>
             <Page404 />
           </RootLayout>
         </ErrorBoundary>
       )
-    } else if (statusCode === 404) {
-      return <Page404 />
-    } else if (statusCode === 403) {
-      return <Page403 />
     } else if (isAuthenticated) {
       return (
-        <ErrorBoundary>
+        <ErrorBoundary {...props}>
           <RootLayout {...props}>
             <Component {...props} />
           </RootLayout>
         </ErrorBoundary>
       )
     } else if (DefaultComponent) {
-      return <DefaultComponent />
+      return <DefaultComponent {...props} />
     } else {
       setAuthLogout(false);
       return (

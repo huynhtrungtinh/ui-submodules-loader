@@ -16,6 +16,7 @@ const mapStateToProps = (state: any) => {
     leftMenuData: cloneDeep(stateRedux.leftMenuDataSearch),
     leftMenuSearch: stateRedux.leftMenuSearch,
     breakpoint: stateRedux.breakpoint,
+    leftMenuSelected: stateRedux.leftMenuSelected
   };
 };
 

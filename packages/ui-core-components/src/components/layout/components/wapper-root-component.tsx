@@ -40,13 +40,15 @@ interface IProps {
     isRejectRoom?: any;
     socketIO?: any;
     getDataForReady?: Function;
-    isReady?: Boolean;
+    isReady?: boolean;
     version?: string;
     match?: match;
     setBreakpoints?: Function;
     width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     heightRoot?: number;
     widthRoot?: number;
+    isAuthenticated?: boolean;
+    isCheckToken?: boolean;
 }
 
 const theme: any = createMuiTheme(defaultThemes);
@@ -59,7 +61,9 @@ function WapperComponent(props: IProps) {
         isReady = false,
         width,
         heightRoot = 0,
-        match = {}
+        match = {},
+        isAuthenticated = false,
+        isCheckToken = false
         // widthRoot = 0,
         // isRejectRoom, socketIO,
     } = props;
@@ -69,12 +73,15 @@ function WapperComponent(props: IProps) {
 
     React.useEffect(() => {
         getDataForReady({version, match, history})
-    }, [])
+    }, [isAuthenticated, isCheckToken])
 
     React.useEffect(() => {
         setBreakpoints(width, size);
-    }, [width])
+    }, [width, isAuthenticated, isCheckToken])
 
+    if (!isAuthenticated || !isCheckToken) {
+        return <></>
+    }
     return (
         <React.Fragment>
             <MuiThemeProvider theme={theme}>
@@ -98,7 +105,7 @@ function WapperComponent(props: IProps) {
     )
 }
 
-const WapperRootComponent: any = withWidth()(WapperComponent)
+const WapperRootComponent: any = withWidth()(WapperComponent);
 export default WapperRootComponent;
 export {WapperRootComponent};
 

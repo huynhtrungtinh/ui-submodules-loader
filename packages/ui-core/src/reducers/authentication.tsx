@@ -6,6 +6,7 @@ const initialState: IAuthenticationState = {
   loading: 0,
   isAuthenticatedStatusCode: null,
   isAuthenticated: !checkTokenExpiration().isReSingin,
+  isCheckToken: false,
   userInfo: {} as any,
   authenProvider,
   openSigninExpirationTime: false
@@ -26,10 +27,11 @@ export default (state: IAuthenticationState = {...initialState}, {type, payload}
         loading: 0,
         isAuthenticatedStatusCode: null,
         isAuthenticated: false,
+        isCheckToken: false,
         userInfo: {} as any,
       };
     case SHOW_SIGNIN_EXP_TIME:
-    case REFRESH_TOKEN:
+    case SUCCESS(REFRESH_TOKEN):
     case SET_ROUTERS:
     case SUCCESS(CHECK_TOKEN):
     case SUCCESS(LOGIN): {
@@ -50,7 +52,7 @@ export default (state: IAuthenticationState = {...initialState}, {type, payload}
         loading: Math.max(state.loading - 1, 0)
       };
     case SUCCESS(LOGOUT): {
-      return {...initialState, isAuthenticated: false};
+      return {...initialState, isAuthenticated: false, isCheckToken: false, };
     }
     default:
       return state;

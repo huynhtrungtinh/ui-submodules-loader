@@ -1,8 +1,10 @@
+import {PATH_TO_STORE_AUTH} from '@dgtx/ui-scl';
 import {get} from 'lodash';
 import {I18n} from 'react-redux-i18n';
 import {match} from 'react-router-dom';
-import {APPS, IApps, IFunction, ILeftData, IProject, KEY_TRANSLATE, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_BREAKPOINT, SET_DATA_READY, UNMOUNT} from '../constants';
+import {APPS, IApps, IFunction, ILeftData, IProject, KEY_TRANSLATE, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, UNMOUNT} from '../constants';
 import {callAPIGetApps, callAPIGetFunctionOtherApp, callAPIGetProjectsOperation, callAPIGetProjectsTraining} from './call-api';
+import {addTreeItemByTreeNode, createBreadcrumbsByTreeNode, findTreeItemByName} from './header';
 
 export const executeActionReducer = (type: string, payload: any) => {
   return {type, payload, meta: {resource: NAME_REDUCER}};
@@ -13,6 +15,11 @@ export const unmount = () => async (dispatch: any) => {
 };
 
 export const setBreakpoints = (width: 'xs' | 'sm' | 'md' | 'lg' | 'xl', size: {height: 0, width: 0}) => async (dispatch: any, getState: any) => {
+  const authentication = get(getState(), PATH_TO_STORE_AUTH, {});
+  const {isAuthenticated = false, isCheckToken = false} = authentication || {};
+  if (!isAuthenticated || !isCheckToken) {
+    return;
+  }
   let payload: any = {
     width: size.width,
     height: size.height,
@@ -27,9 +34,15 @@ interface IGetDataForReady {
   history: any
 }
 export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any, getState: any) => {
-  const {version = "0.0.1", match = MATCH_DEFAULT} = input;
+  const authentication = get(getState(), PATH_TO_STORE_AUTH, {});
+  const {isAuthenticated = false, isCheckToken = false} = authentication || {};
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuData = state.leftMenuData || [];
+  if (!isAuthenticated || !isCheckToken || leftMenuData.length > 0) {
+    return;
+  }
+  const {version = "0.0.1", match = MATCH_DEFAULT} = input;
+
   if (leftMenuData.length > 0) {return;}
   let payload: any = {};
   const apps: any = await dispatch(callAPIGetApps());
@@ -78,7 +91,7 @@ export const getDataOperation = (match: match, history: any) => async (dispatch:
     payload.leftMenuDataSearch = convert2.data;
     payload.leftMenuLastNodeId = convert2.ids;
     payload.isReady = true;
-    dispatch(executeActionReducer(SET_DATA_READY, payload));
+    dispatch(executeActionReducer(SET_DATA_OPERATION, payload));
     dispatch(getDataTraining(match, history));
   }
 }
@@ -96,7 +109,7 @@ export const getDataTraining = (match: match, history: any) => async (dispatch: 
     payload.leftMenuData = convert2.data;
     payload.leftMenuDataSearch = convert2.data;
     payload.leftMenuLastNodeId = convert2.ids;
-    dispatch(executeActionReducer(SET_DATA_READY, payload));
+    dispatch(executeActionReducer(SET_DATA_TRAINING, payload));
     dispatch(getDataByPathName(match, history))
   }
 }
@@ -299,4 +312,68 @@ export const getDataByPathName = (match: match, history: any) => async (dispatch
   console.log('match: ', match);
   console.log('history: ', history);
   console.log('====================================');
+  const projectId = get(match, 'params.projectId', null);
+  const appName = get(match, 'params.appName', null);
+  const taskKeyDef = get(match, 'params.taskKeyDef', null);
+  const pathName = get(match, 'url', '');
+  const pathRoute = get(match, 'path', '');
+  let functionName: any = taskKeyDef;
+  if (projectId && appName) {
+    console.log('projectId && appName: ', projectId, appName);
+    const treeNode: any = findTreeItemByNameVsRootApp(leftMenuData, projectId, appName);
+    await dispatch(addTreeItemByTreeNode(treeNode));
+    console.log('treeNode: ', treeNode);
+    if (!functionName) {
+      functionName = findFunctionNameByPathName(pathName, pathRoute, ":projectId")
+    }
+    const newLeftMenuData = get(getState(), `${PATH_TO_STORE_REDUX}.leftMenuData`, []);
+    const newTreeNode = get(newLeftMenuData, treeNode.pathFocus)
+    console.log('newTreeNode: ', newTreeNode);
+    console.log('functionName: ', functionName);
+    const lastChild = findTreeItemByName(newTreeNode.children, functionName);
+    console.log('lastChild: ', lastChild);
+    dispatch(createBreadcrumbsByTreeNode(lastChild.data))
+  } else if (appName) {
+    functionName = findFunctionNameByPathName(pathName, pathRoute, ":appName")
+    console.log('functionName: ', functionName);
+    console.log('appName: ', appName);
+    const treeNode: any = findTreeItemByNameVsRootApp(leftMenuData, functionName, appName);
+    // await dispatch(addTreeItemByTreeNode(treeNode));
+    console.log('treeNode: ', treeNode);
+  }
+}
+
+export function findFunctionNameByPathName(pathName: string, pathRoute: string, findKey: string) {
+  const pathNameKeys = pathName.split("/");
+  const pathRouteKeys = pathRoute.split("/");
+  let outPut: any = null;
+  for (let index = 0; index < pathNameKeys.length; index++) {
+    if (pathRouteKeys[index] === findKey) {
+      outPut = pathNameKeys[index + 1];
+      break;
+    }
+  }
+  return outPut;
+}
+
+export function findTreeItemByNameVsRootApp(data: ILeftData[], projectId: string, appName?: string) {
+  let outPut: any = null;
+  let items: any = data;
+  if (appName) {
+    const app: any = data.find((app: any) => app.root_app === appName);
+    items = app.children;
+  }
+  for (let index = 0; index < items.length; index++) {
+    const item = items[index];
+    if (item.name === projectId) {
+      outPut = item;
+      break;
+    } else if (item.children.length > 0) {
+      outPut = findTreeItemByNameVsRootApp(item.children, projectId);
+      if (outPut) {
+        break;
+      }
+    }
+  }
+  return outPut;
 }

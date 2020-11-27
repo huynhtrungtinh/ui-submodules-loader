@@ -279,10 +279,10 @@ const useStyles = makeStyles((theme: Theme) =>
             right: 0,
             top: 0,
             padding: '2px',
-            color: theme.palette.error.main,
+            // color: theme.palette.error.main,
             zIndex: 10,
             '&:hover': {
-                backgroundColor: fade(theme.palette.error.main, 0.2),
+                backgroundColor: fade(theme.palette.grey[100], 0.2),
             },
         }
     }),
@@ -301,7 +301,8 @@ function LeftMenuComponent(props: any) {
         setClickItem = () => null,
         setSearch = () => null,
         leftMenuSearch = "",
-        breakpoint
+        breakpoint = "lg",
+        leftMenuSelected = {}
     } = props;
 
     const refContainer: any = React.useRef();
@@ -310,7 +311,9 @@ function LeftMenuComponent(props: any) {
     const [searchValue, setSearchValue] = React.useState(leftMenuSearch);
     const classes = useStyles({drawerWidth});
     const history = useHistory();
-
+    console.log('====================================');
+    console.log('leftMenuSelected: ', leftMenuSelected);
+    console.log('====================================');
     React.useEffect(() => {
     }, [refContainer])
 
@@ -464,8 +467,10 @@ function LeftMenuComponent(props: any) {
                     onNodeSelect={handleSelectedTreeItem}
                     ref={refContainer}
                     onScroll={handleScroll}
-                // expanded={['4', '14']}
-                // selected={'30'}
+                    // expanded={["4", "21", "25", "33", "39"]}
+                    // selected={"39"}
+                    expanded={leftMenuSelected.nodeIds || []}
+                    selected={leftMenuSelected.id || null}
                 >
                     {
                         renderTreeItem(leftMenuData)

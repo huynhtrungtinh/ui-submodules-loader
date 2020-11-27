@@ -8,7 +8,7 @@ const mapStateToProps = (state: any) => {
   let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});
   return {
     breakpoint: stateRedux.breakpoint,
-    tabs: stateRedux.breadcrumbsData
+    tabs: stateRedux.breadcrumbsData,
   };
 };
 
