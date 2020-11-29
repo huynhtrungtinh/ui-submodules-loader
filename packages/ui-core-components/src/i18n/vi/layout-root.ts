@@ -6,5 +6,5 @@ export default {
   operator: "Operator",
   home: "Trang Chủ",
   system_configuration: "Configuration",
-  system_assignment: "Assignment",
+  "role-assignment": "Role Assignment",
 }

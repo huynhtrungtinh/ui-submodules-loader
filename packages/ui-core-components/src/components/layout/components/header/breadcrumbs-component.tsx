@@ -20,16 +20,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     cursor: 'pointer'
     // color: theme.palette.primary.contrastText
+  },
+  text:{
+    display: 'flex',
+    cursor: 'default'
   }
 }));
 
 function BreadcrumbsComponent(props: any) {
   const classes = useStyles();
-  const {tabs = [], breakpoint = "lg"} = props;
+  const {tabs = [], breakpoint = "lg", setClickItem = ()=>null} = props;
   const history = useHistory();
 
   const handleClick = (tab: any) => () => {
-    history.push("/");
+    setClickItem(tab, history);
+    // history.push("/");
   };
 
   if (tabs && tabs.length > 0) {
@@ -65,7 +70,7 @@ function BreadcrumbsComponent(props: any) {
                 }
                 case 1: {
                   Item = (
-                    <Typography key={index} className={classes.link}>
+                    <Typography key={index} className={classes.text}>
                       {label}
                     </Typography>
                   )
@@ -73,7 +78,7 @@ function BreadcrumbsComponent(props: any) {
                 }
                 case 2: {
                   Item = (
-                    <Typography key={index} className={classes.link}>
+                    <Typography key={index} className={classes.text}>
                       {label}
                     </Typography>
                   )

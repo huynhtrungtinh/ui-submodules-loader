@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import {get} from 'lodash';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON, ILeftData} from '../../constants';
+import {ICON, IRootDrawerLeft} from '../../constants';
 
 function MinusSquare(props: SvgIconProps) {
     return (
@@ -292,7 +292,7 @@ let timeoutIdSearch: any = 0;
 function LeftMenuComponent(props: any) {
     const {
         isOpen = false,
-        routers = [],
+        // routers = [],
         setOpen = () => null,
         version = 0,
         // routeFocus = {},
@@ -311,9 +311,6 @@ function LeftMenuComponent(props: any) {
     const [searchValue, setSearchValue] = React.useState(leftMenuSearch);
     const classes = useStyles({drawerWidth});
     const history = useHistory();
-    console.log('====================================');
-    console.log('leftMenuSelected: ', leftMenuSelected);
-    console.log('====================================');
     React.useEffect(() => {
     }, [refContainer])
 
@@ -389,9 +386,9 @@ function LeftMenuComponent(props: any) {
         }, 200);
     }
 
-    const renderTreeItem = (leftMenuData: ILeftData[]) => {
+    const renderTreeItem = (leftMenuData: IRootDrawerLeft[]) => {
         if (leftMenuData && leftMenuData[0]) {
-            return leftMenuData.map((data: ILeftData) => {
+            return leftMenuData.map((data: IRootDrawerLeft) => {
                 if (data) {
                     return (
                         <StyledTreeItem key={data.id} nodeId={data.id} labelText={data.display_name} labelInfo={data.info} LabelIcon={ICON[data.name] || (data.children.length > 0 ? PlusSquare : MinusSquare)} >

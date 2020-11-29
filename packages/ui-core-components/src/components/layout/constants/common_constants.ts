@@ -19,6 +19,7 @@ export const APPS = [TRAINING_KEY, SYSTEM_KEY, FUNCTIONAL_KEY, OPERATION_KEY];
 export const BREADCRUMB_HOME = {
   path: '/',
   name: 'home',
+  index: 0
 };
 export const MATCH_DEFAULT = {
   isExact: false,

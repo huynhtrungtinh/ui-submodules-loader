@@ -1,8 +1,9 @@
 import {redirect} from '@dgtx/ui-utils';
 import {cloneDeep, get, orderBy, set} from 'lodash';
-import {ADD_TREE_ITEM_BY_TREE_NODE, CREATE_BREADCRUMBS_BY_TREE_NODE, IFunction, ILeftData, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_CLICK_LEFT_MENU_ITEM, SET_OPEN_LEFT_MENU, SET_SEARCH_LEFT_MENU} from '../../constants';
+import {ADD_TREE_ITEM_BY_TREE_NODE, IFunction, IRootDrawerLeft, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_CLICK_LEFT_MENU_ITEM, SET_OPEN_LEFT_MENU, SET_SEARCH_LEFT_MENU} from '../../constants';
 import {callAPIGetFunctionsOperation} from '../call-api';
 import {executeActionReducer, getPathPrefix, mergePath} from '../common-actions';
+import {createBreadcrumbsByTreeNode} from './breadcrumb-actions';
 export const setOpenLeftMenu = (isOpen?: Boolean, route?: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const routeFocus = state.routeFocus;
@@ -23,8 +24,14 @@ export const setOpenLeftMenu = (isOpen?: Boolean, route?: any) => async (dispatc
 export const setClickLeftMenuItem = (nodeId: any, history: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuDataSearch = state.leftMenuDataSearch || [];
-  const leftMenuItem = findTreeItemByNodeId(leftMenuDataSearch, nodeId);
+  const leftMenuSelected = state.leftMenuSelected || {};
   let payload: any = {};
+  if (leftMenuSelected.id === nodeId) {
+    payload.leftMenuSelected = {};
+    dispatch(executeActionReducer(SET_CLICK_LEFT_MENU_ITEM, payload));
+    return;
+  }
+  const leftMenuItem = findTreeItemByNodeId(leftMenuDataSearch, nodeId);
   console.log('=========setClickLeftMenuItem========');
   console.log('nodeId: ', nodeId);
   console.log('leftMenuItem: ', leftMenuItem);
@@ -49,7 +56,7 @@ export const setClickLeftMenuItem = (nodeId: any, history: any) => async (dispat
   console.log('====================================');
 }
 
-export const addTreeItemByTreeNode = (treeNode: ILeftData) => async (dispatch: any, getState: any) => {
+export const addTreeItemByTreeNode = (treeNode: IRootDrawerLeft) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuDataSearch = state.leftMenuDataSearch || [];
   let routers = state.routers || {};
@@ -104,50 +111,8 @@ export const addTreeItemByTreeNode = (treeNode: ILeftData) => async (dispatch: a
   }
 }
 
-export const createBreadcrumbsByTreeNode = (treeNode: ILeftData) => async (dispatch: any, getState: any) => {
-  let payload: any = {};
-  payload.breadcrumbsData = createBreadcrumbsData(treeNode);
-  payload.leftMenuSelected = treeNode;
-  console.log('==========createBreadcrumbsByTreeNode===========');
-  console.log('treeNode: ', treeNode);
-  console.log('====================================');
-  dispatch(executeActionReducer(CREATE_BREADCRUMBS_BY_TREE_NODE, payload));
-}
-
-function createBreadcrumbsData(data: ILeftData) {
-  let outPut: any = [];
-  if (data.projectId) {
-    outPut.push({
-      name: data.root_app,
-      path: "/"
-    })
-    outPut.push({
-      name: data.projectName,
-      path: `/${data.root_app}/${data.projectId}/`
-    })
-    let lastItem = {
-      name: data.name,
-      path: data.path
-    };
-    if (data.root_app === OPERATION_KEY) {
-      lastItem.name = data.display_name
-    }
-    outPut.push(lastItem)
-  } else {
-    outPut.push({
-      name: data.root_app,
-      path: "/"
-    })
-    outPut.push({
-      name: data.name,
-      path: data.path
-    })
-  }
-  return outPut;
-}
-
 interface IFunctions2TreeView {
-  leftMenuData: ILeftData[];
+  leftMenuData: IRootDrawerLeft[];
   path: string[];
   functions: IFunction[];
   ids: number;
@@ -271,13 +236,13 @@ function convertFunctionsTraining2TreeView(input: IFunctions2TreeView) {
   return outPut;
 }
 
-export function findTreeItemByNodeId(data: ILeftData[], nodeId: string, path?: string[]) {
+export function findTreeItemByNodeId(data: IRootDrawerLeft[], nodeId: string, path?: string[]) {
   let outPut: any = {
     path: path || [],
     data: null,
   };
   for (let index = 0; index < data.length; index++) {
-    const element: ILeftData = data[index];
+    const element: IRootDrawerLeft = data[index];
     if (!element) {continue;}
     if (!path) {
       outPut.path = [];
@@ -311,13 +276,13 @@ export function findTreeItemByNodeId(data: ILeftData[], nodeId: string, path?: s
 }
 
 
-export function findTreeItemByName(data: ILeftData[], name: string, path?: string[]) {
+export function findTreeItemByName(data: IRootDrawerLeft[], name: string, path?: string[]) {
   let outPut: any = {
     path: path || [],
     data: null,
   };
   for (let index = 0; index < data.length; index++) {
-    const element: ILeftData = data[index];
+    const element: IRootDrawerLeft = data[index];
     if (!element) {continue;}
     if (!path) {
       outPut.path = [];
@@ -379,7 +344,7 @@ export const setSearchLeftMenu = (name: string, value: string) => async (dispatc
 }
 
 interface IFindTreeItemByName {
-  data: ILeftData[];
+  data: IRootDrawerLeft[];
   name: string;
   nextData?: any;
 }
@@ -391,7 +356,7 @@ function findTreeItemByDisplayName(input: IFindTreeItemByName) {
     return [];
   }
   for (let index = 0; index < data.length; index++) {
-    const element: ILeftData = data[index];
+    const element: IRootDrawerLeft = data[index];
     if (element.display_name.toLocaleLowerCase().search(name.toLocaleLowerCase()) !== -1) {
       set(outPut, element.pathFocus, {...element});
       if (element.children.length > 0) {
@@ -418,13 +383,13 @@ function findTreeItemByDisplayName(input: IFindTreeItemByName) {
   return outPut;
 }
 
-function cloneMenuData(data: ILeftData[], nextData?: ILeftData[]) {
+function cloneMenuData(data: IRootDrawerLeft[], nextData?: IRootDrawerLeft[]) {
   let outPut: any = nextData || data;
   if (data.length === 0) {
     return [];
   }
   for (let index = 0; index < data.length; index++) {
-    const element: ILeftData = data[index];
+    const element: IRootDrawerLeft = data[index];
     if (element.children.length > 0) {
       set(outPut, [...element.pathFocus, "children"], []);
     }
@@ -432,7 +397,7 @@ function cloneMenuData(data: ILeftData[], nextData?: ILeftData[]) {
   return outPut;
 }
 
-function convertTreeItemToLeftData(dataParent: ILeftData[], data: ILeftData[], pathNext?: any[], pathParent?: any[]) {
+function convertTreeItemToLeftData(dataParent: IRootDrawerLeft[], data: IRootDrawerLeft[], pathNext?: any[], pathParent?: any[]) {
   let outPut: any = [];
   pathNext = pathNext || [];
   pathParent = pathParent || [];

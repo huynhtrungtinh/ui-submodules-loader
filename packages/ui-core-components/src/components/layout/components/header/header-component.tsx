@@ -2,6 +2,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Home from "@material-ui/icons/Home";
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Phone from '@material-ui/icons/Phone';
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         menuButton: {
             color: theme.palette.primary.contrastText,
-            marginLeft: 4
+            // marginLeft: 4
         },
         text: {
             color: theme.palette.primary.contrastText,
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1
         },
         padding: {
-            padding: 10
+            padding: '9px 10px 9px 10px'
         },
         atag: {
             color: theme.palette.primary.contrastText,
@@ -90,9 +91,14 @@ function HeaderComponent(props: any) {
         breakpoint = "lg",
         displayName = "",
         loading = 0,
-        contactsData = []
+        contactsData = [],
+        match = {}
     } = props;
     const classes = useStyles();
+    const isViewIconHome = match.path === "/" || match.path === "/home" ? false : true;
+    console.log('====================================');
+    console.log('match2: ', match);
+    console.log('====================================');
     React.useEffect(() => {
         setBreakpoints(width);
     }, [width])
@@ -114,20 +120,24 @@ function HeaderComponent(props: any) {
     };
     return (
         <div className={clsx(classes.root)}>
-            <div>
-                <IconButton
-                    className={clsx(classes.menuButton, classes.padding)}
-                    edge="start"
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleIconHome}
-                >
-                    <MenuIcon />
-                </IconButton>
-
-
-                {/* <a href="/" className={classes.atag}>{"DEV ENV"}</a> */}
-            </div>
+            {
+                isViewIconHome ?
+                <div>
+                    <IconButton
+                        className={classes.padding}
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={handleIconHome}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                </div>
+                :
+                <div className={clsx(classes.menuButton, classes.padding)}>
+                    <Home />
+                </div>
+            }
 
 
             <div className={classes.breadcrumbs} >

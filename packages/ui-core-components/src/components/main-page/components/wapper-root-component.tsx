@@ -1,6 +1,7 @@
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import withWidth from '@material-ui/core/withWidth';
 import React from 'react';
+import {IRootDrawerLeft} from '../../layout';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -11,17 +12,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface IProps {
-    children?: any;
-    isRejectRoom?: any;
-    socketIO?: any;
+      match?: any;
     getDataForReady?: Function;
     isReady?: Boolean;
-    version?: string;
-    match?: any;
-    setBreakpoints?: Function;
     width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     heightRoot?: number;
     widthRoot?: number;
+    datas?: IRootDrawerLeft[];
 }
 
 
@@ -31,18 +28,20 @@ function WapperComponent(props: IProps) {
         // isReady = false,
         // width,
         heightRoot = 0,
+        datas = []
     } = props;
     // const size: any = useWindowSize();
     const classes = useStyles({heightRoot});
     React.useEffect(() => {
         getDataForReady()
     }, [])
-
+    console.log('====================================');
+    console.log('datas: ', datas);
+    console.log('====================================');
     return (
-        <React.Fragment>
-            <div className={classes.root}></div>
-            this is system assginment page.
-        </React.Fragment>
+            <div className={classes.root}>
+                this is main page.
+            </div>
     )
 }
 

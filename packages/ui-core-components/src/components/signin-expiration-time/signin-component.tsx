@@ -71,7 +71,7 @@ function SigninComponent(props: any) {
     password = {...DEFAULT_ITEM, fieldType: 'password'},
     errorMessage = null,
     open = false,
-    match
+    // match
   } = props;
   const classes = useStyles();
   React.useEffect(() => {

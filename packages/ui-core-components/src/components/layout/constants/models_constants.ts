@@ -1,12 +1,12 @@
-export interface IContactsObj {
+interface IContactsObj {
     [key: string]: string;
 }
-export interface IContacts {
+interface IContacts {
     title: string;
     mail: IContactsObj[];
     hotline: IContactsObj[];
 }
-export interface IApps {
+interface IApps {
     app_name: string;
     breadcrumbs: ["app", "project", "function"] | ["app", "project"] | [];
     breakpoints: ["xs", "sm", "md", "lg", "xl"] | [];
@@ -14,7 +14,7 @@ export interface IApps {
     is_view_breadcrumbs: boolean;
     path: string;
 }
-export interface ILeftData {
+interface IRootDrawerLeft {
     root_app: string;
     display_root_app?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
     sub_app?: string;
@@ -33,12 +33,12 @@ export interface ILeftData {
     // pathFocus là đường dẫn để get giá trị của item đó trong cây tree data.
     pathFocus: any[];
     id: string;
-    children: ILeftData[];
+    children: IRootDrawerLeft[];
     nodeIds: string[];
     projectId?: string;
     projectName?: string;
 }
-export interface IFunction {
+interface IFunction {
     root_app: string;
     display_root_app?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
     sub_app?: string;
@@ -54,9 +54,18 @@ export interface IFunction {
     name: string;
     display_name: string;
 }
-export interface IProject {
+interface IProject {
     customer_id: string;
     customer_name: string;
     id: string;
     name: string;
 }
+export {
+    IProject,
+    IFunction,
+    IRootDrawerLeft,
+    IApps,
+    IContacts,
+    IContactsObj
+};
+

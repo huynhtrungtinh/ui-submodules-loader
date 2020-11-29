@@ -90,7 +90,7 @@ function WapperComponent(props: IProps) {
                     isReady &&
                     <div className={classes.root}>
                         <div className={classes.header} id={ID_HEADER}>
-                            <HeaderContainers />
+                            <HeaderContainers match={match} />
                         </div>
                         <div className={classes.content}>
                             {(children && children)}

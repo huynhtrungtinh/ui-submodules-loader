@@ -2,7 +2,7 @@ import {PATH_TO_STORE_AUTH} from '@dgtx/ui-scl';
 import {get} from 'lodash';
 import {I18n} from 'react-redux-i18n';
 import {match} from 'react-router-dom';
-import {APPS, IApps, IFunction, ILeftData, IProject, KEY_TRANSLATE, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, UNMOUNT} from '../constants';
+import {APPS, IApps, IFunction, IProject, IRootDrawerLeft, KEY_TRANSLATE, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, UNMOUNT} from '../constants';
 import {callAPIGetApps, callAPIGetFunctionOtherApp, callAPIGetProjectsOperation, callAPIGetProjectsTraining} from './call-api';
 import {addTreeItemByTreeNode, createBreadcrumbsByTreeNode, findTreeItemByName} from './header';
 
@@ -38,11 +38,19 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
   const {isAuthenticated = false, isCheckToken = false} = authentication || {};
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuData = state.leftMenuData || [];
-  if (!isAuthenticated || !isCheckToken || leftMenuData.length > 0) {
+  if (!isAuthenticated || !isCheckToken) {
     return;
   }
-  const {version = "0.0.1", match = MATCH_DEFAULT} = input;
 
+  const {
+    // version = "0.0.1",
+    match = MATCH_DEFAULT
+  } = input;
+
+  if (leftMenuData.length > 0) {
+    dispatch(getDataByPathName(match, history))
+    return;
+  }
   if (leftMenuData.length > 0) {return;}
   let payload: any = {};
   const apps: any = await dispatch(callAPIGetApps());
@@ -114,13 +122,13 @@ export const getDataTraining = (match: match, history: any) => async (dispatch: 
   }
 }
 
-function convertProjectsOperation2TreeView(leftMenuData: ILeftData[], projects: IProject[], ids: number) {
+function convertProjectsOperation2TreeView(leftMenuData: IRootDrawerLeft[], projects: IProject[], ids: number) {
   let outPut: any = {
     data: leftMenuData,
     ids: 0
   };
-  const operation: any = leftMenuData.find((i: ILeftData) => i.name === OPERATION_KEY);
-  const operationIndex: any = leftMenuData.findIndex((i: ILeftData) => i.name === OPERATION_KEY);
+  const operation: any = leftMenuData.find((i: IRootDrawerLeft) => i.name === OPERATION_KEY);
+  const operationIndex: any = leftMenuData.findIndex((i: IRootDrawerLeft) => i.name === OPERATION_KEY);
   if (operation) {
     let customers: any = {}
     projects.map((p: IProject) => {
@@ -171,13 +179,13 @@ function convertProjectsOperation2TreeView(leftMenuData: ILeftData[], projects: 
   return outPut;
 }
 
-function convertProjectsTraining2TreeView(leftMenuData: ILeftData[], projects: IProject[], ids: number) {
+function convertProjectsTraining2TreeView(leftMenuData: IRootDrawerLeft[], projects: IProject[], ids: number) {
   let outPut: any = {
     data: leftMenuData,
     ids: 0
   };
-  const training: any = leftMenuData.find((i: ILeftData) => i.name === "training");
-  const trainingIndex: any = leftMenuData.findIndex((i: ILeftData) => i.name === "training");
+  const training: any = leftMenuData.find((i: IRootDrawerLeft) => i.name === "training");
+  const trainingIndex: any = leftMenuData.findIndex((i: IRootDrawerLeft) => i.name === "training");
   if (training) {
     for (let index = 0; index < projects.length; index++) {
       const values = projects[index];
@@ -307,17 +315,17 @@ export function mergePath(input: IMergePath) {
 export const getDataByPathName = (match: match, history: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const leftMenuData = state.leftMenuData || [];
-  console.log('========getDataByPathName===========');
-  console.log('leftMenuData: ', leftMenuData);
-  console.log('match: ', match);
-  console.log('history: ', history);
-  console.log('====================================');
   const projectId = get(match, 'params.projectId', null);
   const appName = get(match, 'params.appName', null);
   const taskKeyDef = get(match, 'params.taskKeyDef', null);
   const pathName = get(match, 'url', '');
   const pathRoute = get(match, 'path', '');
   let functionName: any = taskKeyDef;
+  console.log('========getDataByPathName===========');
+  console.log('leftMenuData: ', leftMenuData);
+  console.log('match: ', match);
+  console.log('history: ', history);
+  console.log('====================================');
   if (projectId && appName) {
     console.log('projectId && appName: ', projectId, appName);
     const treeNode: any = findTreeItemByNameVsRootApp(leftMenuData, projectId, appName);
@@ -332,7 +340,9 @@ export const getDataByPathName = (match: match, history: any) => async (dispatch
     console.log('functionName: ', functionName);
     const lastChild = findTreeItemByName(newTreeNode.children, functionName);
     console.log('lastChild: ', lastChild);
-    dispatch(createBreadcrumbsByTreeNode(lastChild.data))
+    if (lastChild.data) {
+      dispatch(createBreadcrumbsByTreeNode(lastChild.data))
+    }
   } else if (appName) {
     functionName = findFunctionNameByPathName(pathName, pathRoute, ":appName")
     console.log('functionName: ', functionName);
@@ -340,6 +350,11 @@ export const getDataByPathName = (match: match, history: any) => async (dispatch
     const treeNode: any = findTreeItemByNameVsRootApp(leftMenuData, functionName, appName);
     // await dispatch(addTreeItemByTreeNode(treeNode));
     console.log('treeNode: ', treeNode);
+    if (treeNode) {
+      dispatch(createBreadcrumbsByTreeNode(treeNode))
+    }
+  } else {
+    dispatch(createBreadcrumbsByTreeNode())
   }
 }
 
@@ -356,7 +371,7 @@ export function findFunctionNameByPathName(pathName: string, pathRoute: string, 
   return outPut;
 }
 
-export function findTreeItemByNameVsRootApp(data: ILeftData[], projectId: string, appName?: string) {
+export function findTreeItemByNameVsRootApp(data: IRootDrawerLeft[], projectId: string, appName?: string) {
   let outPut: any = null;
   let items: any = data;
   if (appName) {

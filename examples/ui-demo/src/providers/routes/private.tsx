@@ -1,5 +1,5 @@
 // import {DashboardPage} from '../../views';
-import {SystemAssignment} from '@dgtx/ui-core-components';
+import {MainPage, SystemAssignment} from '@dgtx/ui-core-components';
 import React from "react";
 
 export default (params?: any): any[] => {
@@ -19,15 +19,15 @@ export default (params?: any): any[] => {
     {
       name: "system",
       exact: true,
-      path: "/:appName/assignment",
+      path: "/:appName/role-assignment/",
       component: SystemAssignment
     },
     {
       name: "home",
       exact: true,
       path: "/",
-      component: () => <div>Dashboard Page</div>
-      // component: DashboardPage
+      // component: () => <div>Dashboard Page</div>
+      component: MainPage
     }
   ];
   return route;
