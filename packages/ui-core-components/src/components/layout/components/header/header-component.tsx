@@ -9,7 +9,7 @@ import Phone from '@material-ui/icons/Phone';
 import clsx from 'clsx';
 import React from 'react';
 import {CONTACT_MENU_ID, MENU_ID, MOBILE_MENU_ID} from '../../constants';
-import {BreadcrumbsContainers, ContactMenuContainers, LeftMenuContainers, MenuContainers, MobileMenuContainers} from '../../containers';
+import {BreadcrumbsContainers, ContactMenuContainers, MenuContainers, MobileMenuContainers, SideBarContainers} from '../../containers';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         menuButton: {
             color: theme.palette.primary.contrastText,
-            // marginLeft: 4
+            marginLeft: 4
         },
         text: {
             color: theme.palette.primary.contrastText,
@@ -87,7 +87,7 @@ function HeaderComponent(props: any) {
         setOpenMenuProfile = () => null,
         setOpenContactMenu = () => null,
         setOpenMobileMenu = () => null,
-        setOpenLeftMenu = () => null,
+        setOpenSideBar = () => null,
         breakpoint = "lg",
         displayName = "",
         loading = 0,
@@ -96,9 +96,6 @@ function HeaderComponent(props: any) {
     } = props;
     const classes = useStyles();
     const isViewIconHome = match.path === "/" || match.path === "/home" ? false : true;
-    console.log('====================================');
-    console.log('match2: ', match);
-    console.log('====================================');
     React.useEffect(() => {
         setBreakpoints(width);
     }, [width])
@@ -116,27 +113,39 @@ function HeaderComponent(props: any) {
     };
     const handleIconHome = (event: React.MouseEvent<HTMLElement>) => {
         // event.persist();
-        setOpenLeftMenu(true);
+        setOpenSideBar(true);
     };
     return (
         <div className={clsx(classes.root)}>
+            <div>
+                <IconButton
+                    className={clsx(classes.menuButton, classes.padding)}
+                    edge="start"
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleIconHome}
+                >
+                    <MenuIcon />
+                </IconButton>
+            </div>
+
             {
                 isViewIconHome ?
-                <div>
-                    <IconButton
-                        className={classes.padding}
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleIconHome}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                </div>
-                :
-                <div className={clsx(classes.menuButton, classes.padding)}>
-                    <Home />
-                </div>
+                    <div>
+                        <IconButton
+                            className={clsx(classes.menuButton, classes.padding)}
+                            edge="start"
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleIconHome}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </div>
+                    :
+                    <div className={classes.padding}>
+                        <Home />
+                    </div>
             }
 
 
@@ -221,7 +230,7 @@ function HeaderComponent(props: any) {
                     </>
             }
 
-            <LeftMenuContainers />
+            <SideBarContainers />
 
         </div>
     );

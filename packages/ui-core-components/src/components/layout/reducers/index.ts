@@ -1,5 +1,5 @@
 import {IAction} from '@dgtx/ui-scl';
-import {ADD_TREE_ITEM_BY_TREE_NODE, BREADCRUMB_HOME, CREATE_BREADCRUMBS_BY_TREE_NODE, NAME_REDUCER, SET_BREAKPOINT, SET_CLICK_LEFT_MENU_ITEM, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, SET_OPEN_CONTACT_MENU, SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_SEARCH_LEFT_MENU, UNMOUNT} from '../constants';
+import {ADD_TREE_ITEM_BY_TREE_NODE, BREADCRUMB_HOME, CREATE_BREADCRUMBS_BY_TREE_NODE, NAME_REDUCER, SET_BREAKPOINT, SET_CLICK_SIDE_BAR_ITEM, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, SET_OPEN_CONTACT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_OPEN_SIDE_BAR, SET_SEARCH_SIDE_BAR, UNMOUNT} from '../constants';
 
 export const initialState: any = {
     isReady: false,
@@ -14,13 +14,13 @@ export const initialState: any = {
     isMobileMenuOpen: false,
     mobileMoreAnchorEl: null,
 
-    isLeftMenuOpen: false,
-    leftMenuData: [],
-    leftMenuDataClonelv1: [],
-    leftMenuDataSearch: [],
-    leftMenuSelected: {},
-    leftMenuLastNodeId: 1,
-    leftMenuSearch: "",
+    isSideBarOpen: false,
+    sideBarData: [],
+    sideBarDataClonelv1: [],
+    sideBarDataSearch: [],
+    sideBarSelectedItem: {},
+    sideBarLastNodeId: 1,
+    sideBarSearchValue: "",
 
     breadcrumbsData: [BREADCRUMB_HOME],
 
@@ -42,10 +42,10 @@ export default {
                 case SET_OPEN_MENU_PROFILE:
                 case SET_OPEN_MOBILE_MENU:
                 case SET_OPEN_CONTACT_MENU:
-                case SET_OPEN_LEFT_MENU:
+                case SET_OPEN_SIDE_BAR:
                 case SET_DATA_READY:
-                case SET_CLICK_LEFT_MENU_ITEM:
-                case SET_SEARCH_LEFT_MENU:
+                case SET_CLICK_SIDE_BAR_ITEM:
+                case SET_SEARCH_SIDE_BAR:
                 case ADD_TREE_ITEM_BY_TREE_NODE:
                 case SET_DATA_TRAINING:
                 case SET_DATA_OPERATION:

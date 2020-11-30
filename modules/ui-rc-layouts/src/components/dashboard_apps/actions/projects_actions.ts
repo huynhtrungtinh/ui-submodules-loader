@@ -1,28 +1,15 @@
-import {
-  PATH_TO_STORE_REDUX,
-  PATH_TO_STORE_REDUX_T_LAYOUTS,
-  POSTFIX_ID_REF_PROJECT,
-  SET_GET_DATA_FOR_READY_PROJECT,
-  SET_KEYBOARD_PROJECT,
-  SET_REF_CONTAINER_PROJECT,
-  SET_SEARCH_PROJECT,
-  SET_VIEW_PROJECT,
-  SET_SORT_PROJECT,
-  ROWS_PER_PAGE_OPTIONS,
-  SET_PAGE_PROJECT,
-  SET_ROWS_PER_PAGE_PROJECT
-} from '../constants';
-import { callAPIGetProjects } from './call_api';
-import { get, isEmpty, orderBy } from 'lodash';
-import { updateBreadcrumbs } from '../../../layouts';
-import { executeActionReducer } from './common_actions';
+import {get, isEmpty, orderBy} from 'lodash';
+import {updateBreadcrumbs} from '../../../layouts';
+import {PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS, POSTFIX_ID_REF_PROJECT, ROWS_PER_PAGE_OPTIONS, SET_GET_DATA_FOR_READY_PROJECT, SET_KEYBOARD_PROJECT, SET_PAGE_PROJECT, SET_REF_CONTAINER_PROJECT, SET_ROWS_PER_PAGE_PROJECT, SET_SEARCH_PROJECT, SET_SORT_PROJECT, SET_VIEW_PROJECT} from '../constants';
+import {callAPIGetProjects} from './call_api';
+import {executeActionReducer} from './common_actions';
 
 export const setRefContainerProjects = (refContainer: any) => async (dispatch: any, getState: any) => {
   if (refContainer.current && Array.from(refContainer.current.children)) {
     const state = get(getState(), PATH_TO_STORE_REDUX, {});
     let projects = state.projects || {};
     projects.refContainer = refContainer;
-    dispatch(executeActionReducer(SET_REF_CONTAINER_PROJECT, { projects }));
+    dispatch(executeActionReducer(SET_REF_CONTAINER_PROJECT, {projects}));
   }
 }
 
@@ -41,7 +28,7 @@ export const getProjects = () => async (dispatch: any, getState: any) => {
       payload.projectsParent = dataAPI.data;
       payload.projectsView = dataAPI.data;
     }
-    dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_PROJECT, { projects: payload }));
+    dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_PROJECT, {projects: payload}));
   }
 };
 
@@ -49,8 +36,8 @@ export const setKeyboardProjects = (event: any, history: any) => async (dispatch
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const stateTLayouts = get(getState(), PATH_TO_STORE_REDUX_T_LAYOUTS, {});
   const cols = stateTLayouts.cols;
-  const isLeftMenuOpen = stateTLayouts.isLeftMenuOpen;
-  if (isLeftMenuOpen) {
+  const isSideBarOpen = stateTLayouts.isSideBarOpen;
+  if (isSideBarOpen) {
     return;
   }
   const projects = state.projects || {};
@@ -73,7 +60,7 @@ export const setKeyboardProjects = (event: any, history: any) => async (dispatch
     return;
   }
   if ([37, 38, 39, 40].includes(keyCode)) {
-    const newProject = getIndexNetByKeycode({ keyCode, datas: projectsView, indexPresent: (selectedProject && selectedProject.index >= 0) ? selectedProject.index : -1, cols })
+    const newProject = getIndexNetByKeycode({keyCode, datas: projectsView, indexPresent: (selectedProject && selectedProject.index >= 0) ? selectedProject.index : -1, cols})
     if (!isEmpty(newProject)) {
       let id = `${newProject.id}${POSTFIX_ID_REF_PROJECT}`
       const cardTag = getIndexTargetById(refContainer, id);
@@ -85,7 +72,7 @@ export const setKeyboardProjects = (event: any, history: any) => async (dispatch
           inline: "center"
         });
         payload.selectedProject = newProject;
-        dispatch(executeActionReducer(SET_KEYBOARD_PROJECT, { projects: payload }));
+        dispatch(executeActionReducer(SET_KEYBOARD_PROJECT, {projects: payload}));
       }
     }
   }
@@ -113,14 +100,14 @@ export const setSearchProject = (searchKeyWords: any) => async (dispatch: any, g
   if (!searchKeyWords || searchKeyWords.length === 0) {
     payload.projectsView = projectsParent;
   }
-  dispatch(executeActionReducer(SET_SEARCH_PROJECT, { projects: payload }));
+  dispatch(executeActionReducer(SET_SEARCH_PROJECT, {projects: payload}));
 }
 
 export const setKeyUpSearchProjects = (event: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const stateTLayouts = get(getState(), PATH_TO_STORE_REDUX_T_LAYOUTS, {});
-  const isLeftMenuOpen = stateTLayouts.isLeftMenuOpen;
-  if (isLeftMenuOpen) {
+  const isSideBarOpen = stateTLayouts.isSideBarOpen;
+  if (isSideBarOpen) {
     return;
   }
   const keyCode = event.keyCode;
@@ -142,7 +129,7 @@ export const setKeyUpSearchProjects = (event: any) => async (dispatch: any, getS
       newRowsTable = projectsParent;
     }
     payload.projectsView = newRowsTable;
-    dispatch(executeActionReducer(SET_SEARCH_PROJECT, { projects: payload }));
+    dispatch(executeActionReducer(SET_SEARCH_PROJECT, {projects: payload}));
   }
 }
 
@@ -150,7 +137,7 @@ export const setViewProjects = (type: any, value: any) => async (dispatch: any, 
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   let payload: any = state.projects || {};
   payload[type] = value;
-  dispatch(executeActionReducer(SET_VIEW_PROJECT, { projects: payload }));
+  dispatch(executeActionReducer(SET_VIEW_PROJECT, {projects: payload}));
 }
 
 export const setSortProjects = (column: any) => async (dispatch: any, getState: any) => {
@@ -194,21 +181,21 @@ export const setSortProjects = (column: any) => async (dispatch: any, getState: 
     payload.projectsView = orderBy(state.projects.projectsView, [column.id], sortDirection);
   }
   payload.columnProject = columnProject;
-  dispatch(executeActionReducer(SET_SORT_PROJECT, { projects: payload }));
+  dispatch(executeActionReducer(SET_SORT_PROJECT, {projects: payload}));
 }
 
 export const setPageProjects = (value: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   let payload: any = state.projects || {};
   payload.page = value;
-  dispatch(executeActionReducer(SET_PAGE_PROJECT, { projects: payload }));
+  dispatch(executeActionReducer(SET_PAGE_PROJECT, {projects: payload}));
 }
 
-export const setRowsPerPageProjects = ( value: any) => async (dispatch: any, getState: any) => {
+export const setRowsPerPageProjects = (value: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   let payload: any = state.projects || {};
   payload.rowsPerPage = value;
-  dispatch(executeActionReducer(SET_ROWS_PER_PAGE_PROJECT, { projects: payload }));
+  dispatch(executeActionReducer(SET_ROWS_PER_PAGE_PROJECT, {projects: payload}));
 }
 
 function getIndexTargetById(refContainer: any, id: string) {
@@ -239,7 +226,7 @@ interface IGetIndex {
 }
 
 function getIndexNetByKeycode(input: IGetIndex) {
-  let { keyCode, datas, indexPresent, cols } = input;
+  let {keyCode, datas, indexPresent, cols} = input;
   let outPut: any = null;
   let indexNext: any = null;
   const datasLength = datas.length - 1;

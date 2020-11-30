@@ -1,20 +1,7 @@
-import {
-  IApps,
-  IContacts,
-  IContactsObj, IFunction,
-  IProject, IRootDrawerLeft, PATH_TO_STORE_REDUX as PATH_TO_STORE_REDUX_LAYOUT_ROOT
-} from './constants';
-import {WapperRootContainers as LayoutRoot} from './containers';
+import {PATH_TO_STORE_REDUX as PATH_TO_STORE_REDUX_LAYOUT_ROOT} from './constants';
+import {ContentContainers as ContentPage, WapperRootContainers as LayoutRoot} from './containers';
 import {getLayoutRootProvider} from './provider';
 
-export {
-  LayoutRoot, getLayoutRootProvider, PATH_TO_STORE_REDUX_LAYOUT_ROOT,
-  IProject,
-  IFunction,
-  IRootDrawerLeft,
-  IApps,
-  IContacts,
-  IContactsObj
-};
+export {LayoutRoot, getLayoutRootProvider, PATH_TO_STORE_REDUX_LAYOUT_ROOT, ContentPage};
 export default LayoutRoot;
 

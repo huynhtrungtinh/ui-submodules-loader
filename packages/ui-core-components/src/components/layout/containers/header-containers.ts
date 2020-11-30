@@ -1,7 +1,7 @@
 import {get} from 'lodash';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {setOpenContactMenu, setOpenLeftMenu, setOpenMenuProfile, setOpenMobileMenu} from '../actions';
+import {setOpenContactMenu, setOpenMenuProfile, setOpenMobileMenu, setOpenSideBar} from '../actions';
 import {HeaderComponent} from '../components';
 import {PATH_TO_STORE_REDUX} from '../constants';
 
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch: any) => {
       setOpenMenuProfile,
       setOpenContactMenu,
       setOpenMobileMenu,
-      setOpenLeftMenu
+      setOpenSideBar
     },
     dispatch
   )

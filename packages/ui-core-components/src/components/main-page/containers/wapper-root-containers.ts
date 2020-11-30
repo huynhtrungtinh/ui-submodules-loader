@@ -13,7 +13,7 @@ const mapStateToProps = (state: any) => {
   return {
     breakpoint: stateLayoutRoot.breakpoint,
     heightRoot: stateLayoutRoot.height,
-    datas: stateLayoutRoot.leftMenuDataSearch,
+    datas: stateLayoutRoot.sideBarDataSearch,
     isReady: stateRedux.isReady
   };
 };

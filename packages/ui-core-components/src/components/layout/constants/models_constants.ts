@@ -14,7 +14,7 @@ interface IApps {
     is_view_breadcrumbs: boolean;
     path: string;
 }
-interface IRootDrawerLeft {
+interface ISideBar {
     root_app: string;
     display_root_app?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
     sub_app?: string;
@@ -33,7 +33,7 @@ interface IRootDrawerLeft {
     // pathFocus là đường dẫn để get giá trị của item đó trong cây tree data.
     pathFocus: any[];
     id: string;
-    children: IRootDrawerLeft[];
+    children: ISideBar[];
     nodeIds: string[];
     projectId?: string;
     projectName?: string;
@@ -60,12 +60,5 @@ interface IProject {
     id: string;
     name: string;
 }
-export {
-    IProject,
-    IFunction,
-    IRootDrawerLeft,
-    IApps,
-    IContacts,
-    IContactsObj
-};
+export {IProject, IFunction, ISideBar, IApps, IContacts, IContactsObj};
 

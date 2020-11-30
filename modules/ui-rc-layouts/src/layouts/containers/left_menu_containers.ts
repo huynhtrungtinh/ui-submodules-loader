@@ -9,7 +9,7 @@ import {PATH_TO_STORE_REDUX} from '../constants';
 const mapStateToProps = (state: any) => {
   let stateRedux = get(state, `${PATH_TO_STORE_REDUX}`, {});
   return {
-    isOpen: stateRedux.isLeftMenuOpen,
+    isOpen: stateRedux.isSideBarOpen,
     routers: stateRedux.routers,
     routeFocus: stateRedux.routeFocus,
     version: config.getAppVersion()

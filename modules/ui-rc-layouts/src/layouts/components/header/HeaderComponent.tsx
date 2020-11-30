@@ -1,29 +1,25 @@
-import React from 'react';
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import withWidth from '@material-ui/core/withWidth';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import MenuIcon from '@material-ui/icons/Menu';
-import { MENU_ID, MOBILE_MENU_ID } from '../../constants';
-import {
-    MenuContainers,
-    MobileMenuContainers,
-    ContactMenuContainers,
-    // DialogAnnouncementContainers,
-    DrawerAnnouncementContainers,
-    LeftMenuContainers,
-    BreadcrumbsContainers
-} from '../../containers';
-import { PushNotifications } from '../../../components/push_notifications';
-import clsx from 'clsx';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import Phone from '@material-ui/icons/Phone';
-import withWidth from '@material-ui/core/withWidth';
+import clsx from 'clsx';
+import React from 'react';
+import {getBlueTheme} from '../../../assets/css/common';
 import ChangePasswordPage from '../../../components/change_password';
-import { getBlueTheme } from '../../../assets/css/common';
+import {PushNotifications} from '../../../components/push_notifications';
+import {MENU_ID, MOBILE_MENU_ID} from '../../constants';
+import {
+    BreadcrumbsContainers, ContactMenuContainers,
+    // DialogAnnouncementContainers,
+    DrawerAnnouncementContainers, MenuContainers, MobileMenuContainers, SideBarContainers
+} from '../../containers';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -202,7 +198,7 @@ function Header(props: any) {
                                 >
                                     <AccountCircle />
                                 </IconButton>
-                                <span style={{ cursor: "pointer" }}>
+                                <span style={{cursor: "pointer"}}>
                                     {displayName.toUpperCase()}
                                 </span>
                             </div>
@@ -229,7 +225,7 @@ function Header(props: any) {
                 </Toolbar>
             </AppBar>
             <ChangePasswordPage />
-            <LeftMenuContainers />
+            <SideBarContainers />
             {
                 isViewAnnouncement &&
                 <DrawerAnnouncementContainers />
@@ -245,4 +241,5 @@ function Header(props: any) {
 }
 const HeaderComponent: any = withWidth()(Header)
 export default HeaderComponent;
-export { HeaderComponent }
+export {HeaderComponent};
+

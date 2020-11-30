@@ -1,5 +1,5 @@
 import {AUTH_REDUCER_NAME, CHECK_TOKEN, DB_NAME, DB_STORE_I18N_EN, DB_STORE_I18N_VI, DB_VERSION, FAILURE, FETCH_END, FETCH_ERROR, FETCH_START, IAuthenProvider, IAuthenProviderOutPut, IDoLoginOutPut, IRouter, IUserInfo, IUserInfoOutPut, LOGIN, LOGOUT, PATH_TO_STORE_AUTH, REFRESH_TOKEN, SET_ROUTERS, SHOW_SIGNIN_EXP_TIME, SUCCESS, USER_AGENT} from '@dgtx/ui-scl';
-import {clearToken, config, fetchJson, getAccessToken, getMinutes2Dates, getRefreshToken, parseJwt, setToken} from '@dgtx/ui-utils';
+import {clearToken, config, fetchJson, getAccessToken, getMinutes2Dates, getRefreshToken, parseJwt, redirect, setToken} from '@dgtx/ui-utils';
 import Dexie from 'dexie';
 import {get} from 'lodash';
 import {loadTranslations} from "react-redux-i18n";
@@ -259,7 +259,7 @@ const executeActionReducerAuth = (type: string, payload: any) => {
 };
 
 const showSigninExpTime = (open: boolean) => async (dispatch: any) => {
-    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isCheckToken: false, isAuthenticatedStatusCode: 401}));
+    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isCheckToken: !open, isAuthenticatedStatusCode: 401}));
 }
 
 const setAuthLoginFailure = () => async (dispatch: any) => {
@@ -390,6 +390,7 @@ const setAuthLogout = (deleteDblocal: boolean = true) => async (dispatch: any, g
         if (response.status === 200) {
             clearToken();
             dispatch(executeActionReducerAuth(SUCCESS(LOGOUT), {}));
+            redirect('/signin');
         }
     }
     return response;

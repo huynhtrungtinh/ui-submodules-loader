@@ -1,5 +1,5 @@
 // import {DashboardPage} from '../../views';
-import {MainPage, SystemAssignment} from '@dgtx/ui-core-components';
+import {ContentPage, SystemAssignment} from '@dgtx/ui-core-components';
 import React from "react";
 
 export default (params?: any): any[] => {
@@ -27,7 +27,7 @@ export default (params?: any): any[] => {
       exact: true,
       path: "/",
       // component: () => <div>Dashboard Page</div>
-      component: MainPage
+      component: ContentPage
     }
   ];
   return route;

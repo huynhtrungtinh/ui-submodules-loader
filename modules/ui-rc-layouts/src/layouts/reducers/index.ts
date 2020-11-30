@@ -1,30 +1,9 @@
 import {
-    NAME_REDUCER,
-    UNMOUNT,
-    IAction,
-    SET_OPEN_MENU_PROFILE,
-    SET_OPEN_MOBILE_MENU,
-    SET_OPEN_CONTACT_MENU,
-    SET_GET_DATA_FOR_READY,
-    TABS_INDEX_ICON,
-
+    ACTION_HIDE_ANNOUNCEMENT, ACTION_SHOW_ANNOUNCEMENT, CLICK_ITEM_ANNOUNCEMENT, CREATE_BREADCRUMBS_HEADER,
     // announcement
-    GET_DATA_DRAWER_ANNOUNCEMENT,
-    CLICK_ITEM_ANNOUNCEMENT,
-    UPDATE_DATA_DRAWER_ANNOUNCEMENT,
-    OPEN_DRAWER_ANNOUNCEMENT,
-    OPEN_DIALOG_DETAIL_ANNOUNCEMENT,
-    SEARCH_KEY_WORD_ANNOUNCEMENT,
-    ACTION_SHOW_ANNOUNCEMENT,
-    ACTION_HIDE_ANNOUNCEMENT,
-    SET_OPEN_LEFT_MENU,
-    SET_BREAK_POINTS,
-
+    GET_DATA_DRAWER_ANNOUNCEMENT, IAction, NAME_REDUCER, OPEN_DIALOG_DETAIL_ANNOUNCEMENT, OPEN_DRAWER_ANNOUNCEMENT, SEARCH_KEY_WORD_ANNOUNCEMENT, SET_BREAK_POINTS,
     // breadcrumbs
-    SET_CLICK_BREADCRUMBS_ITEM,
-    SET_IS_VIEW_BREADCRUMBS,
-    CREATE_BREADCRUMBS_HEADER,
-    UPDATE_BREADCRUMBS_HEADER,
+    SET_CLICK_BREADCRUMBS_ITEM, SET_GET_DATA_FOR_READY, SET_IS_VIEW_BREADCRUMBS, SET_OPEN_CONTACT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_OPEN_SIDE_BAR, TABS_INDEX_ICON, UNMOUNT, UPDATE_BREADCRUMBS_HEADER, UPDATE_DATA_DRAWER_ANNOUNCEMENT
 } from '../constants';
 
 export const initialState: any = {
@@ -38,7 +17,7 @@ export const initialState: any = {
     userInfo: {},
     isReady: false,
 
-    tabIndexIcon: { ...TABS_INDEX_ICON },
+    tabIndexIcon: {...TABS_INDEX_ICON},
 
     // announcement
     isViewAnnouncement: false,
@@ -57,7 +36,7 @@ export const initialState: any = {
     announcement: null,
 
     // menu left
-    isLeftMenuOpen: false,
+    isSideBarOpen: false,
     routeFocus: {},
     routers: [],
 
@@ -80,9 +59,9 @@ export const initialState: any = {
 type ReducerState = Readonly<typeof initialState>;
 export default {
     name: NAME_REDUCER,
-    reducer: (state: ReducerState = { ...initialState }, actions: IAction) => {
+    reducer: (state: ReducerState = {...initialState}, actions: IAction) => {
         if (actions && actions.type) {
-            const { type, payload } = actions;
+            const {type, payload} = actions;
             switch (type) {
                 case SET_OPEN_MENU_PROFILE:
                 case SET_OPEN_MOBILE_MENU:
@@ -101,7 +80,7 @@ export default {
                 case SEARCH_KEY_WORD_ANNOUNCEMENT:
                 case ACTION_SHOW_ANNOUNCEMENT:
                 case ACTION_HIDE_ANNOUNCEMENT:
-                case SET_OPEN_LEFT_MENU:
+                case SET_OPEN_SIDE_BAR:
                     return {
                         ...state,
                         ...payload
@@ -115,7 +94,7 @@ export default {
                         ...payload
                     }
                 case UNMOUNT:
-                    return { ...initialState };
+                    return {...initialState};
                 default:
                     return state;
             }

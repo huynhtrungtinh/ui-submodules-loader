@@ -1,4 +1,3 @@
-// import { setUnsubscribeAllByLogout } from '../../../components/push_notifications';
 import {setAuthLogout} from '@dgtx/ui-core';
 import {get} from 'lodash';
 import {PATH_TO_STORE_REDUX, SET_OPEN_CONTACT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU} from '../../constants';

@@ -21,10 +21,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: `${HEIGHT_HEADER}px`,
         maxHeight: `${HEIGHT_HEADER}px`,
         minHeight: `${HEIGHT_HEADER}px`,
-        width: '100%'
+        width: '100%',
+        zIndex: 10000,
+        position: 'fixed'
     },
     content: {
         width: '100%',
+        marginTop: '48px',
+        // height: `calc(100% - ${HEIGHT_HEADER}px)`,
         height: (props: any) => `${props.heightContent - HEIGHT_HEADER}px`,
         maxHeight: (props: any) => `${props.heightContent - HEIGHT_HEADER}px`,
         minHeight: (props: any) => `${props.heightContent - HEIGHT_HEADER}px`,
@@ -79,7 +83,7 @@ function WapperComponent(props: IProps) {
         setBreakpoints(width, size);
     }, [width, isAuthenticated, isCheckToken])
 
-    if (!isAuthenticated || !isCheckToken) {
+    if (!isAuthenticated) {
         return <></>
     }
     return (
@@ -87,7 +91,7 @@ function WapperComponent(props: IProps) {
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
                 {
-                    isReady &&
+                    isReady && isCheckToken &&
                     <div className={classes.root}>
                         <div className={classes.header} id={ID_HEADER}>
                             <HeaderContainers match={match} />

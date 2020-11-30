@@ -10,6 +10,7 @@ const appsResource = (input: IInputProvider): IProviderOutPut => {
                 type: 'json',
                 body: null,
                 method: 'GET',
+                ignoreToken: true,
                 response: {
                     blod: null,
                     data: getApps(),

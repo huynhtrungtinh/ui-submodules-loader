@@ -1,23 +1,15 @@
-import {
-  PATH_TO_STORE_REDUX,
-  PATH_TO_STORE_REDUX_T_LAYOUTS,
-  POSTFIX_ID_REF_FUNCTION,
-  SET_GET_DATA_FOR_READY_FUNCTION,
-  SET_KEYBOARD_FUNCTION,
-  SET_REF_CONTAINER_FUNCTION,
-  SET_SEARCH_FUNCTION,
-} from '../constants';
-import { callAPIGetFunctions } from './call_api';
-import { get, isEmpty, orderBy } from 'lodash';
-import { updateBreadcrumbs } from '../../../layouts';
-import { executeActionReducer } from './common_actions';
+import {get, isEmpty, orderBy} from 'lodash';
+import {updateBreadcrumbs} from '../../../layouts';
+import {PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS, POSTFIX_ID_REF_FUNCTION, SET_GET_DATA_FOR_READY_FUNCTION, SET_KEYBOARD_FUNCTION, SET_REF_CONTAINER_FUNCTION, SET_SEARCH_FUNCTION} from '../constants';
+import {callAPIGetFunctions} from './call_api';
+import {executeActionReducer} from './common_actions';
 
 export const setRefContainerFunctions = (refContainer: any) => async (dispatch: any, getState: any) => {
   if (refContainer.current && Array.from(refContainer.current.children)) {
     const state = get(getState(), PATH_TO_STORE_REDUX, {});
     let functions = state.functions || {};
     functions.refContainer = refContainer;
-    dispatch(executeActionReducer(SET_REF_CONTAINER_FUNCTION, { functions }));
+    dispatch(executeActionReducer(SET_REF_CONTAINER_FUNCTION, {functions}));
   }
 }
 
@@ -31,7 +23,7 @@ export const getFunctions = () => async (dispatch: any, getState: any) => {
   if (stateTLayouts.functionsParent && stateTLayouts.functionsParent.length > 0) {
     payload.functionsParent = stateTLayouts.functionsParent;
     payload.functionsView = stateTLayouts.functionsParent;
-    dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION, { functions: payload }));
+    dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION, {functions: payload}));
   } else {
     if (functions.functionsParent && functions.functionsParent.length === 0) {
       const dataAPI: any = await callAPIGetFunctions(routeFocus.app_name);
@@ -42,7 +34,7 @@ export const getFunctions = () => async (dispatch: any, getState: any) => {
         payload.functionsParent = dataAPI.data;
         payload.functionsView = dataAPI.data;
       }
-      dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION, { functions: payload }));
+      dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION, {functions: payload}));
     }
   }
 };
@@ -51,8 +43,8 @@ export const setKeyboardFunctions = (event: any) => async (dispatch: any, getSta
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const stateTLayouts = get(getState(), PATH_TO_STORE_REDUX_T_LAYOUTS, {});
   const cols = stateTLayouts.cols;
-  const isLeftMenuOpen = stateTLayouts.isLeftMenuOpen;
-  if (isLeftMenuOpen) {
+  const isSideBarOpen = stateTLayouts.isSideBarOpen;
+  if (isSideBarOpen) {
     return;
   }
   const functions = state.functions || {};
@@ -84,7 +76,7 @@ export const setKeyboardFunctions = (event: any) => async (dispatch: any, getSta
         }
       }
     }
-    const newFunc = getIndexNetByKeycode({ keyCode, datas: functionsView, indexPresent, cols })
+    const newFunc = getIndexNetByKeycode({keyCode, datas: functionsView, indexPresent, cols})
     if (!isEmpty(newFunc)) {
       let id = `${newFunc.name}${POSTFIX_ID_REF_FUNCTION}`
       const cardTag = getIndexTargetById(refContainer, id);
@@ -96,7 +88,7 @@ export const setKeyboardFunctions = (event: any) => async (dispatch: any, getSta
           inline: "center"
         });
         payload.selectedFunctions = newFunc;
-        dispatch(executeActionReducer(SET_KEYBOARD_FUNCTION, { functions: payload }));
+        dispatch(executeActionReducer(SET_KEYBOARD_FUNCTION, {functions: payload}));
       }
     }
   }
@@ -123,14 +115,14 @@ export const setSearchFunctions = (searchKeyWords: any) => async (dispatch: any,
   if (!searchKeyWords || searchKeyWords.length === 0) {
     payload.functionsView = functionsParent;
   }
-  dispatch(executeActionReducer(SET_SEARCH_FUNCTION, { functions: payload }));
+  dispatch(executeActionReducer(SET_SEARCH_FUNCTION, {functions: payload}));
 }
 
 export const setKeyUpSearchFunctions = (event: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const stateTLayouts = get(getState(), PATH_TO_STORE_REDUX_T_LAYOUTS, {});
-  const isLeftMenuOpen = stateTLayouts.isLeftMenuOpen;
-  if (isLeftMenuOpen) {
+  const isSideBarOpen = stateTLayouts.isSideBarOpen;
+  if (isSideBarOpen) {
     return;
   }
   const keyCode = event.keyCode;
@@ -147,7 +139,7 @@ export const setKeyUpSearchFunctions = (event: any) => async (dispatch: any, get
       newRowsTable = functionsParent;
     }
     payload.functionsView = newRowsTable;
-    dispatch(executeActionReducer(SET_SEARCH_FUNCTION, { functions: payload }));
+    dispatch(executeActionReducer(SET_SEARCH_FUNCTION, {functions: payload}));
   }
 }
 
@@ -173,7 +165,7 @@ interface IGetIndex {
 }
 
 function getIndexNetByKeycode(input: IGetIndex) {
-  let { keyCode, datas, indexPresent, cols } = input;
+  let {keyCode, datas, indexPresent, cols} = input;
   let outPut: any = null;
   let indexNext: any = null;
   const datasLength = datas.length - 1;

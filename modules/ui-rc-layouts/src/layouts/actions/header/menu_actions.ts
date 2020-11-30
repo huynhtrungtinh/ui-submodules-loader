@@ -1,14 +1,10 @@
-import { push } from "connected-react-router";
-import { get } from 'lodash';
-import { setUnsubscribeAllByLogout } from '../../../components/push_notifications';
-import {
-    PATH_TO_STORE_REDUX, SET_OPEN_CONTACT_MENU,
-    SET_OPEN_LEFT_MENU, SET_OPEN_MENU_PROFILE,
-    SET_OPEN_MOBILE_MENU
-} from '../../constants';
-import { executeActionReducer } from '../common_actions';
+import {push} from "connected-react-router";
+import {get} from 'lodash';
+import {setUnsubscribeAllByLogout} from '../../../components/push_notifications';
+import {PATH_TO_STORE_REDUX, SET_OPEN_CONTACT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_OPEN_SIDE_BAR} from '../../constants';
+import {executeActionReducer} from '../common_actions';
 // import { unregisterResource } from '@dgtx/ui-core';
-import { setViewBreadcrumbs } from './breadcrumbs_actions';
+import {setViewBreadcrumbs} from './breadcrumbs_actions';
 
 export const setOpenMenuProfile = (event: React.MouseEvent<HTMLElement>, isOpen?: Boolean) => async (dispatch: any, getState: any) => {
     let isMenuProfileOpen = false;
@@ -17,7 +13,7 @@ export const setOpenMenuProfile = (event: React.MouseEvent<HTMLElement>, isOpen?
         profileAnchorEl = event.currentTarget;
         isMenuProfileOpen = true;
     }
-    dispatch(executeActionReducer(SET_OPEN_MENU_PROFILE, { isMenuProfileOpen, profileAnchorEl }));
+    dispatch(executeActionReducer(SET_OPEN_MENU_PROFILE, {isMenuProfileOpen, profileAnchorEl}));
 };
 
 export const setOpenMobileMenu = (event: React.MouseEvent<HTMLElement>, isOpen?: Boolean) => async (dispatch: any, getState: any) => {
@@ -27,7 +23,7 @@ export const setOpenMobileMenu = (event: React.MouseEvent<HTMLElement>, isOpen?:
         mobileMoreAnchorEl = event.currentTarget;
         isMobileMenuOpen = true;
     }
-    dispatch(executeActionReducer(SET_OPEN_MOBILE_MENU, { isMobileMenuOpen, mobileMoreAnchorEl }));
+    dispatch(executeActionReducer(SET_OPEN_MOBILE_MENU, {isMobileMenuOpen, mobileMoreAnchorEl}));
 };
 
 export const setOpenContactMenu = (event: React.MouseEvent<HTMLElement>, isOpen?: Boolean) => async (dispatch: any, getState: any) => {
@@ -66,10 +62,10 @@ export const setOpenLeftMenu = (isOpen?: Boolean, route?: any) => async (dispatc
     const state = get(getState(), PATH_TO_STORE_REDUX, {});
     const routeFocus = state.routeFocus;
     let payload: any = {
-        isLeftMenuOpen: false,
+        isSideBarOpen: false,
     };
     if (isOpen) {
-        payload.isLeftMenuOpen = true;
+        payload.isSideBarOpen = true;
     }
     if (!route) {
         payload.routeFocus = routeFocus;
@@ -77,5 +73,5 @@ export const setOpenLeftMenu = (isOpen?: Boolean, route?: any) => async (dispatc
         payload.routeFocus = route;
     }
     dispatch(setViewBreadcrumbs(payload.routeFocus.is_view_breadcrumbs));
-    dispatch(executeActionReducer(SET_OPEN_LEFT_MENU, payload));
+    dispatch(executeActionReducer(SET_OPEN_SIDE_BAR, payload));
 };

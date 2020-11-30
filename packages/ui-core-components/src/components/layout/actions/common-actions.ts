@@ -1,10 +1,11 @@
 import {PATH_TO_STORE_AUTH} from '@dgtx/ui-scl';
 import {get} from 'lodash';
-import {I18n} from 'react-redux-i18n';
 import {match} from 'react-router-dom';
-import {APPS, IApps, IFunction, IProject, IRootDrawerLeft, KEY_TRANSLATE, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, UNMOUNT} from '../constants';
+import {APPS, MATCH_DEFAULT, NAME_REDUCER, PATH_TO_STORE_REDUX, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, UNMOUNT} from '../constants';
 import {callAPIGetApps, callAPIGetFunctionOtherApp, callAPIGetProjectsOperation, callAPIGetProjectsTraining} from './call-api';
-import {addTreeItemByTreeNode, createBreadcrumbsByTreeNode, findTreeItemByName} from './header';
+import {createBreadcrumbsByTreeNode} from './header';
+import {addTreeItemByTreeNode} from './side-bar-actions';
+import {convertFunctionOtherApp2SideBar, convertProjectsOperation2SideBar, convertProjectsTraining2SideBar, findSideBarItemByName, findSideBarItemByNameVsRootApp} from './side-bar-utils';
 
 export const executeActionReducer = (type: string, payload: any) => {
   return {type, payload, meta: {resource: NAME_REDUCER}};
@@ -37,7 +38,7 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
   const authentication = get(getState(), PATH_TO_STORE_AUTH, {});
   const {isAuthenticated = false, isCheckToken = false} = authentication || {};
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
-  const leftMenuData = state.leftMenuData || [];
+  const sideBarData = state.sideBarData || [];
   if (!isAuthenticated || !isCheckToken) {
     return;
   }
@@ -47,11 +48,11 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
     match = MATCH_DEFAULT
   } = input;
 
-  if (leftMenuData.length > 0) {
+  if (sideBarData.length > 0) {
     dispatch(getDataByPathName(match, history))
     return;
   }
-  if (leftMenuData.length > 0) {return;}
+  if (sideBarData.length > 0) {return;}
   let payload: any = {};
   const apps: any = await dispatch(callAPIGetApps());
   const appFinal: any = [];
@@ -64,19 +65,18 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
         appFinal.push(a);
       }
     })
-    console.log('====================================');
     const otherApp: any = await dispatch(callAPIGetFunctionOtherApp());
     if (otherApp.error) {
       console.log('get contacts data is error.');
       dispatch(getDataOperation(match, history));
     } else {
-      console.log('apps.data: ', apps.data);
+      const convert1: any = convertFunctionOtherApp2SideBar(appFinal, otherApp.data);
+      console.log('========convertFunctionOtherApp2SideBar===============');
+      console.log('convert1: ', convert1);
       console.log('====================================');
-      console.log('appFinal: ', appFinal);
-      const convert1: any = convertFunctionOtherApp2TreeView(appFinal, otherApp.data);
-      payload.leftMenuData = convert1.data;
-      payload.leftMenuDataSearch = convert1.data;
-      payload.leftMenuLastNodeId = convert1.ids;
+      payload.sideBarData = convert1.data;
+      payload.sideBarDataSearch = convert1.data;
+      payload.sideBarLastNodeId = convert1.ids;
       payload.routers = convert1.routers;
       dispatch(executeActionReducer(SET_DATA_READY, payload));
       dispatch(getDataOperation(match, history));
@@ -86,18 +86,18 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
 
 export const getDataOperation = (match: match, history: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
-  const leftMenuData = state.leftMenuData || [];
-  const leftMenuLastNodeId = state.leftMenuLastNodeId;
+  const sideBarData = state.sideBarData || [];
+  const sideBarLastNodeId = state.sideBarLastNodeId;
   const projects: any = await dispatch(callAPIGetProjectsOperation());
   let payload: any = {}
   if (projects.error) {
     console.log('get projects data is error.');
     dispatch(getDataTraining(match, history));
   } else {
-    const convert2: any = convertProjectsOperation2TreeView(leftMenuData, projects.data, leftMenuLastNodeId)
-    payload.leftMenuData = convert2.data;
-    payload.leftMenuDataSearch = convert2.data;
-    payload.leftMenuLastNodeId = convert2.ids;
+    const convert2: any = convertProjectsOperation2SideBar(sideBarData, projects.data, sideBarLastNodeId)
+    payload.sideBarData = convert2.data;
+    payload.sideBarDataSearch = convert2.data;
+    payload.sideBarLastNodeId = convert2.ids;
     payload.isReady = true;
     dispatch(executeActionReducer(SET_DATA_OPERATION, payload));
     dispatch(getDataTraining(match, history));
@@ -106,155 +106,20 @@ export const getDataOperation = (match: match, history: any) => async (dispatch:
 
 export const getDataTraining = (match: match, history: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
-  const leftMenuData = state.leftMenuData || [];
-  const leftMenuLastNodeId = state.leftMenuLastNodeId;
+  const sideBarData = state.sideBarData || [];
+  const sideBarLastNodeId = state.sideBarLastNodeId;
   const projects: any = await dispatch(callAPIGetProjectsTraining());
   let payload: any = {}
   if (projects.error) {
     console.log('get projects data is error.');
   } else {
-    const convert2: any = convertProjectsTraining2TreeView(leftMenuData, projects.data, leftMenuLastNodeId)
-    payload.leftMenuData = convert2.data;
-    payload.leftMenuDataSearch = convert2.data;
-    payload.leftMenuLastNodeId = convert2.ids;
+    const convert2: any = convertProjectsTraining2SideBar(sideBarData, projects.data, sideBarLastNodeId)
+    payload.sideBarData = convert2.data;
+    payload.sideBarDataSearch = convert2.data;
+    payload.sideBarLastNodeId = convert2.ids;
     dispatch(executeActionReducer(SET_DATA_TRAINING, payload));
     dispatch(getDataByPathName(match, history))
   }
-}
-
-function convertProjectsOperation2TreeView(leftMenuData: IRootDrawerLeft[], projects: IProject[], ids: number) {
-  let outPut: any = {
-    data: leftMenuData,
-    ids: 0
-  };
-  const operation: any = leftMenuData.find((i: IRootDrawerLeft) => i.name === OPERATION_KEY);
-  const operationIndex: any = leftMenuData.findIndex((i: IRootDrawerLeft) => i.name === OPERATION_KEY);
-  if (operation) {
-    let customers: any = {}
-    projects.map((p: IProject) => {
-      if (!customers[p.customer_id]) {
-        customers[p.customer_id] = [];
-      }
-      customers[p.customer_id].push(p)
-    })
-    const customersKey = Object.keys(customers);
-    let idChild = ids + customersKey.length;
-    for (let index = 0; index < customersKey.length; index++) {
-      const key = customersKey[index];
-      const values = customers[key];
-      if (values[0]) {
-        let children: any = {
-          "root_app": values[0].customer_id,
-          "display_root_app": values[0].customer_name,
-          "name": values[0].customer_id,
-          "display_name": values[0].customer_name,
-          "path": null,
-          "nodeIds": [`${operation.id}`, `${ids}`],
-          "id": `${ids++}`,
-          "pathFocus": [...operation.pathFocus, 'children', index],
-          "children": [],
-          "info": values.length
-        }
-        values.map((p: IProject, iProj: any) => {
-          children.children.push(
-            {
-              "root_app": values[0].customer_id,
-              "display_root_app": values[0].customer_name,
-              "name": p.id,
-              "display_name": p.name,
-              "path": PROJECTS_OPERATION_KEY,
-              "pathFocus": [...children.pathFocus, 'children', iProj],
-              "nodeIds": [...children.nodeIds, `${idChild}`],
-              "id": `${idChild++}`,
-              "children": []
-            }
-          )
-        })
-        operation.children.push(children)
-      }
-    }
-    outPut.ids = idChild;
-    outPut.data[operationIndex] = operation;
-  }
-  return outPut;
-}
-
-function convertProjectsTraining2TreeView(leftMenuData: IRootDrawerLeft[], projects: IProject[], ids: number) {
-  let outPut: any = {
-    data: leftMenuData,
-    ids: 0
-  };
-  const training: any = leftMenuData.find((i: IRootDrawerLeft) => i.name === "training");
-  const trainingIndex: any = leftMenuData.findIndex((i: IRootDrawerLeft) => i.name === "training");
-  if (training) {
-    for (let index = 0; index < projects.length; index++) {
-      const values = projects[index];
-      let children: any = {
-        "root_app": training.root_app,
-        "display_root_app": training.display_name,
-        "name": values.id,
-        "display_name": values.name,
-        "path": PROJECTS_TRAINING_KEY,
-        "nodeIds": [...training.nodeIds, `${ids}`],
-        "id": `${ids++}`,
-        "pathFocus": [...training.pathFocus, 'children', index],
-        "children": [],
-      }
-      training.children.push(children)
-    }
-    outPut.ids = ids;
-    outPut.data[trainingIndex] = training;
-  }
-  return outPut;
-}
-
-function convertFunctionOtherApp2TreeView(apps: IApps[], datas: IFunction[]) {
-  let outPut: any = {
-    data: [],
-    routers: {},
-    ids: 0
-  };
-  let ids = apps.length + 1;
-  const pathPrefix = getPathPrefix();
-  apps.map((app: IApps, index: any) => {
-    let item = datas.filter((i: IFunction) => i.root_app === app.app_name);
-    outPut.data.push(
-      {
-        "root_app": app.app_name,
-        "display_root_app": app.display_name || I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
-        "name": app.app_name,
-        "display_name": app.display_name || I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
-        "path": null,
-        "id": `${index + 1}`,
-        "nodeIds": [`${index + 1}`],
-        "children": [],
-        "pathFocus": [index]
-      }
-    )
-    if (item[0]) {
-      let newItem: any = [];
-      item.filter((i: IFunction, iFunc: any) => {
-        let pathItem = mergePath({path1: i.path_prefix, path2: i.path, appName: app.app_name, pathPrefix});
-        newItem.push(
-          {
-            ...i,
-            "path": pathItem,
-            "pathFocus": [index, "children", iFunc],
-            "nodeIds": [`${index + 1}`, `${ids++}`],
-            "id": `${ids++}`,
-            "children": []
-          }
-        )
-        if (!outPut.routers[app.app_name]) {
-          outPut.routers[app.app_name] = []
-        }
-        outPut.routers[app.app_name].push(pathItem);
-      });
-      outPut.data[index].children = newItem;
-    }
-  })
-  outPut.ids = ids;
-  return outPut;
 }
 
 export function getHref(path: string) {
@@ -264,10 +129,7 @@ export function getHref(path: string) {
 
 export function getPathPrefix() {
   const pathName = window.location.pathname;
-  console.log('==========getPathPrefix==========');
-  console.log('pathName: ', pathName);
   let pathArr = pathName.split("/");
-  console.log('====================================');
   return pathArr[0] !== "" ? pathArr[0] : pathArr[1];
 }
 interface IMergePath {
@@ -312,44 +174,30 @@ export function mergePath(input: IMergePath) {
   return outPut;
 }
 
-export const getDataByPathName = (match: match, history: any) => async (dispatch: any, getState: any) => {
+const getDataByPathName = (match: match, history: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
-  const leftMenuData = state.leftMenuData || [];
+  const sideBarData = state.sideBarData || [];
   const projectId = get(match, 'params.projectId', null);
   const appName = get(match, 'params.appName', null);
   const taskKeyDef = get(match, 'params.taskKeyDef', null);
   const pathName = get(match, 'url', '');
   const pathRoute = get(match, 'path', '');
   let functionName: any = taskKeyDef;
-  console.log('========getDataByPathName===========');
-  console.log('leftMenuData: ', leftMenuData);
-  console.log('match: ', match);
-  console.log('history: ', history);
-  console.log('====================================');
   if (projectId && appName) {
-    console.log('projectId && appName: ', projectId, appName);
-    const treeNode: any = findTreeItemByNameVsRootApp(leftMenuData, projectId, appName);
+    const treeNode: any = findSideBarItemByNameVsRootApp(sideBarData, projectId, appName);
     await dispatch(addTreeItemByTreeNode(treeNode));
-    console.log('treeNode: ', treeNode);
     if (!functionName) {
       functionName = findFunctionNameByPathName(pathName, pathRoute, ":projectId")
     }
-    const newLeftMenuData = get(getState(), `${PATH_TO_STORE_REDUX}.leftMenuData`, []);
+    const newLeftMenuData = get(getState(), `${PATH_TO_STORE_REDUX}.sideBarData`, []);
     const newTreeNode = get(newLeftMenuData, treeNode.pathFocus)
-    console.log('newTreeNode: ', newTreeNode);
-    console.log('functionName: ', functionName);
-    const lastChild = findTreeItemByName(newTreeNode.children, functionName);
-    console.log('lastChild: ', lastChild);
+    const lastChild = findSideBarItemByName(newTreeNode.children, functionName);
     if (lastChild.data) {
       dispatch(createBreadcrumbsByTreeNode(lastChild.data))
     }
   } else if (appName) {
-    functionName = findFunctionNameByPathName(pathName, pathRoute, ":appName")
-    console.log('functionName: ', functionName);
-    console.log('appName: ', appName);
-    const treeNode: any = findTreeItemByNameVsRootApp(leftMenuData, functionName, appName);
-    // await dispatch(addTreeItemByTreeNode(treeNode));
-    console.log('treeNode: ', treeNode);
+    functionName = findFunctionNameByPathName(pathName, pathRoute, ":appName");
+    const treeNode: any = findSideBarItemByNameVsRootApp(sideBarData, functionName, appName);
     if (treeNode) {
       dispatch(createBreadcrumbsByTreeNode(treeNode))
     }
@@ -358,7 +206,7 @@ export const getDataByPathName = (match: match, history: any) => async (dispatch
   }
 }
 
-export function findFunctionNameByPathName(pathName: string, pathRoute: string, findKey: string) {
+function findFunctionNameByPathName(pathName: string, pathRoute: string, findKey: string) {
   const pathNameKeys = pathName.split("/");
   const pathRouteKeys = pathRoute.split("/");
   let outPut: any = null;
@@ -371,24 +219,4 @@ export function findFunctionNameByPathName(pathName: string, pathRoute: string, 
   return outPut;
 }
 
-export function findTreeItemByNameVsRootApp(data: IRootDrawerLeft[], projectId: string, appName?: string) {
-  let outPut: any = null;
-  let items: any = data;
-  if (appName) {
-    const app: any = data.find((app: any) => app.root_app === appName);
-    items = app.children;
-  }
-  for (let index = 0; index < items.length; index++) {
-    const item = items[index];
-    if (item.name === projectId) {
-      outPut = item;
-      break;
-    } else if (item.children.length > 0) {
-      outPut = findTreeItemByNameVsRootApp(item.children, projectId);
-      if (outPut) {
-        break;
-      }
-    }
-  }
-  return outPut;
-}
+

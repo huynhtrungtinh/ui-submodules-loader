@@ -19,7 +19,7 @@ import clsx from 'clsx';
 import {get} from 'lodash';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON, IRootDrawerLeft} from '../../constants';
+import {ICON, ISideBar} from '../constants';
 
 function MinusSquare(props: SvgIconProps) {
     return (
@@ -289,7 +289,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 let timeoutIdSearch: any = 0;
 
-function LeftMenuComponent(props: any) {
+function SideBarComponent(props: any) {
     const {
         isOpen = false,
         // routers = [],
@@ -297,20 +297,21 @@ function LeftMenuComponent(props: any) {
         version = 0,
         // routeFocus = {},
 
-        leftMenuData = [],
+        sideBarData = [],
         setClickItem = () => null,
         setSearch = () => null,
-        leftMenuSearch = "",
+        sideBarSearchValue = "",
         breakpoint = "lg",
-        leftMenuSelected = {}
+        sideBarSelectedItem = {}
     } = props;
 
     const refContainer: any = React.useRef();
     const [isViewScrollTop, setIsViewScrollTop] = React.useState(false);
     const [drawerWidth, setDrawerWidth] = React.useState(430);
-    const [searchValue, setSearchValue] = React.useState(leftMenuSearch);
+    const [searchValue, setSearchValue] = React.useState(sideBarSearchValue);
     const classes = useStyles({drawerWidth});
     const history = useHistory();
+
     React.useEffect(() => {
     }, [refContainer])
 
@@ -378,17 +379,13 @@ function LeftMenuComponent(props: any) {
         const {name, value} = event.target;
         setSearchValue(value);
         timeoutIdSearch = setTimeout(() => {
-            console.log('============handleSearch===========');
-            console.log('name: ', name);
-            console.log('value: ', value);
-            console.log('====================================');
             setSearch(name, value);
         }, 200);
     }
 
-    const renderTreeItem = (leftMenuData: IRootDrawerLeft[]) => {
-        if (leftMenuData && leftMenuData[0]) {
-            return leftMenuData.map((data: IRootDrawerLeft) => {
+    const renderTreeItem = (sideBarData: ISideBar[]) => {
+        if (sideBarData && sideBarData[0]) {
+            return sideBarData.map((data: ISideBar) => {
                 if (data) {
                     return (
                         <StyledTreeItem key={data.id} nodeId={data.id} labelText={data.display_name} labelInfo={data.info} LabelIcon={ICON[data.name] || (data.children.length > 0 ? PlusSquare : MinusSquare)} >
@@ -407,6 +404,7 @@ function LeftMenuComponent(props: any) {
     const handleClickClose = (event: any) => {
         setOpen()
     }
+
     return (
         <div style={{position: "relative"}}>
             <Drawer
@@ -435,7 +433,7 @@ function LeftMenuComponent(props: any) {
                     </div>
                     <InputBase
                         placeholder="Search…"
-                        name="leftMenuSearch"
+                        name="sideBarSearchValue"
                         id="tree-search"
                         type="search"
                         classes={{
@@ -457,7 +455,7 @@ function LeftMenuComponent(props: any) {
 
                 <TreeView
                     className={classes.treeView}
-                    defaultExpanded={[`${leftMenuData.length}`]}
+                    defaultExpanded={[`${sideBarData.length}`]}
                     defaultCollapseIcon={<ArrowDropDownIcon />}
                     defaultExpandIcon={<ArrowRightIcon />}
                     defaultEndIcon={<div style={{width: 24}} />}
@@ -466,11 +464,11 @@ function LeftMenuComponent(props: any) {
                     onScroll={handleScroll}
                     // expanded={["4", "21", "25", "33", "39"]}
                     // selected={"39"}
-                    expanded={leftMenuSelected.nodeIds || []}
-                    selected={leftMenuSelected.id || null}
+                    expanded={sideBarSelectedItem.nodeIds || []}
+                    selected={sideBarSelectedItem.id || null}
                 >
                     {
-                        renderTreeItem(leftMenuData)
+                        renderTreeItem(sideBarData)
                     }
                 </TreeView>
 
@@ -484,5 +482,5 @@ function LeftMenuComponent(props: any) {
         </div>
     )
 }
-export {LeftMenuComponent};
-export default LeftMenuComponent;
+export {SideBarComponent};
+export default SideBarComponent;

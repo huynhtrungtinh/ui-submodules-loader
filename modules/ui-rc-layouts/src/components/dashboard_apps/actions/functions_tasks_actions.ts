@@ -1,16 +1,8 @@
-import {
-  PATH_TO_STORE_REDUX,
-  PATH_TO_STORE_REDUX_T_LAYOUTS,
-  SET_GET_DATA_FOR_READY_FUNCTION_TASKS,
-  SET_KEYBOARD_FUNCTION_TASKS,
-  SET_SEARCH_FUNCTION_TASKS,
-  SORT_SOURCE_NAME,
-  SET_REFRESH_INSTANCES_FUNCTION_TASKS
-} from '../constants';
-import { callAPIGetFunctionsTasks, callAPIGetInstances } from './call_api';
-import { get, isEmpty, orderBy, cloneDeep } from 'lodash';
-import { updateBreadcrumbs } from '../../../layouts';
-import { executeActionReducer } from './common_actions';
+import {cloneDeep, get, isEmpty, orderBy} from 'lodash';
+import {updateBreadcrumbs} from '../../../layouts';
+import {PATH_TO_STORE_REDUX, PATH_TO_STORE_REDUX_T_LAYOUTS, SET_GET_DATA_FOR_READY_FUNCTION_TASKS, SET_KEYBOARD_FUNCTION_TASKS, SET_REFRESH_INSTANCES_FUNCTION_TASKS, SET_SEARCH_FUNCTION_TASKS, SORT_SOURCE_NAME} from '../constants';
+import {callAPIGetFunctionsTasks, callAPIGetInstances} from './call_api';
+import {executeActionReducer} from './common_actions';
 
 export const getFunctionsTasks = () => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
@@ -22,7 +14,7 @@ export const getFunctionsTasks = () => async (dispatch: any, getState: any) => {
   if (stateTLayouts.functionsParent && stateTLayouts.functionsParent.length > 0) {
     payload.functionsParent = stateTLayouts.functionsParent;
     payload.functionsView = stateTLayouts.functionsParent;
-    dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION_TASKS, { functionsTasks: payload }));
+    dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION_TASKS, {functionsTasks: payload}));
   } else {
     if (functionsTasks.functionsParent && functionsTasks.functionsParent.length === 0) {
       const dataAPI: any = await callAPIGetFunctionsTasks(routeFocus.app_name, projectId);
@@ -33,7 +25,7 @@ export const getFunctionsTasks = () => async (dispatch: any, getState: any) => {
         payload.functionsParent = dataAPI.data;
         payload.functionsView = dataAPI.data;
       }
-      dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION_TASKS, { functionsTasks: payload }));
+      dispatch(executeActionReducer(SET_GET_DATA_FOR_READY_FUNCTION_TASKS, {functionsTasks: payload}));
     }
   }
 };
@@ -41,8 +33,8 @@ export const getFunctionsTasks = () => async (dispatch: any, getState: any) => {
 export const setKeyboardFunctionsTasks = (event: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const stateTLayouts = get(getState(), PATH_TO_STORE_REDUX_T_LAYOUTS, {});
-  const isLeftMenuOpen = stateTLayouts.isLeftMenuOpen;
-  if (isLeftMenuOpen) {
+  const isSideBarOpen = stateTLayouts.isSideBarOpen;
+  if (isSideBarOpen) {
     return;
   }
   const functionsTasks = state.functionsTasks || {};
@@ -70,14 +62,14 @@ export const setSearchFunctionsTasks = (searchKeyWords: any) => async (dispatch:
   if (!searchKeyWords || searchKeyWords.length === 0) {
     payload.functionsView = functionsParent;
   }
-  dispatch(executeActionReducer(SET_SEARCH_FUNCTION_TASKS, { functionsTasks: payload }));
+  dispatch(executeActionReducer(SET_SEARCH_FUNCTION_TASKS, {functionsTasks: payload}));
 }
 
 export const setKeyUpSearchFunctionsTasks = (event: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const stateTLayouts = get(getState(), PATH_TO_STORE_REDUX_T_LAYOUTS, {});
-  const isLeftMenuOpen = stateTLayouts.isLeftMenuOpen;
-  if (isLeftMenuOpen) {
+  const isSideBarOpen = stateTLayouts.isSideBarOpen;
+  if (isSideBarOpen) {
     return;
   }
   const keyCode = event.keyCode;
@@ -100,7 +92,7 @@ export const setKeyUpSearchFunctionsTasks = (event: any) => async (dispatch: any
       newRowsTable = functionsParent;
     }
     payload.functionsView = newRowsTable;
-    dispatch(executeActionReducer(SET_KEYBOARD_FUNCTION_TASKS, { functionsTasks: payload }));
+    dispatch(executeActionReducer(SET_KEYBOARD_FUNCTION_TASKS, {functionsTasks: payload}));
   }
 }
 
@@ -130,10 +122,10 @@ export const setRefreshInstancesFunctionsTasks = (sourceName: string) => async (
     payload.functionsView = setInstanceToData(functionsView, dataAPI.data, sourceName);
     payload.disabledRefresh[sourceName] = true;
   }
-  dispatch(executeActionReducer(SET_REFRESH_INSTANCES_FUNCTION_TASKS, { functionsTasks: { ...state.functionsTasks, disabledRefresh: { ...state.disabledRefresh, [sourceName]: true } } }));
+  dispatch(executeActionReducer(SET_REFRESH_INSTANCES_FUNCTION_TASKS, {functionsTasks: {...state.functionsTasks, disabledRefresh: {...state.disabledRefresh, [sourceName]: true}}}));
   setTimeout(() => {
     payload.disabledRefresh[sourceName] = false;
-    dispatch(executeActionReducer(SET_REFRESH_INSTANCES_FUNCTION_TASKS, { functionsTasks: payload }));
+    dispatch(executeActionReducer(SET_REFRESH_INSTANCES_FUNCTION_TASKS, {functionsTasks: payload}));
   }, 3000);
 }
 

@@ -16,6 +16,7 @@ export interface IProviderOutPut {
     method?: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
     body?: null | any;
     response?: IResponse | any;
+    ignoreToken?: boolean;
 }
 export type IResourceProvider = (input: IInputProvider) => IProviderOutPut;
 

@@ -34,6 +34,7 @@ class DataProvider {
     return (input: IInputProvider): IProviderOutPut => {
       return {
         uri: '',
+        ignoreToken: false,
         response: {
           blod: null,
           data: [],
@@ -54,7 +55,8 @@ class DataProvider {
         isFile: (configReq.type && configReq.type === 'file') ? true : false,
         body: configReq.body,
         response: configReq.response
-      }
+      },
+      configReq.ignoreToken
     );
   }
 }
