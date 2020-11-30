@@ -60,5 +60,14 @@ interface IProject {
     id: string;
     name: string;
 }
-export {IProject, IFunction, ISideBar, IApps, IContacts, IContactsObj};
+interface Column {
+    id: 'project' | 'customer';
+    label: any;
+    minWidth?: number;
+    sortColumn?: boolean;
+    sortDirection?: string;
+    index?: number;
+}
+
+export {IProject, IFunction, ISideBar, IApps, IContacts, IContactsObj, Column};
 

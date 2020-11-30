@@ -1,3 +1,5 @@
+import {Column} from './models_constants';
+
 export const NAME_REDUCER = 'layout_root';
 export const KEY_TRANSLATE = 'layout_root';
 export const PATH_TO_STORE_REDUX = `resources.${NAME_REDUCER}.data`;
@@ -27,3 +29,22 @@ export const MATCH_DEFAULT = {
   path: "",
   url: ""
 }
+
+export const COLUMNS_PROJECT: Column[] = [
+  {
+    id: 'project',
+    label: 'project_name',
+    minWidth: 120,
+    sortColumn: false,
+    sortDirection: 'none',
+    index: 0
+  },
+  {
+    id: 'customer',
+    label: 'customer_name',
+    minWidth: 130,
+    sortColumn: false,
+    sortDirection: 'none',
+    index: 1
+  }
+];

@@ -20,7 +20,7 @@ function CardAvatar({...props}) {
 }
 
 CardAvatar.propTypes = {
-  children: PropTypes.node.isRequired,
+  // children: PropTypes.node.isRequired,
   className: PropTypes.string,
   profile: PropTypes.bool,
   plain: PropTypes.bool

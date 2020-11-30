@@ -11,7 +11,6 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import HighlightOff from '@material-ui/icons/HighlightOff';
 import SearchIcon from '@material-ui/icons/Search';
 import TreeItem, {TreeItemProps} from '@material-ui/lab/TreeItem';
 import TreeView from '@material-ui/lab/TreeView';
@@ -180,6 +179,8 @@ const useStyles = makeStyles((theme: Theme) =>
             // ...boxShadow,
             width: (props: any) => props.drawerWidth,
             overflow: 'auto',
+            height: 'calc(100% - 44px)',
+            marginTop:'44px'
         },
         logo: {
             position: "relative",
@@ -420,9 +421,9 @@ function SideBarComponent(props: any) {
                 }}
             >
 
-                <IconButton className={classes.closeIcon} onClick={handleClickClose}>
+                {/* <IconButton className={classes.closeIcon} onClick={handleClickClose}>
                     <HighlightOff fontSize='large' />
-                </IconButton>
+                </IconButton> */}
 
                 {brand}
                 <Divider variant="middle" />
@@ -462,8 +463,6 @@ function SideBarComponent(props: any) {
                     onNodeSelect={handleSelectedTreeItem}
                     ref={refContainer}
                     onScroll={handleScroll}
-                    // expanded={["4", "21", "25", "33", "39"]}
-                    // selected={"39"}
                     expanded={sideBarSelectedItem.nodeIds || []}
                     selected={sideBarSelectedItem.id || null}
                 >

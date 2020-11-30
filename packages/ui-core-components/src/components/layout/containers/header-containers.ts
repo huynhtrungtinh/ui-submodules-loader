@@ -11,7 +11,8 @@ const mapStateToProps = (state: any) => {
     breakpoint: stateRedux.breakpoint,
     contactsData: stateRedux.contactsData,
     displayName: get(state, 'authentication.userInfo.display_name', ""),
-    loading: get(state, 'authentication.loading', 0)
+    loading: get(state, 'authentication.loading', 0),
+    isSideBarOpen: stateRedux.isSideBarOpen,
   };
 };
 

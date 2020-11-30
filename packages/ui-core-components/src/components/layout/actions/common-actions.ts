@@ -1,9 +1,10 @@
 import {PATH_TO_STORE_AUTH} from '@dgtx/ui-scl';
 import {get} from 'lodash';
 import {match} from 'react-router-dom';
-import {APPS, MATCH_DEFAULT, NAME_REDUCER, PATH_TO_STORE_REDUX, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, UNMOUNT} from '../constants';
+import {APPS, ISideBar, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, TRAINING_KEY, UNMOUNT} from '../constants';
 import {callAPIGetApps, callAPIGetFunctionOtherApp, callAPIGetProjectsOperation, callAPIGetProjectsTraining} from './call-api';
 import {createBreadcrumbsByTreeNode} from './header';
+import {createOperatorProjectData, getDataTableProject} from './root-page';
 import {addTreeItemByTreeNode} from './side-bar-actions';
 import {convertFunctionOtherApp2SideBar, convertProjectsOperation2SideBar, convertProjectsTraining2SideBar, findSideBarItemByName, findSideBarItemByNameVsRootApp} from './side-bar-utils';
 
@@ -42,7 +43,6 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
   if (!isAuthenticated || !isCheckToken) {
     return;
   }
-
   const {
     // version = "0.0.1",
     match = MATCH_DEFAULT
@@ -96,6 +96,9 @@ export const getDataOperation = (match: match, history: any) => async (dispatch:
   } else {
     const convert2: any = convertProjectsOperation2SideBar(sideBarData, projects.data, sideBarLastNodeId)
     payload.sideBarData = convert2.data;
+    const operatorApp = convert2.data.find((i: ISideBar) => i.name === OPERATION_KEY)
+    const rowsOperator = createOperatorProjectData(operatorApp && operatorApp.children || []);
+    payload.rowsProjectOperatorParent = rowsOperator;
     payload.sideBarDataSearch = convert2.data;
     payload.sideBarLastNodeId = convert2.ids;
     payload.isReady = true;
@@ -114,11 +117,14 @@ export const getDataTraining = (match: match, history: any) => async (dispatch: 
     console.log('get projects data is error.');
   } else {
     const convert2: any = convertProjectsTraining2SideBar(sideBarData, projects.data, sideBarLastNodeId)
+    const rowsTraining = convert2.data.find((i: ISideBar) => i.name === TRAINING_KEY)
+    payload.rowsProjectTrainingParent = rowsTraining && rowsTraining.children || [];
     payload.sideBarData = convert2.data;
     payload.sideBarDataSearch = convert2.data;
     payload.sideBarLastNodeId = convert2.ids;
     dispatch(executeActionReducer(SET_DATA_TRAINING, payload));
     dispatch(getDataByPathName(match, history))
+    dispatch(getDataTableProject())
   }
 }
 

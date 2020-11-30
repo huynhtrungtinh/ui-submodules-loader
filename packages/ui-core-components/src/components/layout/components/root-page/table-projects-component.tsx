@@ -13,14 +13,22 @@ import KeyboardArrowDown from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUp from "@material-ui/icons/KeyboardArrowUp";
 import {isEqual} from 'lodash';
 import React from 'react';
+import {I18n} from 'react-redux-i18n';
 import {useHistory} from 'react-router-dom';
+import {ISideBar, KEY_TRANSLATE} from '../../constants';
 
 const useStyle: any = makeStyles((theme: Theme): any =>
     createStyles({
         rootTable: {
             height: (props: any) => `${props.heightRoot - 16}px`,
             width: (props: any) => `${props.widthRoot - 16}px`,
-            margin: '8px'
+            margin: '8px',
+            // '&.MuiTableCell-stickyHeader': {
+            //     backgroundColor: theme.palette.common.white,
+            // },
+            '$stickyHeader > &': {
+                backgroundColor: theme.palette.common.white,
+            },
         },
         containerTable: {
             maxHeight: (props: any) => `${props.maxHeightTable - 16}px`,
@@ -44,20 +52,29 @@ const sizeWindowDefault = {height: 0, width: 0}
 
 function TableProjectsComponent(props: any) {
     const {
+        rowsParent = [],
         rows = [],
         columns = [],
-        setSort = () => null,
         page = 0,
+        isSelectedTab = 0,
         rowsPerPage = contantsTable.ROWS_PER_PAGE_OPTIONS[0],
+        // rowsSelected = {},
+        // searchKeyWords = "",
+        // isViewTable = 0,
+        setSort = () => null,
         setPage = () => null,
         setRowsPerPage = () => null,
         setClick = () => null,
+        getData = () => null
     } = props;
+    console.log('=========TableProjectsComponent===========================');
+    console.log('rowsParent: ', rowsParent);
+    console.log('rows: ', rows);
+    console.log('====================================');
     const [sizeWindow, setSizeWindow] = React.useState(sizeWindowDefault);
     const [heightRoot, setHeightRoot] = React.useState(0);
     const [maxHeightTable, setMaxHeightTable] = React.useState(0);
     const [heightBody, setHeightBody] = React.useState(0);
-    const [rowsView, setRowsView] = React.useState([]);
     const history = useHistory();
     const size: any = useWindowSize();
     const classes = useStyle({heightRoot, widthRoot: sizeWindow.width, maxHeightTable, heightBody});
@@ -65,7 +82,7 @@ function TableProjectsComponent(props: any) {
     React.useEffect(() => {
         if (!isEqual(sizeWindow.height, size.height)) {
             setSizeWindow(size);
-            const root: any = size.height - 100;
+            const root: any = size.height - 90;
             const table: any = root - 52;
             const body: any = table - 57;
             setHeightRoot(root);
@@ -73,10 +90,6 @@ function TableProjectsComponent(props: any) {
             setHeightBody(body);
         }
     }, [size])
-
-    React.useEffect(() => {
-        setRowsView(rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage))
-    }, [rows])
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -94,15 +107,15 @@ function TableProjectsComponent(props: any) {
         setClick(project, history)
     }
     return (
-        <Paper className={classes.rootTable} id={ID_DIV_ROOT}>
+        <Paper elevation={5} className={classes.rootTable} id={ID_DIV_ROOT}>
             <TableContainer className={classes.containerTable}>
                 <Table stickyHeader aria-label="project table">
-                    <TableHead>
+                    <TableHead >
                         <TableRow>
                             {columns.map((column: any) => (
                                 <TableCell
                                     key={column.id}
-                                    style={{minWidth: column.minWidth, cursor: "pointer"}}
+                                    style={{minWidth: column.minWidth, cursor: "pointer", background: 'white'}}
                                     onClick={handleSort(column)}
                                 >
                                     <div className={classes.cellHeader}>
@@ -113,7 +126,7 @@ function TableProjectsComponent(props: any) {
                                             }
                                         </div>
                                         <div>
-                                            {column.label}
+                                            {I18n.t(`${KEY_TRANSLATE}.${column.label}`)}
                                         </div>
                                     </div>
                                 </TableCell>
@@ -122,15 +135,18 @@ function TableProjectsComponent(props: any) {
                     </TableHead>
                     <TableBody>
                         {
-                            rowsView.length > 0 && rowsView.map((row: any) => {
+                            rows.length > 0 && rows.map((row: ISideBar) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}
                                         onClick={handleClickItem(row)}>
-                                        {columns.map((column: any) => {
-                                            const value = row[column.id];
+                                        {columns.map((column: any, index: any) => {
+                                            let value:any = row.display_name;
+                                            if(index !== 0){
+                                                value = row.display_root_app;
+                                            }
                                             return (
-                                                <TableCell key={column.id} >
-                                                    <a href={getHref(`/projects/${row.id}`)} style={{width: '100%', color: 'inherit'}}>
+                                                <TableCell key={index} >
+                                                    <a href={getHref(`/projects/${row.id}`)} style={{width: '100%', color: 'inherit', textDecoration: 'none'}}>
                                                         {value}
                                                     </a>
                                                 </TableCell>
@@ -140,7 +156,7 @@ function TableProjectsComponent(props: any) {
                                 );
                             })
                         }
-                        <TableRow style={{height: `${rowsView.length === 0 ? heightBody - 16 : heightBody - (53 * rowsView.length) - 16}px`}}>
+                        <TableRow style={{height: `${rows.length === 0 ? heightBody - 16 : heightBody - (53 * rows.length) - 16}px`}}>
                             <TableCell colSpan={6} />
                         </TableRow>
                     </TableBody>

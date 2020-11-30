@@ -14,10 +14,15 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
     },
     marginItem: {
-      margin: '10px',
-    },
-    marginFirstItem: {
       margin: '0px 10px 10px 10px',
+    },
+    buttonSelected: {
+        color: theme.palette.primary.main,
+        fontWeight: 'bold',
+        boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
+      '&:$buttonDriver': {
+        backgroundColor: fade(theme.palette.primary.main, 0.8)
+      },
     },
     buttonContainer: {
       display: 'flex',
@@ -57,11 +62,11 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
     },
     marginBP: {
-      margin: '0px 0px 0px 10px',
+      margin: '0px 10px 0px 0px',
     },
     gridItem: {
       position: 'relative',
-      padding: '10px 20px 10px 20px',
+      padding: '10px',
       // maxHeight: '190px',
       // height: '190px'
     },
@@ -121,33 +126,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-interface IContentComponent {
+interface IRootPageComponent {
   sideBarData: ISideBar[]
 }
 
-let indexExpan = -1;
 
-function ContentComponent(props: IContentComponent | any) {
+function RootPageComponent(props: IRootPageComponent | any) {
   const {
     sideBarData = [],
+    isSelectedTab = 0,
     // sideBarSearchValue = "",
     // breakpoint = "lg",
     // sideBarSelectedItem = {}
+    setTabIndex = () => null
   } = props;
   const classes = useStyles();
-  let projects: any = []
+  let projects: any = [];
+
+  const handleCLickTab = (index:any) => () =>{
+    setTabIndex(index)
+  }
+
   if (sideBarData.length > 0) {
     return (
       <div className={clsx(classes.root)}>
-        <div >
+        <div style={{width: '100%', height: '100%'}}>
           {
             sideBarData.map((item: ISideBar, index: any) => {
               const Icon = ICON[item.name];
               if (item.name !== OPERATION_KEY && item.name !== TRAINING_KEY) {
-                indexExpan++;
                 return (
                   <>
-                    <div className={indexExpan === 0 ? clsx(classes.buttonContainer, classes.marginFirstItem) : clsx(classes.buttonContainer, classes.marginItem)}>
+                    <div key={index + 1} className={clsx(classes.buttonContainer, classes.marginItem)}>
                       <div className={clsx(classes.buttonIcon)}>
                         <Icon />
                       </div>
@@ -160,7 +170,7 @@ function ContentComponent(props: IContentComponent | any) {
                       </span>
                     </div>
 
-                    <Grid container spacing={0} >
+                    <Grid key={index + 20} container spacing={0} >
                       {
                         item.children.length > 0 && item.children.map((child: any) => {
                           return (
@@ -198,10 +208,13 @@ function ContentComponent(props: IContentComponent | any) {
           <>
             <div className={clsx(classes.buttonProject, classes.marginItem)}>
               {
-                projects.map((item: ISideBar) => {
+                projects.map((item: ISideBar, index:any) => {
                   const Icon = ICON[item.name];
+                  const btnSelected = clsx({
+                    [" " + classes["buttonSelected"]]: isSelectedTab === index
+                });
                   return (
-                    <div className={clsx(classes.buttonContainer, classes.marginBP)}>
+                    <div key={index + 30} className={clsx(classes.buttonContainer, classes.marginBP)+ btnSelected} onClick={handleCLickTab(index)}>
                       <div className={clsx(classes.buttonIcon)}>
                         <Icon />
                       </div>
@@ -226,5 +239,5 @@ function ContentComponent(props: IContentComponent | any) {
   return <></>
 }
 
-export {ContentComponent};
-export default ContentComponent
+export {RootPageComponent};
+export default RootPageComponent

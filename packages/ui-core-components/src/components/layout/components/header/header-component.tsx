@@ -92,6 +92,7 @@ function HeaderComponent(props: any) {
         displayName = "",
         loading = 0,
         contactsData = [],
+        isSideBarOpen = false,
         match = {}
     } = props;
     const classes = useStyles();
@@ -113,7 +114,7 @@ function HeaderComponent(props: any) {
     };
     const handleIconHome = (event: React.MouseEvent<HTMLElement>) => {
         // event.persist();
-        setOpenSideBar(true);
+        setOpenSideBar(!isSideBarOpen);
     };
     return (
         <div className={clsx(classes.root)}>
@@ -231,7 +232,6 @@ function HeaderComponent(props: any) {
             }
 
             <SideBarContainers />
-
         </div>
     );
 }

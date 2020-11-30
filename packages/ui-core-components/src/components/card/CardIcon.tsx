@@ -19,7 +19,7 @@ function CardIcon({...props}) {
 }
 
 CardIcon.propTypes = {
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   color: PropTypes.oneOf([
     "warning",
@@ -27,7 +27,7 @@ CardIcon.propTypes = {
     "danger",
     "info",
     "primary",
-    "rose"
+    "secondary"
   ])
 };
 export {CardIcon};
