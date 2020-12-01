@@ -33,7 +33,6 @@ export function getFunctionsTraining() {
             "display_name": "Form_50",
             "path": "capture/5d1465340fb92b0017a5621a/Form_50/Form_50"
         },
-
         {
             "root_app": "training",
             "display_root_app": "Training",

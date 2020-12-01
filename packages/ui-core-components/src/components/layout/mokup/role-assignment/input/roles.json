@@ -6,7 +6,6 @@
     "functions": [
       {
         "name": "acquisitions",
-        "sub_app": "production-admin",
         "perm": "read"
       }
     ],
@@ -35,16 +34,13 @@
     "functions": []
   },
   {
-    "name": "sa",
-    "display_name": "Super Admin",
-    "app_name": "functional",
-    "functions": []
-  },
-  {
     "name": "pim_customer_admin",
     "display_name": "Customer Admin",
     "app_name": "functional",
-    "functions": [],
+    "functions": [
+      "projects-information",
+      "customers-information"
+    ],
     "actions": {
       "pim": [
         "CUSTOMER_VIEW",

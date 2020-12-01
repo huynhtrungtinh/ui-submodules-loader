@@ -1,43 +1,45 @@
 [
   {
-    "root_app": "training",
-    "display_root_app": "Training",
-    "type": "config",
-    "path_prefix": "training",
-    "name": "",
-    "display_name": "",
-    "path": ""
+    "root_app": "functional",
+    "display_root_app": "Functional",
+    "name": "account-management",
+    "display_name": "Account Management",
+    "path": "/account-management"
   },
   {
-    "root_app": "operation",
-    "display_root_app": "Operation",
-    "sub_app": "production",
-    "display_sub_app": "Operator",
-    "type": "workflow",
-    "path_prefix": "production",
-    "name": "",
-    "display_name": "",
-    "path": ""
+    "root_app": "functional",
+    "display_root_app": "Functional",
+    "name": "customers-information",
+    "display_name": "Customers Information",
+    "path": "/customers-information"
   },
   {
-    "root_app": "operation",
-    "display_root_app": "Operation",
-    "sub_app": "quality-control",
-    "display_sub_app": "QC Execution",
-    "type": "workflow",
-    "path_prefix": "quality-control",
-    "name": "",
-    "display_name": "",
-    "path": ""
+    "root_app": "functional",
+    "display_root_app": "Functional",
+    "name": "projects-information",
+    "display_name": "Projects Information",
+    "path": "/projects-information"
   },
   {
-    "root_app": "training",
-    "display_root_app": "Training",
-    "type": null,
-    "path_prefix": "training",
-    "name": "user-guide",
-    "display_name": "User Guide",
-    "path": "projects/:projectId/user-guide"
+    "root_app": "functional",
+    "display_root_app": "Functional",
+    "name": "user-assignment",
+    "display_name": "User Assignment",
+    "path": "/user-assignment"
+  },
+  {
+    "root_app": "functional",
+    "display_root_app": "Functional",
+    "name": "project-setting",
+    "display_name": "Project Setting",
+    "path": "///project-setting//"
+  },
+  {
+    "root_app": "functional",
+    "display_sub_app": "Functional",
+    "name": "basic_training",
+    "display_name": "Basic Training",
+    "path": "/basic-training"
   },
   {
     "root_app": "manager",
@@ -244,7 +246,7 @@
     "display_sub_app": "QC Management",
     "type": null,
     "path_prefix": "qc-admin",
-    "name": "functions-assignment-qc",
+    "name": "functions-assignment_qc",
     "display_name": "Functions assignment",
     "path": "projects/:projectId/functions-assignment-qc"
   },
@@ -296,68 +298,5 @@
     "name": "performance-report",
     "display_name": "Performance Report",
     "path": "projects/:projectId/performance-report"
-  },
-  {
-    "root_app": "system",
-    "display_root_app": "System",
-    "type": null,
-    "path_prefix": "/system",
-    "name": "system-configuration",
-    "display_name": "System Configuration",
-    "path": "system-configuration"
-  },
-  {
-    "root_app": "functional",
-    "display_root_app": "Functional",
-    "type": null,
-    "path_prefix": "/functional",
-    "name": "account-management",
-    "display_name": "Account Management",
-    "path": "/account-management"
-  },
-  {
-    "root_app": "functional",
-    "display_root_app": "Functional",
-    "type": null,
-    "path_prefix": "/functional",
-    "name": "customers-information",
-    "display_name": "Customers Information",
-    "path": "/customers-information"
-  },
-  {
-    "root_app": "functional",
-    "display_root_app": "Functional",
-    "type": null,
-    "path_prefix": "/functional",
-    "name": "projects-information",
-    "display_name": "Projects Information",
-    "path": "/projects-information"
-  },
-  {
-    "root_app": "functional",
-    "display_root_app": "Functional",
-    "type": null,
-    "path_prefix": "/functional",
-    "name": "user-assignment",
-    "display_name": "User Assignment",
-    "path": "/user-assignment"
-  },
-  {
-    "root_app": "functional",
-    "display_root_app": "Functional",
-    "type": null,
-    "path_prefix": "/functional",
-    "name": "project-setting",
-    "display_name": "Project Setting",
-    "path": "/project-setting"
-  },
-  {
-    "root_app": "functional",
-    "display_root_app": "Functional",
-    "type": null,
-    "path_prefix": "/functional",
-    "name": "basic-training",
-    "display_name": "Basic Training",
-    "path": "/basic-training"
   }
 ]

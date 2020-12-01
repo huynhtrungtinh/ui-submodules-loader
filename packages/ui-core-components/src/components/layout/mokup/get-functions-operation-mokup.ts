@@ -166,7 +166,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "tasks_assignment_prd_admin",
+            "name": "tasks-assignment",
             "display_name": "Tasks assignment",
             "path": "projects/:projectId/tasks-assignment"
         },
@@ -177,7 +177,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "functions_assignment_prd_admin",
+            "name": "functions-assignment",
             "display_name": "Functions assignment",
             "path": "projects/:projectId/functions-assignment"
         },
@@ -188,7 +188,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "approve_qc",
+            "name": "approve-qc",
             "display_name": "Approve QC",
             "path": "projects/:projectId/approve-qc"
         },
@@ -199,7 +199,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "batch_information",
+            "name": "batch-information",
             "display_name": "Batch information",
             "path": "projects/:projectId/batch-information"
         },
@@ -210,7 +210,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "batch_priority",
+            "name": "batch-priority",
             "display_name": "Batch Priority",
             "path": "projects/:projectId/batch-priority"
         },
@@ -221,7 +221,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "document_information",
+            "name": "document-information",
             "display_name": "Document information",
             "path": "projects/:projectId/document-information"
         },
@@ -232,7 +232,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "export_data",
+            "name": "export-data",
             "display_name": "Export data",
             "path": "projects/:projectId/export-data"
         },
@@ -243,7 +243,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "manual_upload",
+            "name": "manual-upload",
             "display_name": "Manual Upload",
             "path": "projects/:projectId/manual-upload"
         },
@@ -254,7 +254,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "project_announcement",
+            "name": "project-announcement",
             "display_name": "Project Announcement",
             "path": "projects/:projectId/project-announcement"
         },
@@ -265,7 +265,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "project_guide",
+            "name": "project-guide",
             "display_name": "Project Guide",
             "path": "projects/:projectId/project-guide"
         },
@@ -276,7 +276,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "rework_details",
+            "name": "rework-details",
             "display_name": "Rework Details",
             "path": "projects/:projectId/rework-details"
         },
@@ -287,7 +287,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "training_configs",
+            "name": "training-configs",
             "display_name": "Training configs",
             "path": "projects/:projectId/training-configs"
         },
@@ -298,7 +298,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "training_report",
+            "name": "training-report",
             "display_name": "Training Report",
             "path": "projects/:projectId/training-report"
         },
@@ -309,7 +309,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "verifying_configuration",
+            "name": "verifying-configuration",
             "display_name": "Verifying Configuration",
             "path": "projects/:projectId/verifying-configuration"
         },
@@ -320,7 +320,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "monitor_citi",
+            "name": "monitor-citi",
             "display_name": "Monitor Citi",
             "path": "projects/:projectId/monitor-citi"
         },
@@ -331,7 +331,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "Prd Management",
             "type": null,
             "path_prefix": "production-admin",
-            "name": "view_data_entry",
+            "name": "view-data-entry",
             "display_name": "View Data Entry",
             "path": "projects/:projectId/view-data-entry"
         },
@@ -344,9 +344,9 @@ export function getFunctionsOperation() {
             "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
-            "name": "tasks_assignment_qc",
+            "name": "tasks-assignment-qc",
             "display_name": "Tasks assignment",
-            "path": "projects/:projectId/tasks-assignment"
+            "path": "projects/:projectId/tasks-assignment-qc"
         },
         {
             "root_app": "manager",
@@ -355,9 +355,9 @@ export function getFunctionsOperation() {
             "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
-            "name": "functions_assignment_qc",
+            "name": "functions-assignment_qc",
             "display_name": "Functions assignment",
-            "path": "projects/:projectId/functions-assignment"
+            "path": "projects/:projectId/functions-assignment-qc"
         },
         {
             "root_app": "manager",
@@ -366,7 +366,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
-            "name": "qc_setting",
+            "name": "qc-setting",
             "display_name": "QC Setting",
             "path": "projects/:projectId/qc-setting"
         },
@@ -377,7 +377,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
-            "name": "qc_sampling",
+            "name": "qc-sampling",
             "display_name": "QC Sampling",
             "path": "projects/:projectId/qc-sampling"
         },
@@ -387,11 +387,9 @@ export function getFunctionsOperation() {
 
             "root_app": "monitoring",
             "display_root_app": "Monitoring",
-            // "sub_app": "reports",
-            // "display_sub_app": "Reports",
             "type": null,
             "path_prefix": "reports",
-            "name": "monitor_operator",
+            "name": "monitor-operator",
             "display_name": "Monitor Operator",
             "path": "projects/:projectId/monitor-operator"
         },
@@ -400,22 +398,18 @@ export function getFunctionsOperation() {
         {
             "root_app": "reporting",
             "display_root_app": "Reporting",
-            // "sub_app": "monitor",
-            // "display_sub_app": "Monitor",
             "type": null,
             "path_prefix": "reports",
-            "name": "details_mistake_report",
+            "name": "details-mistake-report",
             "display_name": "Details Mistake Report",
             "path": "projects/:projectId/details-mistake-report"
         },
         {
             "root_app": "reporting",
             "display_root_app": "Reporting",
-            // "sub_app": "monitor",
-            // "display_sub_app": "Monitor",
             "type": null,
             "path_prefix": "reports",
-            "name": "performance_report",
+            "name": "performance-report",
             "display_name": "Performance Report",
             "path": "projects/:projectId/performance-report"
         },
