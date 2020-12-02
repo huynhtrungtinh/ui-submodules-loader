@@ -14,6 +14,7 @@ interface IApps {
     is_view_breadcrumbs: boolean;
     path: string;
 }
+
 interface ISideBar {
     root_app: string;
     display_root_app?: string; // nếu các biến display không tồn tại thì tên của nó sẽ được lấy trong i18n
@@ -37,6 +38,7 @@ interface ISideBar {
     nodeIds: string[];
     projectId?: string;
     projectName?: string;
+    indexItem?: number;
 }
 interface IFunction {
     root_app: string;

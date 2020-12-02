@@ -4,7 +4,7 @@ import {match} from 'react-router-dom';
 import {APPS, ISideBar, MATCH_DEFAULT, NAME_REDUCER, OPERATION_KEY, PATH_TO_STORE_REDUX, SET_BREAKPOINT, SET_DATA_OPERATION, SET_DATA_READY, SET_DATA_TRAINING, TRAINING_KEY, UNMOUNT} from '../constants';
 import {callAPIGetApps, callAPIGetFunctionOtherApp, callAPIGetProjectsOperation, callAPIGetProjectsTraining} from './call-api';
 import {createBreadcrumbsByTreeNode} from './header';
-import {createOperatorProjectData, getDataTableProject} from './root-page';
+import {createOperatorProjectData, getDataRootPage} from './root-page';
 import {addTreeItemByTreeNode} from './side-bar-actions';
 import {convertFunctionOtherApp2SideBar, convertProjectsOperation2SideBar, convertProjectsTraining2SideBar, findSideBarItemByName, findSideBarItemByNameVsRootApp} from './side-bar-utils';
 
@@ -33,7 +33,7 @@ export const setBreakpoints = (width: 'xs' | 'sm' | 'md' | 'lg' | 'xl', size: {h
 interface IGetDataForReady {
   version: string;
   match: match;
-  history: any
+  history: any;
 }
 export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any, getState: any) => {
   const authentication = get(getState(), PATH_TO_STORE_AUTH, {});
@@ -124,7 +124,7 @@ export const getDataTraining = (match: match, history: any) => async (dispatch: 
     payload.sideBarLastNodeId = convert2.ids;
     dispatch(executeActionReducer(SET_DATA_TRAINING, payload));
     dispatch(getDataByPathName(match, history))
-    dispatch(getDataTableProject())
+    dispatch(getDataRootPage())
   }
 }
 

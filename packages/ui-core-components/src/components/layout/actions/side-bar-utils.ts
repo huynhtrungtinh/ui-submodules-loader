@@ -338,6 +338,7 @@ function convertProjectsOperation2SideBar(sideBarData: ISideBar[], projects: IPr
       customers[p.customer_id].push(p)
     })
     const customersKey = Object.keys(customers);
+    let indexItem = 0;
     let idChild = ids + customersKey.length;
     for (let index = 0; index < customersKey.length; index++) {
       const key = customersKey[index];
@@ -353,7 +354,8 @@ function convertProjectsOperation2SideBar(sideBarData: ISideBar[], projects: IPr
           "id": `${ids++}`,
           "pathFocus": [...operation.pathFocus, 'children', index],
           "children": [],
-          "info": values.length
+          "info": values.length,
+          "indexItem": indexItem
         }
         values.map((p: IProject, iProj: any) => {
           children.children.push(
@@ -366,11 +368,12 @@ function convertProjectsOperation2SideBar(sideBarData: ISideBar[], projects: IPr
               "pathFocus": [...children.pathFocus, 'children', iProj],
               "nodeIds": [...children.nodeIds, `${idChild}`],
               "id": `${idChild++}`,
-              "children": []
+              "children": [],
+              "indexItem": indexItem++
             }
           )
         })
-        operation.children.push(children)
+        operation.children.push(children);
       }
     }
     outPut.ids = idChild;
@@ -386,6 +389,7 @@ function convertProjectsTraining2SideBar(sideBarData: ISideBar[], projects: IPro
   };
   const training: any = sideBarData.find((i: ISideBar) => i.name === "training");
   const trainingIndex: any = sideBarData.findIndex((i: ISideBar) => i.name === "training");
+  let indexItem = 0;
   if (training) {
     for (let index = 0; index < projects.length; index++) {
       const values = projects[index];
@@ -399,8 +403,10 @@ function convertProjectsTraining2SideBar(sideBarData: ISideBar[], projects: IPro
         "id": `${ids++}`,
         "pathFocus": [...training.pathFocus, 'children', index],
         "children": [],
+        "indexItem": indexItem
       }
-      training.children.push(children)
+      training.children.push(children);
+      indexItem++;
     }
     outPut.ids = ids;
     outPut.data[trainingIndex] = training;

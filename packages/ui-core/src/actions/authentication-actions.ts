@@ -259,7 +259,12 @@ const executeActionReducerAuth = (type: string, payload: any) => {
 };
 
 const showSigninExpTime = (open: boolean) => async (dispatch: any) => {
-    dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isCheckToken: !open, isAuthenticatedStatusCode: 401}));
+    const pathname = window.location.pathname;
+    if (pathname === "/") {
+        dispatch(setAuthLogout(true));
+    } else {
+        dispatch(executeActionReducerAuth(SHOW_SIGNIN_EXP_TIME, {openSigninExpirationTime: open, isAuthenticated: true, isCheckToken: !open, isAuthenticatedStatusCode: 401}));
+    }
 }
 
 const setAuthLoginFailure = () => async (dispatch: any) => {

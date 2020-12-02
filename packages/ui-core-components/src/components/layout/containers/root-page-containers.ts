@@ -9,7 +9,7 @@ const mapStateToProps = (state: any) => {
   return {
     sideBarData: stateRedux.sideBarDataSearch,
     isSelectedTab: stateRedux.isSelectedTab,
-    // sideBarSearchValue: stateRedux.sideBarSearchValue,
+    rowsProjectSelected: stateRedux.rowsProjectSelected,
     // breakpoint: stateRedux.breakpoint,
     // sideBarSelectedItem: stateRedux.sideBarSelectedItem
   };

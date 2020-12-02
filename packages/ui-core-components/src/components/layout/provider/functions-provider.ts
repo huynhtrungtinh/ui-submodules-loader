@@ -1,5 +1,5 @@
 import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
-import {PROJECTS_OPERATION_KEY, PROJECTS_TRAINING_KEY} from '../constants';
+import {OPERATION_KEY, TRAINING_KEY} from '../constants';
 import {getFunctionsOperation, getFunctionsTraining} from '../mokup';
 const FUNCTIONS_RESOURCE = "functions-root";
 const functionsResource = (input: IInputProvider): IProviderOutPut => {
@@ -7,7 +7,7 @@ const functionsResource = (input: IInputProvider): IProviderOutPut => {
     const {appName} = params;
     switch (type) {
         case GET:
-            if (appName === PROJECTS_OPERATION_KEY) {
+            if (appName === OPERATION_KEY) {
                 return {
                     uri: `${apiURI.API_UAC_URI}/apps`,
                     type: 'json',
@@ -21,7 +21,7 @@ const functionsResource = (input: IInputProvider): IProviderOutPut => {
                         status: 200
                     }
                 }
-            } else if (PROJECTS_TRAINING_KEY) {
+            } else if (TRAINING_KEY) {
                 return {
                     uri: '',
                     response: {

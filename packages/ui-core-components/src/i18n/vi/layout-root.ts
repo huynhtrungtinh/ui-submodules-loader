@@ -10,4 +10,5 @@ export default {
   get_more_info: 'Nhấn vào để xem chi tiết',
   project_name: 'Project Name',
   customer_name: 'Customer Name',
+  back_to_project_list: 'Quay lại bảng dự án'
 }

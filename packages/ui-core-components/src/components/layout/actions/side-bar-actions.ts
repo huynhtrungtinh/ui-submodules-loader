@@ -62,7 +62,8 @@ export const addTreeItemByTreeNode = (treeNode: ISideBar) => async (dispatch: an
         payload.sideBarSelectedItem = treeNode;
         const projectId = treeNode.name;
         const projectName = treeNode.display_name;
-        const functions: any = await dispatch(callAPIGetFunctionsOperation(projectId, path));
+        const rootApp = sideBarDataSearch[treeNode.pathFocus[0]];
+        const functions: any = await dispatch(callAPIGetFunctionsOperation(projectId, rootApp.name));
         if (functions.error) {
             console.log('get functions data is error.');
         } else {

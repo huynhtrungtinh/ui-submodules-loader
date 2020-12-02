@@ -1,7 +1,7 @@
 import {cloneDeep, get} from 'lodash';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getDataTableProject} from '../actions';
+import {getDataRootPage, setClickItemOprTrai} from '../actions';
 import {TableProjectsComponent} from '../components';
 import {PATH_TO_STORE_REDUX} from '../constants';
 
@@ -18,13 +18,15 @@ const mapStateToProps = (state: any) => {
     page: stateRedux.pageProject,
     rowsPerPage: stateRedux.rowsPerPageProject,
     sideBarData: cloneDeep(stateRedux.sideBarDataSearch),
+    height: stateRedux.height,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
-      getData: getDataTableProject
+      getData: getDataRootPage,
+      setClick: setClickItemOprTrai
     },
     dispatch
   )

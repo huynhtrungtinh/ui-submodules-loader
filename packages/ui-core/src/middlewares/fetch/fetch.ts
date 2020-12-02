@@ -9,6 +9,8 @@ interface IEffectProvider {
     getState: any;
 }
 
+
+
 function effectProvider({action, dispatch, getState}: IEffectProvider) {
     const {
         type,
@@ -26,6 +28,7 @@ function effectProvider({action, dispatch, getState}: IEffectProvider) {
                 onResponseIn = {}
             }
         }
+
         dispatch({
             type: `${type}/${SUCCESS_KEY}`,
             payload: response,

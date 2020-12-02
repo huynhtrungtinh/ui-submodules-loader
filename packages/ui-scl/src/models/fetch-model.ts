@@ -27,6 +27,12 @@ export interface DataActionResult {
   meta: MetaDataFetchType;
 }
 
+export interface IOutPutCallApi {
+  result: any;
+  dispatch: any;
+  getState: any;
+}
+
 export const CRUD_GET = '@DGS/API/CRUD/GET';
 export const CRUD_CREATE = '@DGS/API/CRUD/CREATE';
 export const CRUD_UPDATE = '@DGS/API/CRUD/UPDATE';

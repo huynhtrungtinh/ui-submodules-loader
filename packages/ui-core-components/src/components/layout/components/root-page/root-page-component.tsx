@@ -2,12 +2,13 @@ import {hexToRgb} from "@dgtx/ui-scl";
 import Grid from '@material-ui/core/Grid';
 import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
 import clsx from 'clsx';
+import {isEmpty} from 'lodash';
 import React from 'react';
 import {Translate} from 'react-redux-i18n';
 import {Card, CardFooter, CardHeader} from '../../../card';
 import {getHref} from '../../actions';
 import {ICON, ISideBar, KEY_TRANSLATE, OPERATION_KEY, TRAINING_KEY} from '../../constants';
-import {TableProjectsContainers} from '../../containers';
+import {FunctionsPageContainers, TableProjectsContainers} from '../../containers';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,9 +18,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0px 10px 10px 10px',
     },
     buttonSelected: {
-        color: theme.palette.primary.main,
-        fontWeight: 'bold',
-        boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
+      color: theme.palette.primary.main,
+      fontWeight: 'bold',
+      boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
       '&:$buttonDriver': {
         backgroundColor: fade(theme.palette.primary.main, 0.8)
       },
@@ -130,11 +131,11 @@ interface IRootPageComponent {
   sideBarData: ISideBar[]
 }
 
-
 function RootPageComponent(props: IRootPageComponent | any) {
   const {
     sideBarData = [],
     isSelectedTab = 0,
+    rowsProjectSelected = {},
     // sideBarSearchValue = "",
     // breakpoint = "lg",
     // sideBarSelectedItem = {}
@@ -143,7 +144,7 @@ function RootPageComponent(props: IRootPageComponent | any) {
   const classes = useStyles();
   let projects: any = [];
 
-  const handleCLickTab = (index:any) => () =>{
+  const handleCLickTab = (index: any) => () => {
     setTabIndex(index)
   }
 
@@ -157,7 +158,7 @@ function RootPageComponent(props: IRootPageComponent | any) {
               if (item.name !== OPERATION_KEY && item.name !== TRAINING_KEY) {
                 return (
                   <>
-                    <div key={index + 1} className={clsx(classes.buttonContainer, classes.marginItem)}>
+                    <div key={`${index}-div`} className={clsx(classes.buttonContainer, classes.marginItem)}>
                       <div className={clsx(classes.buttonIcon)}>
                         <Icon />
                       </div>
@@ -170,11 +171,11 @@ function RootPageComponent(props: IRootPageComponent | any) {
                       </span>
                     </div>
 
-                    <Grid key={index + 20} container spacing={0} >
+                    <Grid key={`${index}-Grid`} container spacing={0} >
                       {
-                        item.children.length > 0 && item.children.map((child: any) => {
+                        item.children.length > 0 && item.children.map((child: any, indexChild: any) => {
                           return (
-                            <Grid item xs={12} sm={6} md={4} lg={3} xl={3} className={classes.gridItem} >
+                            <Grid key={`${indexChild}-GridItem`} item xs={12} sm={6} md={4} lg={3} xl={3} className={classes.gridItem} >
                               <a href={getHref(child.path)} className={classes.aTag}>
                                 <Card className={classes.cardWapper}>
                                   <CardHeader color="info" stats icon>
@@ -198,7 +199,7 @@ function RootPageComponent(props: IRootPageComponent | any) {
                 )
               } else {
                 projects.push(item);
-                return "";
+                return <></>;
               }
             })
           }
@@ -206,15 +207,15 @@ function RootPageComponent(props: IRootPageComponent | any) {
         {
           projects && projects.length > 0 &&
           <>
-            <div className={clsx(classes.buttonProject, classes.marginItem)}>
+            <div className={clsx(classes.buttonProject, classes.marginItem)} >
               {
-                projects.map((item: ISideBar, index:any) => {
+                projects.map((item: ISideBar, index: any) => {
                   const Icon = ICON[item.name];
                   const btnSelected = clsx({
                     [" " + classes["buttonSelected"]]: isSelectedTab === index
-                });
+                  });
                   return (
-                    <div key={index + 30} className={clsx(classes.buttonContainer, classes.marginBP)+ btnSelected} onClick={handleCLickTab(index)}>
+                    <div key={`${index}-opr-trai`} className={clsx(classes.buttonContainer, classes.marginBP) + btnSelected} onClick={handleCLickTab(index)}>
                       <div className={clsx(classes.buttonIcon)}>
                         <Icon />
                       </div>
@@ -230,7 +231,13 @@ function RootPageComponent(props: IRootPageComponent | any) {
                 })
               }
             </div>
-            <TableProjectsContainers />
+
+            {
+              isEmpty(rowsProjectSelected) ?
+                <TableProjectsContainers />
+                :
+                <FunctionsPageContainers />
+            }
           </>
         }
       </div>
