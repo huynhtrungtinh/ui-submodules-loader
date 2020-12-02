@@ -1,7 +1,7 @@
 import {get} from 'lodash';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {setTabIndex} from '../actions';
+import {setTab} from '../actions';
 import {RootPageComponent} from '../components';
 import {PATH_TO_STORE_REDUX} from '../constants';
 const mapStateToProps = (state: any) => {
@@ -10,6 +10,9 @@ const mapStateToProps = (state: any) => {
     sideBarData: stateRedux.sideBarDataSearch,
     isSelectedTab: stateRedux.isSelectedTab,
     rowsProjectSelected: stateRedux.rowsProjectSelected,
+    tabsSelected: stateRedux.tabsSelected,
+    // subTabsSelected: stateRedux.subTabsSelected,
+    // subTabsSelected: {},
     // breakpoint: stateRedux.breakpoint,
     // sideBarSelectedItem: stateRedux.sideBarSelectedItem
   };
@@ -18,7 +21,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
-      setTabIndex
+      setTab
     },
     dispatch
   )

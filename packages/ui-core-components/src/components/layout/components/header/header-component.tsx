@@ -118,7 +118,7 @@ function HeaderComponent(props: any) {
     };
     return (
         <div className={clsx(classes.root)}>
-            <div>
+            {/* <div>
                 <IconButton
                     className={clsx(classes.menuButton, classes.padding)}
                     edge="start"
@@ -128,7 +128,7 @@ function HeaderComponent(props: any) {
                 >
                     <MenuIcon />
                 </IconButton>
-            </div>
+            </div> */}
 
             {
                 isViewIconHome ?

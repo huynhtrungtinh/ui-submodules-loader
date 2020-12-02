@@ -6,6 +6,9 @@ export const PATH_TO_STORE_REDUX = `resources.${NAME_REDUCER}.data`;
 
 export const HEIGHT_HEADER = 48;
 export const ID_HEADER = 'header_root';
+export const LOCAL_STORAGE_STATUS_LAYOUT_ROOT = 'status-root-layout';
+export const DISPLAY_KEY_OPEN = 'flex';
+export const DISPLAY_KEY_CLOSE = 'none';
 
 export const MENU_ID = 'account menu';
 export const CONTACT_MENU_ID = 'contact menu';

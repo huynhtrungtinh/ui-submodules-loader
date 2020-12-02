@@ -1,13 +1,15 @@
 import {hexToRgb} from "@dgtx/ui-scl";
 import Grid from '@material-ui/core/Grid';
-import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 import {isEmpty} from 'lodash';
 import React from 'react';
 import {Translate} from 'react-redux-i18n';
 import {Card, CardFooter, CardHeader} from '../../../card';
 import {getHref} from '../../actions';
-import {ICON, ISideBar, KEY_TRANSLATE, OPERATION_KEY, TRAINING_KEY} from '../../constants';
+import {DISPLAY_KEY_OPEN, ICON, ISideBar, KEY_TRANSLATE, OPERATION_KEY, TRAINING_KEY} from '../../constants';
 import {FunctionsPageContainers, TableProjectsContainers} from '../../containers';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonSelected: {
       color: theme.palette.primary.main,
       fontWeight: 'bold',
-      boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
-      '&:$buttonDriver': {
-        backgroundColor: fade(theme.palette.primary.main, 0.8)
+      // boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
+      '&$buttonDriver': {
+        backgroundColor: theme.palette.primary.main
       },
     },
     buttonContainer: {
@@ -34,11 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: theme.palette.primary.main,
         fontWeight: 'bold',
-        boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
+        // boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
         // margin: '12px'
       },
       '&:hover > $buttonDriver': {
-        backgroundColor: fade(theme.palette.primary.main, 0.8)
+        backgroundColor: theme.palette.primary.main
+        // backgroundColor: fade(theme.palette.primary.main, 0.8)
       },
       height: 35,
       lineHeight: '30px',
@@ -49,8 +52,11 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonLabel: {
       paddingLeft: 10
     },
+    buttonIconExpan: {
+      paddingTop: '4px'
+    },
     buttonIcon: {
-
+      paddingTop: '4px'
     },
     buttonDriver: {
       position: 'absolute',
@@ -128,7 +134,8 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 interface IRootPageComponent {
-  sideBarData: ISideBar[]
+  sideBarData: ISideBar[];
+  tabsSelected: any;
 }
 
 function RootPageComponent(props: IRootPageComponent | any) {
@@ -139,13 +146,14 @@ function RootPageComponent(props: IRootPageComponent | any) {
     // sideBarSearchValue = "",
     // breakpoint = "lg",
     // sideBarSelectedItem = {}
-    setTabIndex = () => null
+    setTab = () => null,
+    tabsSelected = {}
   } = props;
   const classes = useStyles();
   let projects: any = [];
 
-  const handleCLickTab = (index: any) => () => {
-    setTabIndex(index)
+  const handleCLickTab = (name: string) => () => {
+    setTab(name)
   }
 
   if (sideBarData.length > 0) {
@@ -158,20 +166,24 @@ function RootPageComponent(props: IRootPageComponent | any) {
               if (item.name !== OPERATION_KEY && item.name !== TRAINING_KEY) {
                 return (
                   <>
-                    <div key={`${index}-div`} className={clsx(classes.buttonContainer, classes.marginItem)}>
-                      <div className={clsx(classes.buttonIcon)}>
+                    <div key={`${index}-div`} className={clsx(classes.buttonContainer, classes.marginItem)} onClick={handleCLickTab(item.name)}>
+                      <div className={classes.buttonIcon}>
                         <Icon />
                       </div>
 
-                      <div className={clsx(classes.buttonLabel)}>
+                      <div className={classes.buttonLabel}>
                         {item.display_name}
                       </div>
-
-                      <span className={clsx(classes.buttonDriver)}>
+                      <div className={classes.buttonIconExpan}>
+                        {
+                          tabsSelected[item.name] === DISPLAY_KEY_OPEN ? <ExpandLess /> : <ExpandMore />
+                        }
+                      </div>
+                      <span className={classes.buttonDriver}>
                       </span>
                     </div>
 
-                    <Grid key={`${index}-Grid`} container spacing={0} >
+                    <Grid key={`${index}-Grid`} container spacing={0} style={{display: tabsSelected[item.name] || DISPLAY_KEY_OPEN}}>
                       {
                         item.children.length > 0 && item.children.map((child: any, indexChild: any) => {
                           return (
@@ -212,19 +224,19 @@ function RootPageComponent(props: IRootPageComponent | any) {
                 projects.map((item: ISideBar, index: any) => {
                   const Icon = ICON[item.name];
                   const btnSelected = clsx({
-                    [" " + classes["buttonSelected"]]: isSelectedTab === index
+                    [" " + classes["buttonSelected"]]: tabsSelected[item.name] === DISPLAY_KEY_OPEN
                   });
                   return (
-                    <div key={`${index}-opr-trai`} className={clsx(classes.buttonContainer, classes.marginBP) + btnSelected} onClick={handleCLickTab(index)}>
-                      <div className={clsx(classes.buttonIcon)}>
+                    <div key={`${index}-opr-trai`} className={clsx(classes.buttonContainer, classes.marginBP) + btnSelected} onClick={handleCLickTab(item.name)}>
+                      <div className={classes.buttonIcon}>
                         <Icon />
                       </div>
 
-                      <div className={clsx(classes.buttonLabel)}>
+                      <div className={classes.buttonLabel}>
                         {item.display_name}
                       </div>
 
-                      <span className={clsx(classes.buttonDriver)}>
+                      <span className={clsx(classes.buttonDriver) + btnSelected}>
                       </span>
                     </div>
                   )

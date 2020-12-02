@@ -113,7 +113,7 @@ function TableProjectsComponent(props: any) {
                             {columns.map((column: any) => (
                                 <TableCell
                                     key={column.id}
-                                    style={{minWidth: column.minWidth, cursor: "pointer", background: 'white'}}
+                                    style={{minWidth: column.minWidth, cursor: "pointer", background: '#f5f5f5'}}
                                     onClick={handleSort(column)}
                                 >
                                     <div className={classes.cellHeader}>
@@ -124,7 +124,7 @@ function TableProjectsComponent(props: any) {
                                             }
                                         </div>
                                         <div>
-                                            {I18n.t(`${KEY_TRANSLATE}.${column.label}`)}
+                                            {I18n.t(`${KEY_TRANSLATE}.${column.label}`).toUpperCase()}
                                         </div>
                                     </div>
                                 </TableCell>
@@ -136,7 +136,7 @@ function TableProjectsComponent(props: any) {
                             rows.length > 0 && rows.map((row: ISideBar) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={row.id}
-                                        onClick={handleClickItem(row)}>
+                                        onClick={handleClickItem(row)} style={{cursor: 'pointer'}}>
                                         {columns.map((column: any, index: any) => {
                                             let value: any = row.display_name;
                                             if (index !== 0) {

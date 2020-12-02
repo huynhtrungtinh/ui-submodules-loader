@@ -1,4 +1,4 @@
-import {IFunction, ISideBar} from '../../constants';
+import {IFunction, ISideBar, LOCAL_STORAGE_STATUS_LAYOUT_ROOT} from '../../constants';
 import {mergePath} from '../common-actions';
 
 export function createOperatorProjectData(data: ISideBar[]) {
@@ -52,4 +52,30 @@ export function convertFunctions2ProjectData(datas: IFunction[], projectId: stri
     outPut.push(items);
   }
   return outPut;
+}
+
+export function getLocalStorageLayoutRoot() {
+  let outPut: any = localStorage.getItem(LOCAL_STORAGE_STATUS_LAYOUT_ROOT);
+  if (outPut) {
+    outPut = JSON.parse(outPut);
+  } else {
+    outPut = null;
+  }
+  return outPut;
+}
+
+export function setLocalStorageLayoutRoot(data: any) {
+  localStorage.setItem(LOCAL_STORAGE_STATUS_LAYOUT_ROOT, JSON.stringify(data))
+}
+
+export function removeLocalStorageLayoutRoot() {
+  localStorage.removeItem(LOCAL_STORAGE_STATUS_LAYOUT_ROOT);
+}
+
+export function clearLocalStorageLayoutRoot() {
+  try {
+    localStorage.removeItem(LOCAL_STORAGE_STATUS_LAYOUT_ROOT);
+  } catch (error) {
+    console.log('save local storage status layout root is error.')
+  }
 }

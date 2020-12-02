@@ -5,15 +5,13 @@ import IconButton from '@material-ui/core/IconButton';
 import {createStyles, fade, makeStyles, Theme} from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
 import Update from "@material-ui/icons/Update";
 import clsx from 'clsx';
 import React from 'react';
 import {I18n, Translate} from 'react-redux-i18n';
 import {Card, CardFooter, CardHeader} from '../../../card';
 import {getHref} from '../../actions';
-import {KEY_TRANSLATE} from '../../constants';
+import {DISPLAY_KEY_CLOSE, DISPLAY_KEY_OPEN, KEY_TRANSLATE} from '../../constants';
 const useStyle: any = makeStyles((theme: Theme): any =>
   createStyles({
     root: {
@@ -25,8 +23,9 @@ const useStyle: any = makeStyles((theme: Theme): any =>
       position: 'relative'
     },
     title: {
-      height: '54px',
-      lineHeight: '54px',
+      height: '50px',
+      padding: '2px',
+      lineHeight: '46px',
       display: 'flex',
       // position: 'absolute',
       zIndex: 10,
@@ -36,14 +35,23 @@ const useStyle: any = makeStyles((theme: Theme): any =>
     content: {
       width: '100%',
       // height: '100%',
-      maxHeight: (props: any) => `${props.height - 106 - 54}px`,
+      maxHeight: (props: any) => `${props.height - 106 - 50}px`,
       paddingTop: '10px',
       overflow: 'auto',
     },
+    tabContainer: {
+      height: '30px',
+      padding: '2px',
+      lineHeight: '26px',
+      display: 'flex',
+    },
     iconRefresh: {
-      padding: '5px 0px 0px 0px',
-      marginLeft: '5px',
-
+      margin: '6px 0px 0px 11px',
+      padding: '2px 0px 0px 0px',
+      color: theme.palette.common.black,
+      '&:hover': {
+        color: theme.palette.primary.main,
+      },
     },
     divEmpty: {
       width: '100%',
@@ -55,7 +63,17 @@ const useStyle: any = makeStyles((theme: Theme): any =>
       },
     },
     marginItem: {
-      margin: '0px 10px 10px 10px',
+      margin: '0px 10px 10px 0px',
+    },
+    btnRoot: {
+      display: 'flex'
+    },
+    buttonSelected: {
+      color: theme.palette.primary.main,
+      fontWeight: 'bold',
+      '&$buttonDriver': {
+        backgroundColor: fade(theme.palette.primary.main, 0.8),
+      },
     },
     buttonContainer: {
       display: 'flex',
@@ -64,29 +82,28 @@ const useStyle: any = makeStyles((theme: Theme): any =>
       '&:hover': {
         color: theme.palette.primary.main,
         fontWeight: 'bold',
-        boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
+        // boxShadow: `4px 4px 4px 0px ${theme.palette.primary.light}`,
       },
       '&:hover > $buttonDriver': {
-        backgroundColor: fade(theme.palette.primary.main, 0.8)
+        backgroundColor: fade(theme.palette.primary.main, 0.8),
       },
-      height: 35,
-      lineHeight: '30px',
-      fontSize: '17px',
+      height: '100%',
+      fontSize: '15px',
       cursor: 'pointer',
       width: 'fit-content'
     },
     buttonLabel: {
-      paddingLeft: 10
+      paddingLeft: '4px'
     },
     buttonIcon: {
       padding: '3px 0px 0px 0px'
     },
     buttonDriver: {
       position: 'absolute',
-      bottom: 0,
+      bottom: -4,
       height: 2,
       width: 'calc(100% - 4px)',
-      backgroundColor: theme.palette.common.black,
+      // backgroundColor: theme.palette.common.black,
     },
     gridItem: {
       position: 'relative',
@@ -167,25 +184,19 @@ const useStyle: any = makeStyles((theme: Theme): any =>
 function FunctionsPageComponent(props: any) {
   const {
     rowsSelected = {children: []},
+    subTabsSelected = {},
     height,
-    setBack = () => null
+    setBack = () => null,
+    setSubTab = () => null
   } = props;
   const classes = useStyle({height});
-  const [displayItem, setDisplayItem]: any = React.useState({});
 
   const handleClickBack = () => {
     setBack()
   }
 
-  const handleItem = (item: any) => () => {
-    console.log('====================================');
-    console.log('item: ', item);
-    console.log('====================================');
-    if (displayItem[item.root_app] === "flex") {
-      setDisplayItem({...displayItem, [item.root_app]: 'none'})
-    } else {
-      setDisplayItem({...displayItem, [item.root_app]: 'flex'})
-    }
+  const handleItem = (name: string) => () => {
+    setSubTab(name);
   }
 
   return (
@@ -193,7 +204,7 @@ function FunctionsPageComponent(props: any) {
       <div className={classes.title} >
         <Tooltip title={I18n.t(`${KEY_TRANSLATE}.back_to_project_list`)} placement="top">
           <IconButton className={classes.backIcon} onClick={handleClickBack}>
-            <ArrowBack fontSize="small" />
+            <ArrowBack />
           </IconButton>
         </Tooltip>
         {rowsSelected.display_name}
@@ -202,69 +213,78 @@ function FunctionsPageComponent(props: any) {
 
       <div className={classes.content}>
         {
-          rowsSelected && rowsSelected.children.length > 0 && rowsSelected.children.map((item: any, index: any) => {
+          rowsSelected && rowsSelected.children.length > 0 &&
+          <>
+            <div className={classes.tabContainer}>
+              {
+                rowsSelected.children.map((item: any, index: any) => {
+                  const btnSelected = clsx({
+                    [" " + classes["buttonSelected"]]: subTabsSelected[item[0].root_app] === DISPLAY_KEY_OPEN
+                  });
+                  return (
+                    <div className={classes.btnRoot}>
+                      {
+                        item[0].type === 'workflow' &&
+                        <Tooltip
+                          title={item[0].display_root_app}
+                          placement="top"
+                        >
+                          <IconButton className={classes.iconRefresh}>
+                            <Update />
+                          </IconButton>
+                        </Tooltip>
+                      }
+                      <div key={`${index}-div`} className={clsx(classes.buttonContainer, classes.marginItem) + btnSelected} onClick={handleItem(item[0].root_app)}>
+                        <div className={classes.buttonLabel}>
+                          {item[0].display_root_app}
+                        </div>
 
-            return (
-              <>
-                <div style={{display: 'flex'}}>
-                  <div key={`${index}-div`} className={clsx(classes.buttonContainer, classes.marginItem)} onClick={handleItem(item[0])}>
-                    <div className={clsx(classes.buttonIcon)}>
-                      {!displayItem[item[0].root_app] || displayItem[item[0].root_app] === 'none' ? <ExpandMore /> : <ExpandLess />}
+                        <span className={classes.buttonDriver + btnSelected}>
+                        </span>
+                      </div>
+
                     </div>
-
-                    <div className={classes.buttonLabel}>
-                      {item[0].display_root_app}
-                    </div>
-
-                    <span className={classes.buttonDriver}>
-                    </span>
-                  </div>
-                  {
-                    item[0].type === 'workflow' &&
-                    <Tooltip
-                      title={item[0].display_root_app}
-                      placement="top"
-                    >
-                      <IconButton className={clsx(classes.iconRefresh, classes.marginItem)}>
-                        <Update color="primary" />
-                      </IconButton>
-                    </Tooltip>
-                  }
-                </div>
-
-                <Grid key={`${index}-Grid`} container spacing={0} style={{display: displayItem[item[0].root_app] || 'none'}}>
-                  {
-                    item.length > 0 && item.map((child: any, indexChild: any) => {
-                      return (
-                        <Grid key={`${indexChild}-GridItem`} item xs={12} sm={6} md={4} lg={3} xl={3} className={classes.gridItem} >
-                          <a href={getHref(child.path)} className={classes.aTag}>
-                            <Card className={classes.cardWapper}>
-                              <CardHeader color="info" stats icon>
-                                <p className={classes.cardTitle}>
-                                  {child.display_name && child.display_name.length > 30 ? `${child.display_name.substr(0, 20).toUpperCase()}....` : child.display_name.toUpperCase()}
-                                </p>
-                              </CardHeader>
-                              <CardFooter stats>
-                                <span className={classes.instance}>
-                                  {
-                                    child.type === 'workflow' &&
-                                    child.info
-                                  }
-                                </span>
-                                <span className={classes.description}>
-                                  <Translate value={`${KEY_TRANSLATE}.get_more_info`} />
-                                </span>
-                              </CardFooter>
-                            </Card>
-                          </a>
-                        </Grid>
-                      )
-                    })
-                  }
-                </Grid>
-              </>
-            )
-          })
+                  )
+                })
+              }
+            </div>
+            {
+              rowsSelected.children.map((item: any, index: any) => {
+                return (
+                  <Grid key={`${index}-Grid`} container spacing={0} style={{display: subTabsSelected[item[0].root_app] || DISPLAY_KEY_CLOSE}}>
+                    {
+                      item.length > 0 && item.map((child: any, indexChild: any) => {
+                        return (
+                          <Grid key={`${indexChild}-GridItem`} item xs={12} sm={6} md={4} lg={3} xl={3} className={classes.gridItem} >
+                            <a href={getHref(child.path)} className={classes.aTag}>
+                              <Card className={classes.cardWapper}>
+                                <CardHeader color="info" stats icon>
+                                  <p className={classes.cardTitle}>
+                                    {child.display_name && child.display_name.length > 30 ? `${child.display_name.substr(0, 20).toUpperCase()}....` : child.display_name.toUpperCase()}
+                                  </p>
+                                </CardHeader>
+                                <CardFooter stats>
+                                  <span className={classes.instance}>
+                                    {
+                                      child.type === 'workflow' &&
+                                      child.info
+                                    }
+                                  </span>
+                                  <span className={classes.description}>
+                                    <Translate value={`${KEY_TRANSLATE}.get_more_info`} />
+                                  </span>
+                                </CardFooter>
+                              </Card>
+                            </a>
+                          </Grid>
+                        )
+                      })
+                    }
+                  </Grid>
+                )
+              })
+            }
+          </>
         }
         <div className={classes.divEmpty}></div>
       </div>

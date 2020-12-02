@@ -21,15 +21,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: 'pointer'
     // color: theme.palette.primary.contrastText
   },
-  text:{
+  text: {
     display: 'flex',
-    cursor: 'default'
+    cursor: 'default',
+    lineHeight: 0,
   }
 }));
 
 function BreadcrumbsComponent(props: any) {
   const classes = useStyles();
-  const {tabs = [], breakpoint = "lg", setClickItem = ()=>null} = props;
+  const {tabs = [], breakpoint = "lg", setClickItem = () => null} = props;
   const history = useHistory();
 
   const handleClick = (tab: any) => () => {

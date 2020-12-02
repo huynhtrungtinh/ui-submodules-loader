@@ -1,7 +1,7 @@
 import {cloneDeep, get} from 'lodash';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {setBackOprTrai} from '../actions';
+import {setBackOprTrai, setSubTab} from '../actions';
 import {FunctionsPageComponent} from '../components';
 import {PATH_TO_STORE_REDUX} from '../constants';
 const mapStateToProps = (state: any) => {
@@ -9,6 +9,7 @@ const mapStateToProps = (state: any) => {
   return {
     rowsSelected: cloneDeep(stateRedux.rowsProjectSelected),
     height: stateRedux.height,
+    subTabsSelected: stateRedux.subTabsSelected,
 
   };
 };
@@ -16,7 +17,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators(
     {
-      setBack: setBackOprTrai
+      setBack: setBackOprTrai,
+      setSubTab
     },
     dispatch
   )

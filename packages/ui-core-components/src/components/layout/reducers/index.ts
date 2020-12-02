@@ -1,5 +1,5 @@
 import {contantsTable, IAction} from '@dgtx/ui-scl';
-import {ADD_TREE_ITEM_BY_TREE_NODE, BREADCRUMB_HOME, COLUMNS_PROJECT, CREATE_BREADCRUMBS_BY_TREE_NODE, NAME_REDUCER, SET_BACK_PROJECT_TABLE, SET_BREAKPOINT, SET_CLICK_SIDE_BAR_ITEM, SET_DATA_OPERATION, SET_DATA_PROJECT_TABLE, SET_DATA_READY, SET_DATA_TRAINING, SET_OPEN_CONTACT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_OPEN_SIDE_BAR, SET_ROW_SELECTED_PROJECT_TABLE, SET_SEARCH_SIDE_BAR, SET_TAB_INDEX_PROJECT_TABLE, UNMOUNT} from '../constants';
+import {ADD_TREE_ITEM_BY_TREE_NODE, BREADCRUMB_HOME, COLUMNS_PROJECT, CREATE_BREADCRUMBS_BY_TREE_NODE, NAME_REDUCER, SET_BACK_PROJECT_TABLE, SET_BREAKPOINT, SET_CLICK_SIDE_BAR_ITEM, SET_DATA_OPERATION, SET_DATA_PROJECT_TABLE, SET_DATA_READY, SET_DATA_TRAINING, SET_OPEN_CONTACT_MENU, SET_OPEN_MENU_PROFILE, SET_OPEN_MOBILE_MENU, SET_OPEN_SIDE_BAR, SET_ROW_SELECTED_PROJECT_TABLE, SET_SEARCH_SIDE_BAR, SET_SUB_TAB_NAME_PROJECT_TABLE, SET_TAB_NAME_PROJECT_TABLE, UNMOUNT} from '../constants';
 
 export const initialState: any = {
     isReady: false,
@@ -38,7 +38,8 @@ export const initialState: any = {
     isSelectedTab: 0, // 0: training, 1: project
     pageProject: 0,
     rowsPerPageProject: contantsTable.ROWS_PER_PAGE_OPTIONS[0],
-
+    tabsSelected: {},
+    subTabsSelected: {},
     // routeFocus: {},
     // routers: {},
 }
@@ -63,9 +64,10 @@ export default {
                 case SET_DATA_OPERATION:
                 case CREATE_BREADCRUMBS_BY_TREE_NODE:
                 case SET_DATA_PROJECT_TABLE:
-                case SET_TAB_INDEX_PROJECT_TABLE:
+                case SET_TAB_NAME_PROJECT_TABLE:
                 case SET_ROW_SELECTED_PROJECT_TABLE:
                 case SET_BACK_PROJECT_TABLE:
+                case SET_SUB_TAB_NAME_PROJECT_TABLE:
                     return {
                         ...state,
                         ...payload

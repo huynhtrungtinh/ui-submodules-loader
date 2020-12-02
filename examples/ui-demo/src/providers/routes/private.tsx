@@ -25,6 +25,13 @@ export default (params?: any): any[] => {
     {
       name: "home",
       exact: true,
+      path: "/home",
+      // component: () => <div>Dashboard Page</div>
+      component: RootPage
+    },
+    {
+      name: "home",
+      exact: true,
       path: "/",
       // component: () => <div>Dashboard Page</div>
       component: RootPage
