@@ -2,7 +2,6 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Tooltip from "@material-ui/core/Tooltip";
-import Typography from '@material-ui/core/Typography';
 import React from 'react';
 import {I18n} from 'react-redux-i18n';
 import {useHistory} from 'react-router-dom';
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   text: {
     display: 'flex',
     cursor: 'default',
-    lineHeight: 0,
+    // lineHeight: 0,
   }
 }));
 
@@ -71,17 +70,17 @@ function BreadcrumbsComponent(props: any) {
                 }
                 case 1: {
                   Item = (
-                    <Typography key={index} className={classes.text}>
+                    <span key={index} className={classes.text}>
                       {label}
-                    </Typography>
+                    </span>
                   )
                   break;
                 }
                 case 2: {
                   Item = (
-                    <Typography key={index} className={classes.text}>
+                    <span key={index} className={classes.text}>
                       {label}
-                    </Typography>
+                    </span>
                   )
                   break;
                 }
