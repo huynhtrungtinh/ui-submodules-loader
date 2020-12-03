@@ -17,9 +17,11 @@ export const SCOPE_ROOT = ["system", "functional", "operation"]
 export const PROJECTS_OPERATION_KEY = 'project-operation';
 export const PROJECTS_TRAINING_KEY = 'project-training';
 export const OPERATION_KEY = 'operation';
+export const OPERATOR_KEY = 'operator';
 export const TRAINING_KEY = 'training';
 export const SYSTEM_KEY = 'system';
 export const FUNCTIONAL_KEY = 'functional';
+export const PATH_HOME_KEY = '/home';
 export const APPS = [TRAINING_KEY, SYSTEM_KEY, FUNCTIONAL_KEY, OPERATION_KEY];
 export const BREADCRUMB_HOME = {
   path: '/',

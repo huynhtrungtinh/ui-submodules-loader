@@ -18,7 +18,7 @@ import clsx from 'clsx';
 import {get} from 'lodash';
 import React from 'react';
 import {useHistory} from 'react-router-dom';
-import {ICON, ISideBar} from '../constants';
+import {ICON, ISideBar, PATH_HOME_KEY} from '../constants';
 
 function MinusSquare(props: SvgIconProps) {
     return (
@@ -180,7 +180,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: (props: any) => props.drawerWidth,
             overflow: 'auto',
             height: 'calc(100% - 44px)',
-            marginTop:'44px'
+            marginTop: '44px'
         },
         logo: {
             position: "relative",
@@ -347,7 +347,7 @@ function SideBarComponent(props: any) {
     };
 
     const handleClickHome = () => {
-        redirect("/")
+        redirect(PATH_HOME_KEY)
     }
 
     const brand = (

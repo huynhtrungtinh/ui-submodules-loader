@@ -11,7 +11,7 @@ import React from 'react';
 import {I18n, Translate} from 'react-redux-i18n';
 import {Card, CardFooter, CardHeader} from '../../../card';
 import {getHref} from '../../actions';
-import {DISPLAY_KEY_CLOSE, DISPLAY_KEY_OPEN, KEY_TRANSLATE} from '../../constants';
+import {DISPLAY_KEY_CLOSE, DISPLAY_KEY_OPEN, KEY_TRANSLATE, OPERATOR_KEY} from '../../constants';
 const useStyle: any = makeStyles((theme: Theme): any =>
   createStyles({
     root: {
@@ -48,9 +48,9 @@ const useStyle: any = makeStyles((theme: Theme): any =>
     iconRefresh: {
       margin: '6px 0px 0px 11px',
       padding: '2px 0px 0px 0px',
-      color: theme.palette.common.black,
+      // color: theme.palette.common.black,
       '&:hover': {
-        color: theme.palette.primary.main,
+        color: theme.palette.secondary.main,
       },
     },
     divEmpty: {
@@ -156,7 +156,7 @@ const useStyle: any = makeStyles((theme: Theme): any =>
       display: "-webkit-box",
       fontSize: "12px",
       lineHeight: "22px",
-      padding: '0px 16px 0px 0px',
+      padding: '0px 0px 0px 0px',
       opacity: '100%',
       textAlign: 'left',
       fontStyle: 'italic'
@@ -170,7 +170,7 @@ const useStyle: any = makeStyles((theme: Theme): any =>
       display: "-webkit-box",
       fontSize: "12px",
       lineHeight: "22px",
-      padding: '0px 16px 0px 0px',
+      padding: '0px 0px 0px 0px',
       opacity: '50%',
       textAlign: 'right',
       fontStyle: 'italic'
@@ -224,12 +224,12 @@ function FunctionsPageComponent(props: any) {
                   return (
                     <div className={classes.btnRoot}>
                       {
-                        item[0].type === 'workflow' &&
+                        item[0].type === 'workflow' && subTabsSelected[OPERATOR_KEY] === DISPLAY_KEY_OPEN &&
                         <Tooltip
-                          title={item[0].display_root_app}
+                          title={I18n.t(`${KEY_TRANSLATE}.refresh_operator`)}
                           placement="top"
                         >
-                          <IconButton className={classes.iconRefresh}>
+                          <IconButton className={classes.iconRefresh + btnSelected}>
                             <Update />
                           </IconButton>
                         </Tooltip>

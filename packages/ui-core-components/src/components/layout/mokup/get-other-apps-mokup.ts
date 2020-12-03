@@ -33,7 +33,7 @@ export function getFunctionOtherApps() {
       // "display_sub_app": "",
       // "path_prefix": "/functional",
       // "type": "workflow",
-      "name": "account_management",
+      "name": "account-management",
       "display_name": "Account Management",
       "path": "/account-management"
     },
@@ -44,7 +44,7 @@ export function getFunctionOtherApps() {
       // "display_sub_app": "",
       // "path_prefix": "/functional",
       // "type": "workflow",
-      "name": "customers_information",
+      "name": "customers-information",
       "display_name": "Customers Information",
       "path": "/customers-information"
     },
@@ -55,7 +55,7 @@ export function getFunctionOtherApps() {
       // "display_sub_app": "",
       // "path_prefix": "/functional",
       // "type": "workflow",
-      "name": "projects_information",
+      "name": "projects-information",
       "display_name": "Projects Information",
       "path": "/projects-information"
     },
@@ -66,7 +66,7 @@ export function getFunctionOtherApps() {
       // "display_sub_app": "",
       // "path_prefix": "/functional",
       // "type": "workflow",
-      "name": "user_assignment",
+      "name": "user-assignment",
       "display_name": "User Assignment",
       "path": "/user-assignment"
     },
@@ -77,7 +77,7 @@ export function getFunctionOtherApps() {
       // "display_sub_app": "",
       // "path_prefix": "////functional///",
       // "type": "workflow",
-      "name": "project_setting",
+      "name": "project-setting",
       "display_name": "Project Setting",
       "path": "///project-setting//"
     },
@@ -88,7 +88,7 @@ export function getFunctionOtherApps() {
       // "display_sub_app": "",
       // "path_prefix": "/functional",
       // "type": "workflow",
-      "name": "basic_training",
+      "name": "basic-training",
       "display_name": "Basic Training",
       "path": "/basic-training"
     },

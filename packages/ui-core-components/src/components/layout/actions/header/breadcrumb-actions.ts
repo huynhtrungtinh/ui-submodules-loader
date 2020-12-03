@@ -1,8 +1,9 @@
-import {BREADCRUMB_HOME, CREATE_BREADCRUMBS_BY_TREE_NODE, ISideBar, OPERATION_KEY} from '../../constants';
+import {BREADCRUMB_HOME, CREATE_BREADCRUMBS_BY_TREE_NODE, ISideBar, OPERATION_KEY, PATH_HOME_KEY} from '../../constants';
 import {executeActionReducer} from '../common-actions';
 
 export const createBreadcrumbsByTreeNode = (treeNode?: ISideBar) => async (dispatch: any, getState: any) => {
   let payload: any = {};
+  payload.isSideBarOpen = false;
   if (!treeNode) {
     payload.breadcrumbsData = [BREADCRUMB_HOME];
     payload.sideBarSelectedItem = {};
@@ -55,5 +56,5 @@ export const setClickBreadcrumbsItem = (item: any, history: any) => async (dispa
   // console.log('item: ', item);
   // console.log('history: ', history);
   // console.log('====================================');
-  history.push("/");
+  history.push(PATH_HOME_KEY);
 }

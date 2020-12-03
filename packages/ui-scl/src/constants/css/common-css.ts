@@ -43,7 +43,7 @@ export const defaultThemes: any = {
     type: "light",
     background: {
       paper: "#fff",
-      default: "#e1e2e1"
+      default: "#eef2f4" // #eef2f4 e1e2e1 //eef2f4
     },
     common: {
       black: BLACK_COLOR,

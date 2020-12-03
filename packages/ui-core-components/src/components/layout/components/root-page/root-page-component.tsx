@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "-webkit-box",
       fontSize: "12px",
       lineHeight: "22px",
-      padding: '0px 16px 0px 0px',
+      padding: '0px 0px 0px 0px',
       opacity: '50%',
       textAlign: 'right',
       fontStyle: 'italic'

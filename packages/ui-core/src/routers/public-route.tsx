@@ -14,7 +14,7 @@ const PublicRouteComponent = ({component: Component, computedMatch, isAuthentica
     } else if (computedMatch.path === '/signin' && isAuthenticated) {
       return <Redirect
         to={{
-          pathname: '/'
+          pathname: '/home'
         }}
       />
     }

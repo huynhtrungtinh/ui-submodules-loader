@@ -22,7 +22,7 @@ export function getProjectsTraining() {
             "customer_id": "5e04623c37dee202b0256e70",
             "customer_name": "CÔNG TY TNHH BẢO HIỂM NHÂN THỌ SUN LIFE VIỆT NAM",
             "id": "12312332543",
-            "name": "thang tre loi"
+            "name": "Test 1"
         }
     ]
 }

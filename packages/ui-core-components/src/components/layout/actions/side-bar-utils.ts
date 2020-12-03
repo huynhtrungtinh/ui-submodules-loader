@@ -43,7 +43,7 @@ function convertFunctionsOperation2SideBar(input: IFunctions2SideBar) {
         "root_app": values[0].root_app,
         "display_root_app": values[0].display_root_app,
         "name": values[0].root_app,
-        "display_name": values[0].display_root_app,
+        "display_name": I18n.t(`${KEY_TRANSLATE}.${values[0].root_app}`),
         "path": null,
         "nodeIds": [...parentId, `${ids}`],
         "id": `${ids++}`,
@@ -53,6 +53,9 @@ function convertFunctionsOperation2SideBar(input: IFunctions2SideBar) {
       }
       orderBy(values, ["sub_app"]).map((f: IFunction, iFunc: any) => {
         let pathItem = mergePath({path1: f.path_prefix, path2: f.path, projectId, appName: rootItem.name, pathPrefix});
+        console.log('====================================');
+        console.log('f: ', f);
+        console.log('====================================');
         let ff: any = {
           ...f,
           "root_app": rootItem.name,
@@ -101,7 +104,8 @@ function convertFunctionsTraining2SideBar(input: IFunctions2SideBar) {
         "root_app": values.root_app,
         "display_root_app": values.display_root_app,
         "name": values.name,
-        "display_name": values.display_name,
+        "display_name": I18n.t(`${KEY_TRANSLATE}.${values.root_app}`),
+        // "display_name": values.display_name,
         "path": pathItem,
         "path_prefix": values.path_prefix,
         "projectId": projectId,
@@ -427,9 +431,9 @@ function convertFunctionOtherApp2SideBar(apps: IApps[], datas: IFunction[]) {
     outPut.data.push(
       {
         "root_app": app.app_name,
-        "display_root_app": app.display_name || I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
+        "display_root_app": I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
         "name": app.app_name,
-        "display_name": app.display_name || I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
+        "display_name": I18n.t(`${KEY_TRANSLATE}.${app.app_name}`),
         "path": null,
         "id": `${index + 1}`,
         "nodeIds": [`${index + 1}`],
@@ -444,6 +448,7 @@ function convertFunctionOtherApp2SideBar(apps: IApps[], datas: IFunction[]) {
         newItem.push(
           {
             ...i,
+            "display_name": I18n.t(`${KEY_TRANSLATE}.${i.name}`),
             "path": pathItem,
             "pathFocus": [index, "children", iFunc],
             "nodeIds": [`${index + 1}`, `${ids++}`],

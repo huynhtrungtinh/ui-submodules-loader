@@ -24,8 +24,8 @@ export const getDataRootPage = () => async (dispatch: any, getState: any) => {
     payload.subTabsSelected = tabsSelectedLocal.subTabsSelected;
   } else {
     payload.tabsSelected = {
-      [TRAINING_KEY]: rowsTraining.length > 0 ? DISPLAY_KEY_OPEN : DISPLAY_KEY_CLOSE,
-      [OPERATION_KEY]: rowsTraining.length > 0 ? DISPLAY_KEY_CLOSE : DISPLAY_KEY_OPEN,
+      [TRAINING_KEY]: rowsTraining.length > 0 ? DISPLAY_KEY_CLOSE : DISPLAY_KEY_OPEN,
+      [OPERATION_KEY]: rowsTraining.length > 0 ? DISPLAY_KEY_OPEN : DISPLAY_KEY_CLOSE,
     }
     setLocalStorageLayoutRoot({
       tabsSelected: payload.tabsSelected,
