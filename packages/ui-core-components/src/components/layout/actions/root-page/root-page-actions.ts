@@ -9,16 +9,10 @@ export const getDataRootPage = () => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const rowsTraining = state.rowsProjectTrainingParent || [];
   const rowsOperator = state.rowsProjectOperatorParent || [];
-  const isSelectedTab = state.isSelectedTab;
   const page = state.pageProject;
   const rowsPerPage = state.rowsPerPageProject || contantsTable.ROWS_PER_PAGE_OPTIONS[0];
   let payload: any = {};
-  // rowsProjectParent: [],
-  // rowsProjectView: [],
   let tabsSelectedLocal = getLocalStorageLayoutRoot();
-  console.log('====================================');
-  console.log('tabsSelectedLocal: ', tabsSelectedLocal);
-  console.log('====================================');
   if (tabsSelectedLocal) {
     payload.tabsSelected = tabsSelectedLocal.tabsSelected;
     payload.subTabsSelected = tabsSelectedLocal.subTabsSelected;
@@ -50,14 +44,8 @@ export const setTab = (tabName: any) => async (dispatch: any, getState: any) => 
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const rowsTraining = state.rowsProjectTrainingParent || [];
   const rowsOperator = state.rowsProjectOperatorParent || [];
-  const isSelectedTab = state.isSelectedTab;
   const tabsSelected = state.tabsSelected;
   const subTabsSelected = state.subTabsSelected;
-  console.log('=========setTabIndex================');
-  console.log('tabName: ', tabName);
-  console.log('isSelectedTab: ', isSelectedTab);
-  console.log('====================================');
-  // if (isSelectedTab === index) {return;}
   const page = state.pageProject;
   const rowsPerPage = state.rowsPerPageProject || contantsTable.ROWS_PER_PAGE_OPTIONS[0];
   let payload: any = {};
@@ -98,7 +86,6 @@ export const setTab = (tabName: any) => async (dispatch: any, getState: any) => 
 export const setSubTab = (tabName: any) => async (dispatch: any, getState: any) => {
   const state = get(getState(), PATH_TO_STORE_REDUX, {});
   const tabsSelected = state.tabsSelected;
-  console.log('=========setClickItemOprTrai=====');
   let payload: any = {};
   payload.subTabsSelected = {[tabName]: DISPLAY_KEY_OPEN}
   setLocalStorageLayoutRoot({
@@ -114,16 +101,7 @@ export const setClickItemOprTrai = (row: any, history: any) => async (dispatch: 
   const rowsTraining = state.rowsProjectTrainingParent || [];
   const rowsOperator = state.rowsProjectOperatorParent || [];
   const tabsSelected = state.tabsSelected;
-  const isSelectedTab = state.isSelectedTab;
   const sideBarDataSearch = state.sideBarDataSearch || [];
-  console.log('=========setClickItemOprTrai=====');
-  console.log('row: ', row);
-  console.log('history: ', history);
-  console.log('rowsTraining: ', rowsTraining);
-  console.log('rowsOperator: ', rowsOperator);
-  console.log('isSelectedTab: ', isSelectedTab);
-  console.log('=================================');
-  // history.push(`/projects/${row.name}`)
   let payload: any = {};
   let project: any = null;
   payload.rowsProjectSelected = row;
@@ -132,16 +110,13 @@ export const setClickItemOprTrai = (row: any, history: any) => async (dispatch: 
   } else if (tabsSelected[OPERATION_KEY] === DISPLAY_KEY_OPEN) {
     project = rowsOperator[row.indexItem];
   }
-  console.log('project: ', project);
   if (project) {
     const rootApp = sideBarDataSearch[project.pathFocus[0]];
     const functions: any = await dispatch(callAPIGetFunctionsOperation(project.name, rootApp.name));
-    console.log('functions: ', functions);
     if (functions.error) {
       console.log('get functions data is error.');
     } else {
       const dataFinal = convertFunctions2ProjectData(functions.data, project.name);
-      console.log('dataFinal: ', dataFinal);
       row.children = dataFinal;
     }
   }

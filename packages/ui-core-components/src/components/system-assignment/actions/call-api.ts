@@ -1,19 +1,13 @@
 import {api} from '@dgtx/ui-core';
-import {IFetchJsonOutPut} from '@dgtx/ui-scl';
 import {get} from 'lodash';
 import {SCOPE_RESOURCE} from '../provider';
-export const callAPIGetScope = () => async (dispatch: any) => {
-    return new Promise((resolve) => {
-        dispatch(
-            api.get(
-                SCOPE_RESOURCE,
-                {},
-                (res: IFetchJsonOutPut) => {
-                    resolve({error: null, data: get(res, 'result.data', [])});
-                }
-            )
-        );
-    });
-}
 
+export const callAPIGetScope = () => async (dispatch: any) => {
+    const data = await dispatch(api.get(SCOPE_RESOURCE));
+    let outPut = {error: null, data: []}
+    if (get(data, 'result.data', null)) {
+        outPut.data = get(data, 'result.data', [])
+    }
+    return outPut;
+}
 

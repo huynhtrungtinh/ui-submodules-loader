@@ -1,4 +1,4 @@
-import {redirect} from '@dgtx/ui-utils';
+import {config, redirect} from '@dgtx/ui-utils';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
@@ -293,10 +293,8 @@ let timeoutIdSearch: any = 0;
 function SideBarComponent(props: any) {
     const {
         isOpen = false,
-        // routers = [],
         setOpen = () => null,
         version = 0,
-        // routeFocus = {},
 
         sideBarData = [],
         setClickItem = () => null,
@@ -353,7 +351,7 @@ function SideBarComponent(props: any) {
     const brand = (
         <div className={classes.logo}>
             <div className={classes.logoLink} >
-                <img width={'250px'} height="50px" src="/company_logo.png" alt="logo" onClick={handleClickHome} />
+                <img width={'250px'} height="50px" src={`${config.getAppURL()}/company_logo.png`} alt="logo" onClick={handleClickHome} />
             </div>
             <div className={classes.version}><i>{`v${version}`}</i></div>
         </div>
@@ -402,10 +400,6 @@ function SideBarComponent(props: any) {
         return <></>;
     }
 
-    const handleClickClose = (event: any) => {
-        setOpen()
-    }
-
     return (
         <div style={{position: "relative"}}>
             <Drawer
@@ -420,11 +414,6 @@ function SideBarComponent(props: any) {
                     keepMounted: true // Better open performance on mobile.
                 }}
             >
-
-                {/* <IconButton className={classes.closeIcon} onClick={handleClickClose}>
-                    <HighlightOff fontSize='large' />
-                </IconButton> */}
-
                 {brand}
                 <Divider variant="middle" />
 

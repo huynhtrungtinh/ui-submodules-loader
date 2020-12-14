@@ -1,4 +1,5 @@
 import {Page404} from '@dgtx/ui-core-components';
+import {redirectApp} from '@dgtx/ui-utils';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom';
@@ -36,15 +37,21 @@ export const PrivateRouteComponent = ({
       return <DefaultComponent {...props} />
     } else {
       setAuthLogout(false);
-      return (
-        <Redirect
-          to={{
-            pathname: '/signin',
-            search: props.location.search,
-            state: {from: props.location},
-          }}
-        />
-      );
+      if (process.env['NODE_ENV'] === 'production') {
+        redirectApp("/signin");
+        return <></>;
+      } else {
+        return (
+          <Redirect
+            to={{
+              pathname: '/signin',
+              search: props.location.search,
+              state: {from: props.location},
+            }}
+          />
+        );
+      }
+
     }
   };
   if (!Component) throw new Error(`A component needs to be specified for private route for path ${(rest as any).path}`);

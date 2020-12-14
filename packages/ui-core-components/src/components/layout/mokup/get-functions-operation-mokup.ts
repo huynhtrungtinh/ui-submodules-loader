@@ -355,7 +355,7 @@ export function getFunctionsOperation() {
             "display_sub_app": "QC Management",
             "type": null,
             "path_prefix": "qc-admin",
-            "name": "functions-assignment_qc",
+            "name": "functions-assignment-qc",
             "display_name": "Functions assignment",
             "path": "projects/:projectId/functions-assignment-qc"
         },

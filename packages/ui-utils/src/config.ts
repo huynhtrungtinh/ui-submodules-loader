@@ -64,6 +64,9 @@ function getAppVersion(): string {
 }
 
 function getAppURL(): string {
+    if (process.env['NODE_ENV'] !== 'production') {
+        return String(window.location.origin);
+    }
     return String(CONFIG.APP_URL)
 }
 

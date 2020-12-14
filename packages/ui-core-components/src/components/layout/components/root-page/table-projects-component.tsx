@@ -22,9 +22,6 @@ const useStyle: any = makeStyles((theme: Theme): any =>
             height: (props: any) => `${props.heightRoot - 16}px`,
             width: 'calc(100% - 16px)',
             margin: '8px',
-            // '&.MuiTableCell-stickyHeader': {
-            //     backgroundColor: theme.palette.common.white,
-            // },
             '$stickyHeader > &': {
                 backgroundColor: theme.palette.common.white,
             },
@@ -41,30 +38,20 @@ const useStyle: any = makeStyles((theme: Theme): any =>
         }
     })
 )
-function getHref(path: string) {
-    const baseHref = window.location.origin;
-    return `${baseHref}${path}`;
-}
 
 const ID_DIV_ROOT = 'table-projects-root';
 
 function TableProjectsComponent(props: any) {
     const {
-        rowsParent = [],
         rows = [],
         columns = [],
         page = 0,
         height = 0,
-        isSelectedTab = 0,
         rowsPerPage = contantsTable.ROWS_PER_PAGE_OPTIONS[0],
-        // rowsSelected = {},
-        // searchKeyWords = "",
-        // isViewTable = 0,
         setSort = () => null,
         setPage = () => null,
         setRowsPerPage = () => null,
         setClick = () => null,
-        getData = () => null
     } = props;
     const [heightRoot, setHeightRoot] = React.useState(0);
     const [maxHeightTable, setMaxHeightTable] = React.useState(0);
@@ -97,9 +84,6 @@ function TableProjectsComponent(props: any) {
         setSort(column);
     };
     const handleClickItem = (row: any) => () => {
-        console.log('============handleClickItem=========');
-        console.log('row: ', row);
-        console.log('====================================');
         setClick({...row}, history)
     }
 

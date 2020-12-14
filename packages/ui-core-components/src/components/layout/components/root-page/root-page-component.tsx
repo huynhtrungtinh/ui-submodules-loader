@@ -141,11 +141,7 @@ interface IRootPageComponent {
 function RootPageComponent(props: IRootPageComponent | any) {
   const {
     sideBarData = [],
-    isSelectedTab = 0,
     rowsProjectSelected = {},
-    // sideBarSearchValue = "",
-    // breakpoint = "lg",
-    // sideBarSelectedItem = {}
     setTab = () => null,
     tabsSelected = {}
   } = props;

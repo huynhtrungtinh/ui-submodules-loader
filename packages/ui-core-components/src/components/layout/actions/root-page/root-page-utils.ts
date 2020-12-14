@@ -15,8 +15,6 @@ export function createOperatorProjectData(data: ISideBar[]) {
 }
 
 export function convertFunctions2ProjectData(datas: IFunction[], projectId: string) {
-  console.log('=====convertFunctions2ProjectData=');
-  console.log('datas: ', datas);
   let outPut: any = [];
   let datasObj: any = {};
   for (let i = 0; i < datas.length; i++) {

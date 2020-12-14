@@ -1,4 +1,5 @@
 import {IAuthenProvider} from '@dgtx/ui-scl';
+import {History} from 'history';
 import {loadingBarMiddleware} from 'react-redux-loading-bar';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {createLogger} from 'redux-logger';
@@ -30,7 +31,7 @@ const composedMiddlewares = (input: IComposedMiddlewares) => {
   return compose(applyMiddleware(
     ...defaultMiddlewares,
     ...middlewares,
-    createAPIMiddleware(),
+    createAPIMiddleware()
   ));
 }
 
@@ -39,11 +40,12 @@ interface IInitializeStore {
   middlewares?: any[];
   middlewaresDev?: any[];
   authenProvider?: IAuthenProvider;
+  historyApp: History;
 }
 
 const initializeStore: any = (input: IInitializeStore) => {
-  const {customReducers, middlewares = [], middlewaresDev = [], authenProvider = authProvider} = input;
-  return createStore(rootReducer(customReducers, authenProvider), composedMiddlewares({middlewares, middlewaresDev}));
+  const {customReducers, middlewares = [], middlewaresDev = [], authenProvider = authProvider, historyApp} = input;
+  return createStore(rootReducer(customReducers, authenProvider, historyApp), composedMiddlewares({middlewares, middlewaresDev}));
 }
 
 export default initializeStore;

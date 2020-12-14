@@ -1,3 +1,4 @@
+import {redirectApp} from '@dgtx/ui-utils';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route, RouteProps} from 'react-router-dom';
@@ -6,17 +7,26 @@ import ErrorBoundary from './error-boundary';
 const PublicRouteComponent = ({component: Component, computedMatch, isAuthenticated = false, ...rest}: RouteProps | any) => {
   const encloseInErrorBoundary = (props: any) => {
     if (!computedMatch.isExact) {
-      return <Redirect
-        to={{
-          pathname: '/signin'
-        }}
-      />
+      if (process.env['NODE_ENV'] !== 'production') {
+        redirectApp("/signin");
+      } else {
+        return <Redirect
+          to={{
+            pathname: '/signin'
+          }}
+        />
+      }
     } else if (computedMatch.path === '/signin' && isAuthenticated) {
-      return <Redirect
-        to={{
-          pathname: '/home'
-        }}
-      />
+      if (process.env['NODE_ENV'] === 'production') {
+        redirectApp("/home");
+        return <></>;
+      } else {
+        return <Redirect
+          to={{
+            pathname: '/home'
+          }}
+        />
+      }
     }
     return <ErrorBoundary>
       <Component {...props} />

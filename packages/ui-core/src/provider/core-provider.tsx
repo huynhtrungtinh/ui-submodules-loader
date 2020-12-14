@@ -1,7 +1,9 @@
 import {IAuthenProvider} from '@dgtx/ui-scl';
+import {ConnectedRouter, routerMiddleware} from 'connected-react-router';
+import {createBrowserHistory, History} from 'history';
 import React from 'react';
 import {Provider} from 'react-redux';
-import {BrowserRouter, Switch} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {effectTokenExpiration} from '../actions';
 import {initializeI18n, initializeStore} from '../config';
@@ -18,9 +20,13 @@ interface IAppProps {
   middlewares?: any[];
   middlewaresDev?: any[];
 }
+let historyApp: History;
+export const getHistoryApp = () => {
+  return historyApp;
+}
 const CoreProvider: React.StatelessComponent<IAppProps> = (props: IAppProps) => {
-  const {
-    appURL = '',
+  let {
+    appURL = '/',
     i18n = {},
     RootLayout,
     middlewares = [],
@@ -29,18 +35,21 @@ const CoreProvider: React.StatelessComponent<IAppProps> = (props: IAppProps) => 
     routeProvider,
     authenProvider
   } = props;
-
-  const store = initializeStore({customReducers: reducers, middlewares, middlewaresDev, authenProvider});
+  historyApp = createBrowserHistory({basename: appURL});
+  middlewares = [...middlewares, routerMiddleware(historyApp)];
+  const store = initializeStore({customReducers: reducers, middlewares, middlewaresDev, authenProvider, historyApp});
   initializeI18n(store, i18n);
   const actions = bindActionCreators({effectTokenExpiration}, store.dispatch);
   actions.effectTokenExpiration();
   return (
     <Provider store={store}>
-      <BrowserRouter basename={appURL}>
+      <ConnectedRouter history={historyApp}>
+        {/* <BrowserRouter basename={appURL}> */}
         <Switch>
           {renderRouterRoot({routeProvider, RootLayout, dispatch: store.dispatch})}
         </Switch>
-      </BrowserRouter>
+        {/* </BrowserRouter> */}
+      </ConnectedRouter>
     </Provider>
   );
 }
