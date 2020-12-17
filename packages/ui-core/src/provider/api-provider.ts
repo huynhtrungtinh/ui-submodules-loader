@@ -60,21 +60,6 @@ const api = {
                 }
             });
         })
-    },
-    custom: (resource: string, params?: object, typeCustom?: string) => async (dispatch: any): Promise<IOutPutCallApi> => {
-        return new Promise((resolve: any) => {
-            dispatch({
-                type: typeCustom,
-                payload: params || {},
-                meta: {
-                    resource,
-                    fetch: typeCustom,
-                    onResponse: (res: IOutPutCallApi) => {
-                        resolve(res);
-                    }
-                }
-            });
-        })
     }
 }
 

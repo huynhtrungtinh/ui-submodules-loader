@@ -43,4 +43,3 @@ export const GET = '@DGS/DATA_FETCH/GET';
 export const CREATE = '@DGS/DATA_FETCH/CREATE';
 export const UPDATE = '@DGS/DATA_FETCH/UPDATE';
 export const DELETE = '@DGS/DATA_FETCH/DELETE';
-export const CUSTOM = '@DGS/DATA_FETCH/CUSTOM/';

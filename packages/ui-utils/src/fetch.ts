@@ -1,4 +1,4 @@
-import {CRUD_CUSTOM, Options} from '@dgtx/ui-scl';
+import {Options} from '@dgtx/ui-scl';
 import {getAccessToken} from './oauth';
 
 const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignoreToken: boolean = false) => {
@@ -97,10 +97,6 @@ const fetchJson = async (url: string, options: Options = {method: 'GET'}, ignore
     return outPut;
 };
 
-function getCustomType(type: string) {
-    return `${CRUD_CUSTOM}/${type}`
-}
-
 export default fetchJson;
-export {fetchJson, getCustomType};
+export {fetchJson};
 

@@ -1,10 +1,10 @@
-import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
+import {IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 import {getApps} from '../mokup';
 const APPS_RESOURCE = "apps-root";
 const appsResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, apiURI} = input;
-    switch (type) {
-        case GET:
+    const {typeRequest, apiURI, typeApi} = input;
+    switch (typeRequest) {
+        case typeApi.get:
             return {
                 uri: `${apiURI.API_UAC_URI}/apps`,
                 type: 'json',

@@ -1,6 +1,5 @@
 import {api, setAuthLogout} from '@dgtx/ui-core';
 import {IFetchJsonOutPut} from '@dgtx/ui-scl';
-import {getCustomType} from '@dgtx/ui-utils';
 import {get} from 'lodash';
 import {NAME_REDUCER, UNMOUNT} from './dashboard-constants';
 import {APPS_RESOURCE, EXPORT_FILE_1_RESOURCE, EXPORT_FILE_2_RESOURCE} from './provider';
@@ -27,7 +26,7 @@ export const callAPIGetApps = () => async (dispatch: any) => {
   // return new Promise((resolve) => resolve([]))
   return new Promise((resolve) => {
     dispatch(
-      api.custom(
+      api.get(
         APPS_RESOURCE,
         {},
         (res: IFetchJsonOutPut) => {
@@ -35,8 +34,7 @@ export const callAPIGetApps = () => async (dispatch: any) => {
           console.log('apps');
           console.log('res: ', res);
           resolve({error: null, data: get(res, 'result.json', {})});
-        },
-        getCustomType('DELETE')
+        }
       )
     );
   });

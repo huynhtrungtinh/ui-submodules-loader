@@ -53,9 +53,6 @@ function convertFunctionsOperation2SideBar(input: IFunctions2SideBar) {
       }
       orderBy(values, ["sub_app"]).map((f: IFunction, iFunc: any) => {
         let pathItem = mergePath({path1: f.path_prefix, path2: f.path, projectId, appName: rootItem.name, pathPrefix});
-        console.log('====================================');
-        console.log('f: ', f);
-        console.log('====================================');
         let ff: any = {
           ...f,
           "root_app": rootItem.name,

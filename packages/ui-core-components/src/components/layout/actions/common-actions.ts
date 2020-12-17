@@ -71,9 +71,6 @@ export const getDataForReady = (input: IGetDataForReady) => async (dispatch: any
       dispatch(getDataOperation(match, history));
     } else {
       const convert1: any = convertFunctionOtherApp2SideBar(appFinal, otherApp.data);
-      console.log('========convertFunctionOtherApp2SideBar===============');
-      console.log('convert1: ', convert1);
-      console.log('====================================');
       payload.sideBarData = convert1.data;
       payload.sideBarDataSearch = convert1.data;
       payload.sideBarLastNodeId = convert1.ids;

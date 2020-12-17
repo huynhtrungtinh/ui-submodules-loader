@@ -1,17 +1,9 @@
-import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
-import {getCustomType} from '@dgtx/ui-utils';
+import {IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 const APPS_RESOURCE = "apps-dashbard";
 const appsResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, apiURI} = input;
-    switch (type) {
-        case GET:
-            return {
-                uri: `${apiURI.API_UAC_URI}/apps`,
-                type: 'json',
-                body: null,
-                method: 'GET'
-            }
-        case getCustomType('DELETE'):
+    const {typeRequest, apiURI, typeApi} = input;
+    switch (typeRequest) {
+        case typeApi.get:
             return {
                 uri: `${apiURI.API_UAC_URI}/apps`,
                 type: 'json',

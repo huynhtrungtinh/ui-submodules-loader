@@ -1,10 +1,10 @@
-import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
+import {IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 import {getContactInfo} from '../mokup';
 const CONTACT_INFO_RESOURCE = "contact-info-root";
 const contactInfoResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, apiURI} = input;
-    switch (type) {
-        case GET:
+    const {typeRequest, apiURI, typeApi} = input;
+    switch (typeRequest) {
+        case typeApi.get:
             return {
                 uri: `${apiURI.API_UAC_URI}/apps`,
                 type: 'json',

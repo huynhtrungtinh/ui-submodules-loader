@@ -1,4 +1,3 @@
-
 export interface IProvider {
     readonly state: object | any;
     readonly actions?: object | any;
@@ -54,7 +53,13 @@ export interface IInitConfig {
     publickKeyNotification?: string;
 }
 export interface IInputProvider {
-    type: string;
+    typeRequest: string;
+    typeApi: {
+        get: '@DGS/DATA_FETCH/GET',
+        create: '@DGS/DATA_FETCH/CREATE',
+        update: '@DGS/DATA_FETCH/UPDATE',
+        delete: '@DGS/DATA_FETCH/DELETE'
+    }
     apiURI: IConfig;
     resource: string;
     params: any;

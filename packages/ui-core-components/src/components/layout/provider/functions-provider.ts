@@ -1,12 +1,12 @@
-import {GET, IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
+import {IInputProvider, IProviderOutPut} from '@dgtx/ui-scl';
 import {OPERATION_KEY, TRAINING_KEY} from '../constants';
 import {getFunctionsOperation, getFunctionsTraining} from '../mokup';
 const FUNCTIONS_RESOURCE = "functions-root";
 const functionsResource = (input: IInputProvider): IProviderOutPut => {
-    const {type, params = {}, apiURI} = input;
+    const {typeRequest, params = {}, apiURI, typeApi} = input;
     const {appName} = params;
-    switch (type) {
-        case GET:
+    switch (typeRequest) {
+        case typeApi.get:
             if (appName === OPERATION_KEY) {
                 return {
                     uri: `${apiURI.API_UAC_URI}/apps`,

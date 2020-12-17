@@ -1,5 +1,5 @@
 
-import {IInputProvider, IProviderOutPut, IResourceProvider, IResourceRegistries} from '@dgtx/ui-scl';
+import {CREATE, DELETE, GET, IInputProvider, IProviderOutPut, IResourceProvider, IResourceRegistries, UPDATE} from '@dgtx/ui-scl';
 import {config, fetchJson} from '@dgtx/ui-utils';
 class DataProvider {
   private static instance: DataProvider;
@@ -47,7 +47,15 @@ class DataProvider {
   }
 
   public getDataProvider(type: string, resource: string, params: any): Promise<any> {
-    const configReq: IProviderOutPut = this.getResourceRegistry(resource)({type, apiURI: config.getConfig(), resource, params});
+    const configReq: IProviderOutPut = this.getResourceRegistry(resource)({
+      typeRequest: type,
+      typeApi: {
+        get: GET,
+        create: CREATE,
+        update: UPDATE,
+        delete: DELETE
+      }, apiURI: config.getConfig(), resource, params,
+    });
     return fetchJson(
       configReq.uri,
       {
