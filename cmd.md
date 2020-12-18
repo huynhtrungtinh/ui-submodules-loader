@@ -28,3 +28,8 @@ docker run -it -p 3001:5000 --name ui-one --env API_ENDPOINT="sit-apollo.digi-te
 
 + sh xem cay thu muc image
 sudo docker run -it --name ui-one --env API_ENDPOINT="sit-apollo.digi-texx.vn" app2:v0.0.1 sh
+
+https://awesomeopensource.com/
+
+"micro frontend", structure, open source
+https://awesomeopensource.com/projects/microfrontends
