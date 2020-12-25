@@ -91,6 +91,9 @@ module.exports = env => {
         name: 'uiRoot',
         library: { type: 'var', name: 'uiRoot' },
         filename: 'uiRoot.js',
+        // exposes: {
+        // './ViewImagePage': './src/views/page/linh-loi',
+        // },
         remotes: {
           uiViewImages: 'uiViewImages',
           // uiTest: 'uiTest',
