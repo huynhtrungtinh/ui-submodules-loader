@@ -1,0 +1,5 @@
+{
+  "name": "ui root",
+  "start_url": ".",
+  "display": "standalone"
+}

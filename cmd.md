@@ -33,3 +33,6 @@ https://awesomeopensource.com/
 
 "micro frontend", structure, open source
 https://awesomeopensource.com/projects/microfrontends
+https://survivejs.com/webpack/output/module-federation/
+https://blog.bitsrc.io/revolutionizing-micro-frontends-with-webpack-5-module-federation-and-bit-99ff81ceb0
+https://github.com/sokra/slides/blob/master/content/ModuleFederationWebpack5.md

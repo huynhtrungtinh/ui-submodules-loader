@@ -1,3 +1,4 @@
+import {redirectApp} from '@dgtx/ui-utils';
 import {BREADCRUMB_HOME, CREATE_BREADCRUMBS_BY_TREE_NODE, ISideBar, OPERATION_KEY, PATH_HOME_KEY} from '../../constants';
 import {executeActionReducer} from '../common-actions';
 
@@ -56,5 +57,6 @@ export const setClickBreadcrumbsItem = (item: any, history: any) => async (dispa
   // console.log('item: ', item);
   // console.log('history: ', history);
   // console.log('====================================');
-  history.push(PATH_HOME_KEY);
+  // history.push(PATH_HOME_KEY);
+  redirectApp(PATH_HOME_KEY);
 }

@@ -1,6 +1,6 @@
 import {Page404} from '@dgtx/ui-core-components';
 import {redirectApp} from '@dgtx/ui-utils';
-import React from 'react';
+import React, {Suspense} from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -28,9 +28,11 @@ export const PrivateRouteComponent = ({
     } else if (isAuthenticated) {
       return (
         <ErrorBoundary {...props}>
-          <RootLayout {...props}>
-            <Component {...props} />
-          </RootLayout>
+          <Suspense fallback={<div>Loading...</div>}>
+            <RootLayout {...props}>
+              <Component {...props} />
+            </RootLayout>
+          </Suspense>
         </ErrorBoundary>
       )
     } else if (DefaultComponent) {

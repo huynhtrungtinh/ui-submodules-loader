@@ -8,7 +8,6 @@ import {bindActionCreators} from 'redux';
 import {effectTokenExpiration} from '../actions';
 import {initializeI18n, initializeStore} from '../config';
 import {renderRouterRoot} from '../routers';
-
 interface IAppProps {
   appURL: string;
   i18n?: object;
@@ -53,6 +52,7 @@ const CoreProvider: React.StatelessComponent<IAppProps> = (props: IAppProps) => 
     </Provider>
   );
 }
+
 export default CoreProvider;
 export {CoreProvider};
 

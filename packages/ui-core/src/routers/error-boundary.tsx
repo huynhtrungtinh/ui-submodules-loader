@@ -13,6 +13,7 @@ class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryS
   readonly state: IErrorBoundaryState = {error: undefined, errorInfo: undefined};
 
   componentDidCatch(error: any, errorInfo: any) {
+    console.log('errorInfo.stack: ', errorInfo.componentStack)
     this.setState({
       error,
       errorInfo,
@@ -43,3 +44,4 @@ class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryS
 
 export default ErrorBoundary;
 export {ErrorBoundary};
+

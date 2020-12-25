@@ -1,5 +1,5 @@
 import {redirectApp} from '@dgtx/ui-utils';
-import React from 'react';
+import React, {Suspense} from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route, RouteProps} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -29,7 +29,9 @@ const PublicRouteComponent = ({component: Component, computedMatch, isAuthentica
       }
     }
     return <ErrorBoundary>
-      <Component {...props} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Component {...props} />
+      </Suspense>
     </ErrorBoundary>
   };
 

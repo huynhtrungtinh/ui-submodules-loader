@@ -13,7 +13,6 @@
     "react-redux": "^7",
     "@types/jws": "^3",
     "jws": "^4",
-    "react": "^16",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
     "react-redux-i18n": "^1",
@@ -29,13 +28,13 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/lab": "^4.0.0-alpha.55",
     "clsx": "^1.1.0",
+    "@types/redux-logger": "^3.0.8",
     "@babel/core": "7.10.3",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "7.10.1",
     "@babel/preset-typescript": "^7.12.7",
-    "@types/redux-logger": "^3.0.8",
     "autoprefixer": "^10.1.0",
-    "babel-loader": "8.1.0",
+    "babel-loader": "^8.2.2",
     "browser-sync": "^2.26.13",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cache-loader": "^4.1.0",
@@ -66,10 +65,10 @@
     "webpack": "^5.10.3",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.7.2"
-  },
-  "resolutions": {
-    "webpack": "4.42.0"
+    "@babel/plugin-proposal-export-default-from": "^7.12.1",
+    "@types/node": "^14.14.14",
+    "webpack-merge": "^5.7.2",
+    "@types/react-redux-i18n": "^0.0.11"
   },
   "scripts": {
     "clear": "lerna run clear",
@@ -94,6 +93,8 @@
   "license": "SEE LICENSE IN LICENSE",
   "dependencies": {
     "@types/react-redux": "^7.1.9",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "react-redux": "^7"
   }
 }

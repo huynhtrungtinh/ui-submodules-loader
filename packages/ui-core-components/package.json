@@ -1,6 +1,6 @@
 {
   "name": "@dgtx/ui-core-components",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "files": [
     "*.md",
@@ -22,13 +22,21 @@
     "clear": "rimraf lib types esm",
     "release": "npm publish --tag latest"
   },
+  "peerDependencies": {
+    "react": "^16",
+    "react-dom": "^16",
+    "clsx": "^1",
+    "lodash": "^4",
+    "@material-ui/core": "^4",
+    "@material-ui/icons": "^4",
+    "@material-ui/lab": "^4",
+    "@types/lodash": "^4",
+    "@dgtx/ui-core": "^0",
+    "@dgtx/ui-scl": "^0",
+    "@dgtx/ui-utils": "^0"
+  },
   "devDependencies": {
-    "@types/lodash": "^4.14.155",
-    "lodash": "^4.17.15",
-    "@material-ui/core": "^4.6.1",
-    "@material-ui/icons": "^4.5.1",
-    "@material-ui/lab": "^4.0.0-alpha.55",
-    "clsx": "^1.1.0"
+    "rimraf": "^3"
   },
   "keywords": [],
   "authors": [
