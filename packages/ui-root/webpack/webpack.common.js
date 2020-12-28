@@ -94,10 +94,7 @@ module.exports = env => {
         // './ViewImagePage': './src/views/page/linh-loi',
         // },
         remotes: {
-          uiAppTest: 'uiAppTest',
-          uiViewImages: 'uiViewImages',
-          // uiTest: 'uiTest',
-          // app2: 'app2',
+          uiAppTest: 'uiAppTest'
         },
         shared: {
           "@material-ui/core": { singleton: true },

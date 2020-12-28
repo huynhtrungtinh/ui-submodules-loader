@@ -8,7 +8,15 @@ import {API_ENDPOINT, APP_NAME, APP_VERSION, BPMN_ENDPOINT, OAUTH_ENDPOINT, TRAI
 import i18n from './i18n';
 import {routeProvider} from './providers';
 import {rootReducer} from './reducers';
-
+console.log('=================CONFIG==================');
+console.log('APP_NAME: ', APP_NAME);
+console.log('APP_VERSION: ', APP_VERSION);
+console.log('API_ENDPOINT: ', API_ENDPOINT);
+console.log('BPMN_ENDPOINT: ', BPMN_ENDPOINT);
+console.log('OAUTH_ENDPOINT: ', OAUTH_ENDPOINT);
+console.log('TRAINING_ENDPOINT: ', TRAINING_ENDPOINT);
+console.log('UAC_ENDPOINT: ', UAC_ENDPOINT);
+console.log('==========================================');
 const baseHref = (document as any).querySelector('base').getAttribute('href').replace(/\/$/, '');
 const App = () => {
   config.initConfigApp({

@@ -10,9 +10,9 @@ module.exports = (env) => merge(commonConfig(env), {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    publicPath: '/'
+    // publicPath: '/'
   },
   plugins: [
     new webpack.DefinePlugin({

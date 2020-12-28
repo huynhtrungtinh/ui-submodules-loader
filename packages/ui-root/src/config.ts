@@ -1,8 +1,9 @@
-// export const APP_NAME = "production"
-export const APP_NAME = "production"
-export const APP_VERSION = "0.0.1";
-export const API_ENDPOINT = "https://elrond.digi-texx.vn/api";
-export const UAC_ENDPOINT = "https://elrond.digi-texx.vn/api/oauth/access-controls";
-export const OAUTH_ENDPOINT = "https://elrond.digi-texx.vn/oauth";
-export const BPMN_ENDPOINT = "https://elrond.digi-texx.vn/api/bpmn";
-export const TRAINING_ENDPOINT = "https://elrond.digi-texx.vn/api/training";
+import {version as version} from '../package.json';
+const domain = "https://phoenix.digi-texx.vn"
+export const APP_NAME = "ui-root"
+export const APP_VERSION = version;
+export const API_ENDPOINT = `${domain}/api`;
+export const UAC_ENDPOINT = `${domain}/api/oauth/access-controls`;
+export const OAUTH_ENDPOINT = `${domain}/oauth`;
+export const BPMN_ENDPOINT = `${domain}/api/bpmn`;
+export const TRAINING_ENDPOINT = `${domain}/api/training`;

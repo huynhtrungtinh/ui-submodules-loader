@@ -6,6 +6,9 @@ sudo systemctl reload nginx
 systemctl status nginx.service
 sudo cat /var/log/nginx/error.log
 sudo vim /etc/resolv.conf (set DSN local)
+nameserver 10.1.1.220
+nameserver 10.1.1.221
+!wp
 
 + liet ke danh sach image
 docker images
@@ -13,14 +16,15 @@ docker images
 + xoa image
 docker rmi <your-image-id> <your-image-id>
 
-+ build docker local
-sudo docker build . -t app2:v0.0.1
-
 + check image docker
 sudo docker ps -a
 
 + xoa container docker
 sudo docker rm ui-one
+
++ build docker local
+sudo docker build . -t app2:v0.0.1
+docker build . -t ui-app-test:v0.0.1 --add-host=nexus.digi-texx.vn:10.1.4.20
 
 + start docker image
 sudo docker run -it --name ui-one --env API_ENDPOINT="sit-apollo.digi-texx.vn" app2:v0.0.1

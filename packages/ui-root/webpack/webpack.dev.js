@@ -28,7 +28,6 @@ module.exports = (env) => merge(commonConfig(env), {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].js',
-    chunkFilename: '[name].[hash].js',
     publicPath: '/'
     // publicPath: `http://${env.HOST}:${env.PORT}/`
   }

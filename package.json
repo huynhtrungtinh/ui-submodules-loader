@@ -30,7 +30,6 @@
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^8.0.12",
-    "react-scripts": "3.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "typings": "^2.1.1",
@@ -44,6 +43,7 @@
     "@types/react-redux-i18n": "^0.0.11",
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
+    "react-scripts": "3.0.1",
     "lerna": "^3",
     "npm-run-all": "^4",
     "rimraf": "^3"
