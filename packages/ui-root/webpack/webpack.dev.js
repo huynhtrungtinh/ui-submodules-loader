@@ -11,7 +11,7 @@ module.exports = (env) => merge(commonConfig(env), {
   mode: env.MODE,
   watch: true,
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, 'public'),
     watchContentBase: true,
     port: env.PORT,
     https: false,

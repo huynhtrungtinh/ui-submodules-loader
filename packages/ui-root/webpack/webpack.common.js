@@ -21,13 +21,13 @@ module.exports = env => {
           test: /\.tsx?$/,
           loader: 'babel-loader',
           exclude: /node_modules/,
-          options: {
-            presets: [
-              '@babel/preset-react',
-              '@babel/preset-typescript',
-              '@babel/preset-env'
-            ]
-          }
+          // options: {
+          //   presets: [
+          //     '@babel/preset-react',
+          //     '@babel/preset-typescript',
+          //     '@babel/preset-env'
+          //   ]
+          // }
         },
         {
           test: /\.jsx?$/,
@@ -95,18 +95,19 @@ module.exports = env => {
         // './ViewImagePage': './src/views/page/linh-loi',
         // },
         remotes: {
-          uiViewImages: 'uiViewImages',
+          uiAppTest: 'uiAppTest',
+          // uiViewImages: 'uiViewImages',
           // uiTest: 'uiTest',
           // app2: 'app2',
         },
-        // shared: {
-        //   // "react": { singleton: true, requiredVersion: "^16.14.0" },
-        //   "react": { singleton: true },
-        //   "react-dom": { singleton: true },
-        //   "redux": { singleton: true },
-        //   "react-redux": { singleton: true },
-        //   "redux-thunk": { singleton: true },
-        // },
+        shared: {
+          // "react": { singleton: true, requiredVersion: "^16.14.0" },
+          "react": { singleton: true },
+          "react-dom": { singleton: true },
+          "redux": { singleton: true },
+          "react-redux": { singleton: true },
+          "redux-thunk": { singleton: true },
+        },
         // shared: {
         //   "@material-ui/core": { singleton: true },
         //   "@material-ui/icons": { singleton: true },
